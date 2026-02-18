@@ -1,0 +1,9 @@
+# ignore all data folders 
+data/
+
+# ignore all ipynb checkpoints
+.ipynb_checkpoints
+
+# recomendation systems
+/recommendation-systems/song-recommendation-system/unique_track_uris.csv
+
