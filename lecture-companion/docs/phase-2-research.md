@@ -176,7 +176,41 @@ Google Docs, and streaming transcription.
 
 ## 7. UI direction
 
-(Filled from the UI research; see section below.)
+The full proposal, produced with the frontend-design skill after a genericness
+review, is in `docs/ui-direction.md`. The decisions I am adopting:
+
+- Organizing idea: the slide is the only lit object, and everything the app adds is
+  marginalia. Provenance is a visual class: the professor's slide is never
+  restyled, generated notes are cool-toned, your typed notes are warm-toned.
+- Dark theme by default in lecture mode, chosen from a persisted setting rather
+  than the OS, because the room decides. The slide canvas gets a brightness dimmer
+  (never inversion), adjustable with `-` and `=`.
+- Type: Atkinson Hyperlegible Next and its mono sibling, both SIL OFL, self-hosted,
+  because they were drawn for legibility in poor conditions and disambiguate
+  `l/1/I` and `O/0`, which matters for notation. No runtime font fetches.
+- A small token set: two surfaces, a rule, two inks, one accent (amber, for the
+  active anchor and focus), one "mine" hue (cyan), one "stale" hue used only when
+  the recorder heartbeat is late. Radius encodes role: 0 for panels, 2 for span
+  highlights, 8 for the lookup card.
+- One orchestrated motion: the lookup card opening (anchor tint, leader line, card
+  fade), 180 ms. Everything else is a 90 ms tint. Reduced motion collapses it all to
+  opacity fades.
+- Highlights are merged per visual line, drawn in an overlay layer with multiply
+  blending, with resting anchors shown only as a faint underline so the slide
+  stays the professor's.
+- Keymap is a mode state machine (idle, number entry, note input, card open,
+  palette); bare letters only fire in idle. Arrows, Space, PageUp/Down for slides;
+  digits then Enter to jump; `n` note; `e` explain the selection; `t` cycles the
+  slide's known terms as the keyboard-only lookup; `j`/`k` note lines in review;
+  `g` glossary; Esc always backs out one level; Option+1/2/3 switches modes;
+  Cmd+K opens a command palette (to be verified against Chrome on macOS during
+  implementation; if it conflicts, Option+K).
+- Architecture: CSS custom properties, CSS Modules, no Tailwind, no component
+  library. Runtime dependencies are React, pinned pdf.js, and KaTeX only if the
+  term index turns out to need rendered math.
+
+The proposal also contains a twelve-item anti-pattern checklist I will use when
+reviewing implementation subagents' UI work.
 
 ## 8. Open questions for you
 
