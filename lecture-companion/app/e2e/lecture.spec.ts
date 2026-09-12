@@ -155,5 +155,7 @@ test("7b. the fixture without a term index says so, and e says nothing more", as
   await openLecture(page, LATEX);
   await expect(strip(page, "index")).toHaveText("no index");
   await page.keyboard.press("e");
-  await expect(strip(page, "transient")).toHaveText("no index");
+  // Task 5 gave this message its words; the strip still says it and no card opens.
+  await expect(strip(page, "lookup")).toHaveText("no term index for this lecture");
+  await expect(page.getByTestId("lookup-card")).toHaveCount(0);
 });

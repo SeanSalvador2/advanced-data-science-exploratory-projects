@@ -26,3 +26,11 @@
   background: var(--surface-raised);
   cursor: pointer;
 }
+
+/* The anchor layer's box: exactly the rendered page, so a line box measured
+ * here is a line box on the slide. */
+.anchors {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}

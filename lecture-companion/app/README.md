@@ -1,9 +1,10 @@
 # `@lecture/app`
 
-The Chrome page you look at during a lecture. Task 4 of the Phase 4 sequence:
-the shell, the storage adapter, the Library, and Lecture mode (slide render,
-navigation, note capture, buffered events, recorder heartbeat). Lookup is task
-5, Review mode is task 7, fonts and the command palette are task 8.
+The Chrome page you look at during a lecture. Tasks 4 and 5 of the Phase 4
+sequence: the shell, the storage adapter, the Library, Lecture mode (slide
+render, navigation, note capture, buffered events, recorder heartbeat) and
+highlight-to-explain (selection mapping, the lookup card, the term cursor, the
+anchor layer). Review mode is task 7, fonts and the command palette are task 8.
 
 Stack: Vite 6, React 19, TypeScript strict, CSS Modules over one global
 `tokens.css`. Runtime dependencies are React, `pdfjs-dist` pinned to 6.3.289,
@@ -49,7 +50,7 @@ adapter; without it the app asks for a folder as usual.
 ## Tests
 
 ```
-npm test --workspace @lecture/app      # vitest: FSM, event buffer, scan, span ids
+npm test --workspace @lecture/app      # vitest: FSM, event buffer, scan, span ids, selection, placement
 cd app && npx playwright test          # Chromium, against the dev adapter
 ```
 
@@ -73,6 +74,10 @@ and `playwright install` must not run there.
 | Left, Shift+Space, PageUp | lecture | Previous slide |
 | 0–9 then Enter | lecture | Jump to that slide; Backspace edits, Esc clears |
 | `n` | lecture | Open the note field; Enter commits, Esc cancels |
+| `e` | lecture | Explain the selection, or the term the cursor is on |
+| `t` / `Shift+T` | lecture | Step the cursor forwards or backwards through this slide's terms |
+| Enter | lecture, card open | Open the card for the term the cursor is on |
+| Esc | lecture, card open | Close the card; a second Esc clears the term cursor |
 | `-` / `=` | lecture | Dim and brighten the slide canvas |
 | `j` / `k` | library | Move the cursor; rows are focusable, so Tab works too |
 | Enter | library | Open the lecture (Review if it already has notes) |
@@ -88,12 +93,34 @@ place `preventDefault` is called. Bare letters fire only in `idle` and
 `cardOpen`, which is why typing `n` inside the note field inserts an `n`. No
 Cmd combination is bound anywhere.
 
+## Highlight to explain
+
+Select a phrase on the slide and press `e`. `SelectionWatcher` resolves the
+selection to `{page, beginItem, beginOffset, endItem, endOffset}` through
+`TextLayerHost.resolveNode`, the pure `lookup()` in `@lecture/core` ranks the
+page's terms and passages against it, and the card opens anchored to the first
+highlighted line with a leader line — no scrim, the slide stays lit.
+
+- An exact term or alias hit wins first, on this page and then deck-wide; a
+  selection that swallows a whole passage without singling out one term, or one
+  longer than eight words, leads with the passage explanation and lists the
+  terms as chips that Tab reaches and Enter opens; anything else falls back to
+  the page summary under a plain "Not in the index".
+- `t` and `Shift+T` step a cursor through the slide's terms in line order for
+  keyboard-only use: the strip reads `term 3/6 certification time`, the term's
+  lines take the hover tint, and `e` or Enter opens its card.
+- Esc pops one level: the card first, then the cursor. A page change closes
+  both.
+- With no `terms.json` the strip says `no index`, and `e` says
+  `no term index for this lecture` rather than opening an empty card.
+
+The anchor layer draws one box per *visual line*, never per span, so a
+highlight has no seams; it multiplies onto the professor's page in both themes.
+Sampling a dark deck's luminance to switch that to `screen` blending, and the
+resting underline for lines that carry notes, are task 7.
+
 ## Stubbed, and what is missing
 
-- `e` (explain the selection) and `t` (step through the slide's terms) are
-  routed but do nothing yet; the strip says so. Task 5 implements them on top of
-  `TextLayerHost.resolveNode`, which already returns `{ itemId, offset }` for a
-  DOM position, where `itemId` is the span id in `spans.json`.
 - Review mode is a placeholder that offers the way back to lecture mode.
 - The Atkinson Hyperlegible faces are declared in `tokens.css` but the woff2
   files arrive in task 8; until then the fallback stack renders.
@@ -121,7 +148,13 @@ Cmd combination is bound anywhere.
 src/
   App.tsx                  shell: route, theme, the one key listener, overlay
   keys/KeyRouter.ts        the five-state machine (pure, unit tested)
-  keys/useKeys.ts          how a screen subscribes to key actions
+  keys/useKeys.ts          how a screen subscribes to key actions and the mode
+  selection/SelectionWatcher.ts  selectionchange -> span ids, debounced
+  lookup/useLookup.ts      the card, the term cursor and the one highlight
+  lookup/LookupCard.tsx    the anchored card, its leader and its chips
+  lookup/position.ts       placement: the 12 px offset, the flip, the clamps
+  lookup/TermCursor.ts     the `t` cursor's step and its strip readout
+  anchors/AnchorLayer.tsx  per-line highlight boxes over the canvas
   events/EventBuffer.ts    queue and flush policy for events.jsonl
   events/time.ts           nowIso, mmss
   pdf/pdfjs.ts             worker setup, loadDocument, the fixed text options

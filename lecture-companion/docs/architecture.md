@@ -458,8 +458,12 @@ and the selected text. Steps:
 3. Rank: exact term or alias match first; then term on the touched lines with the
    most overlap; then the passage with the most overlap; then the page summary.
 4. Render: the top term as the card's phrase, definition and intuition, plus
-   `inThisCourse` when non-empty; if the selection covers a whole passage or more
-   than eight words, the passage explanation leads and the terms follow as chips.
+   `inThisCourse` when non-empty. The passage explanation leads instead, with the
+   intersecting terms as chips, when the selection runs past eight words, or
+   covers all of a passage's lines without naming exactly one term. A selection
+   that names one term is that term's question; one that names none or several
+   is the passage's. Terms the selection names outrank terms that merely share a
+   line.
 5. Nothing found: show the page summary and up to three glossary entries by
    substring match, and say "not in the index" plainly.
 

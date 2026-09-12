@@ -12,6 +12,12 @@ import styles from "./SlideStage.module.css";
 const PRELOAD = [1, -1, 2, -2];
 const CACHE_LIMIT = 7;
 
+export interface SlideGeometry {
+  /** The rendered page size in CSS pixels. */
+  width: number;
+  height: number;
+}
+
 export interface SlideStageProps {
   doc: PDFDocumentProxy;
   pageNumber: number;
@@ -19,6 +25,10 @@ export interface SlideStageProps {
   dim: number;
   spans: SpanIndex | null;
   onTextLayer?: (host: TextLayerHost) => void;
+  /** The rendered size, for anchor boxes and the lookup card's placement. */
+  onGeometry?: (geometry: SlideGeometry) => void;
+  /** Overlays that share the canvas box: the anchor layer, for now. */
+  children?: React.ReactNode;
 }
 
 function idle(fn: () => void): void {
@@ -42,6 +52,8 @@ export function SlideStage({
   dim,
   spans,
   onTextLayer,
+  onGeometry,
+  children,
 }: SlideStageProps): React.JSX.Element {
   const boxRef = useRef<HTMLDivElement>(null);
   const slideRef = useRef<HTMLDivElement>(null);
@@ -53,6 +65,9 @@ export function SlideStage({
   // Read through a ref: a dim change must not re-render the page, only refilter.
   const dimRef = useRef(dim);
   dimRef.current = dim;
+  // Read through a ref so a new callback identity never re-renders the page.
+  const geometryRef = useRef(onGeometry);
+  geometryRef.current = onGeometry;
 
   // Measure the available box. The slide absorbs every spare pixel of it.
   useLayoutEffect(() => {
@@ -118,6 +133,7 @@ export function SlideStage({
       if (!slide) return;
       slide.style.width = `${viewport.width}px`;
       slide.style.height = `${viewport.height}px`;
+      geometryRef.current?.({ width: viewport.width, height: viewport.height });
 
       const canvas = await canvasFor(pageNumber, scale);
       if (cancelled || token !== generation.current) return;
@@ -176,7 +192,16 @@ export function SlideStage({
 
   return (
     <div className={styles["box"]} ref={boxRef}>
-      <div className={styles["slide"]} ref={slideRef} data-testid="slide" />
+      <div className={styles["slide"]} ref={slideRef} data-testid="slide">
+        {/*
+         * One stable overlay node, created before the canvas is inserted and
+         * never re-parented: pdf.js puts the canvas before it and the text
+         * layer after it, so React only ever mutates what is inside it.
+         */}
+        <div className={styles["overlay"]} data-testid="slide-overlay">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

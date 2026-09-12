@@ -222,6 +222,11 @@ export class KeyRouter {
     return NOTHING;
   }
 
+  /**
+   * `cardOpen` is the mode in which Esc has something to pop: the lookup card,
+   * and after that the term cursor the card was opened from. Everything else
+   * behaves exactly as `idle`.
+   */
   #handleCardOpen(ev: KeyEventLike): KeyResult {
     if (ev.key === "Escape") {
       this.#mode = "idle";
@@ -231,6 +236,10 @@ export class KeyRouter {
       return swallow({ type: "cycleTerm", direction: ev.shiftKey ? -1 : 1 });
     }
     if (ev.key === "e") return swallow({ type: "explainSelection" });
+    // Enter opens the card for the term the `t` cursor is on. A chip inside
+    // the card stops the event before it reaches this listener, so a focused
+    // chip keeps its own Enter (ui-direction.md §D).
+    if (ev.key === "Enter") return swallow({ type: "activate" });
     return this.#handleIdle(ev);
   }
 

@@ -1,18 +1,23 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 import {
   EventSchema,
   LectureManifestSchema,
+  TermIndexSchema,
   type Event,
   type LectureManifest,
+  type LookupSelection,
   type SpanIndex,
+  type SpanPage,
+  type TermIndex,
 } from "@lecture/core";
 
+import { AnchorLayer } from "../../anchors/AnchorLayer.tsx";
 import { NoteCapture } from "../../components/NoteCapture.tsx";
 import { StatusStrip, type StripItem } from "../../components/StatusStrip.tsx";
 import { EventBuffer } from "../../events/EventBuffer.ts";
 import { nowIso } from "../../events/time.ts";
-import { useKeyActions } from "../../keys/useKeys.ts";
+import { useKeyActions, useSetKeyMode } from "../../keys/useKeys.ts";
 import {
   classifyHeartbeat,
   HEARTBEAT_FILE,
@@ -20,7 +25,12 @@ import {
   recorderText,
   type RecorderState,
 } from "../../lib/heartbeat.ts";
+import { LookupCard } from "../../lookup/LookupCard.tsx";
+import { firstLineRect, type Rect } from "../../lookup/position.ts";
+import { useLookup } from "../../lookup/useLookup.ts";
 import { loadDocument, type PDFDocumentProxy } from "../../pdf/index.ts";
+import type { TextLayerHost } from "../../pdf/TextLayerHost.ts";
+import { SelectionWatcher } from "../../selection/SelectionWatcher.ts";
 import {
   clampDim,
   DIM_STEP,
@@ -31,7 +41,7 @@ import {
 import { folderPath, navigate } from "../../state/routes.ts";
 import type { LectureFolder } from "../../storage/LectureFolder.ts";
 
-import { SlideStage } from "./SlideStage.tsx";
+import { SlideStage, type SlideGeometry } from "./SlideStage.tsx";
 import styles from "./Lecture.module.css";
 
 /** The heartbeat is written every 2 s, so it is read at the same rate. */
@@ -43,7 +53,7 @@ interface Loaded {
   manifest: LectureManifest;
   doc: PDFDocumentProxy;
   spans: SpanIndex | null;
-  hasTerms: boolean;
+  terms: TermIndex | null;
   noteCount: number;
   startPage: number;
 }
@@ -120,7 +130,11 @@ export function Lecture({
         const bytes = await folder.readBinary("deck.pdf");
         const doc = await loadDocument(bytes);
         const spans = await folder.readJson<SpanIndex>("spans.json").catch(() => null);
-        const hasTerms = (await folder.readJson<unknown>("terms.json").catch(() => null)) !== null;
+        const rawTerms = await folder.readJson<unknown>("terms.json").catch(() => null);
+        // A malformed index is the same as no index: the card would have
+        // nothing trustworthy to show.
+        const parsedTerms = rawTerms === null ? null : TermIndexSchema.safeParse(rawTerms);
+        const terms = parsedTerms?.success ? parsedTerms.data : null;
 
         let existingNotes = 0;
         try {
@@ -141,7 +155,7 @@ export function Lecture({
 
         setNoteCount(existingNotes);
         setPage(startPage);
-        setLoaded({ folder, manifest, doc, spans, hasTerms, noteCount: existingNotes, startPage });
+        setLoaded({ folder, manifest, doc, spans, terms, noteCount: existingNotes, startPage });
       } catch (err) {
         if (cancelled) return;
         setError(
@@ -230,6 +244,71 @@ export function Lecture({
     [pageCount],
   );
 
+  /*
+   * Highlight to explain. The watcher is the only `selectionchange` listener
+   * in the app; it hands a resolved `{page, beginItem..endItem}` to the pure
+   * lookup in core, and `useLookup` holds the card, the term cursor and the
+   * one highlight that may be lit at a time (architecture.md §7).
+   */
+  const setKeyMode = useSetKeyMode();
+  const textHost = useRef<TextLayerHost | null>(null);
+  const watcher = useRef<SelectionWatcher | null>(null);
+  const pageRef = useRef(page);
+  pageRef.current = page;
+  const onSelection = useRef<(selection: LookupSelection | null) => void>(() => {});
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const [geometry, setGeometry] = useState<SlideGeometry | null>(null);
+  const [slideRect, setSlideRect] = useState<Rect | null>(null);
+
+  const onTextLayer = useCallback((host: TextLayerHost) => {
+    textHost.current = host;
+  }, []);
+
+  useEffect(() => {
+    const created = new SelectionWatcher({
+      index: () => textHost.current,
+      page: () => pageRef.current,
+      onChange: (selection) => onSelection.current(selection),
+    });
+    created.start();
+    watcher.current = created;
+    return () => {
+      created.stop();
+      watcher.current = null;
+    };
+  }, []);
+
+  const readSelection = useCallback(() => watcher.current?.read() ?? null, []);
+
+  const spansPage = useMemo<SpanPage | null>(
+    () => loaded?.spans?.pages.find((p) => p.page === page) ?? null,
+    [loaded, page],
+  );
+
+  const lookup = useLookup({
+    page,
+    spans: loaded?.spans ?? null,
+    terms: loaded?.terms ?? null,
+    readSelection,
+    setKeyMode,
+  });
+  onSelection.current = lookup.noteSelection;
+
+  // The card is placed against the slide box in viewport pixels, so the box is
+  // measured when the card opens and again whenever the page is re-laid out.
+  useLayoutEffect(() => {
+    if (!lookup.card) return;
+    const el = overlayRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    setSlideRect({ left: rect.left, top: rect.top, width: rect.width, height: rect.height });
+  }, [lookup.card, geometry]);
+
+  const anchorRect =
+    lookup.card && lookup.highlight && slideRect && spansPage
+      ? firstLineRect(spansPage, lookup.highlight.lineIds, slideRect)
+      : null;
+
   const commitNote = useCallback(() => {
     const text = (noteTextRef.current ?? "").trim();
     setNoteText(null);
@@ -272,8 +351,16 @@ export function Lecture({
         break;
       }
       case "explainSelection":
+        lookup.explain();
+        break;
       case "cycleTerm":
-        setTransient(loaded?.hasTerms ? "lookup arrives in task 5" : "no index");
+        lookup.cycle(action.direction);
+        break;
+      case "activate":
+        lookup.activate();
+        break;
+      case "closeCard":
+        lookup.close();
         break;
       default:
         break;
@@ -290,11 +377,23 @@ export function Lecture({
       },
       { key: "notes", text: `${noteCount} notes` },
     ];
-    if (loaded && !loaded.hasTerms) out.push({ key: "index", text: "no index" });
+    if (loaded && !loaded.terms) out.push({ key: "index", text: "no index" });
     if (digits !== "") out.push({ key: "digits", text: `→ ${digits}_`, tone: "ink" });
+    if (lookup.cursorText !== null) out.push({ key: "cursor", text: lookup.cursorText, tone: "ink" });
+    if (lookup.message !== null) out.push({ key: "lookup", text: lookup.message });
     if (transient !== null) out.push({ key: "transient", text: transient });
     return out;
-  }, [page, pageCount, recorder, noteCount, loaded, digits, transient]);
+  }, [
+    page,
+    pageCount,
+    recorder,
+    noteCount,
+    loaded,
+    digits,
+    transient,
+    lookup.cursorText,
+    lookup.message,
+  ]);
 
   if (error) {
     return (
@@ -313,11 +412,36 @@ export function Lecture({
   return (
     <div className={styles["screen"]} style={{ ["--dim" as string]: String(dim) }}>
       {loaded ? (
-        <SlideStage doc={loaded.doc} pageNumber={page} dim={dim} spans={loaded.spans} />
+        <SlideStage
+          doc={loaded.doc}
+          pageNumber={page}
+          dim={dim}
+          spans={loaded.spans}
+          onTextLayer={onTextLayer}
+          onGeometry={setGeometry}
+        >
+          <div ref={overlayRef} className={styles["anchors"]}>
+            <AnchorLayer
+              spans={spansPage}
+              lineIds={lookup.highlight?.lineIds ?? []}
+              state={lookup.highlight?.state ?? "hover"}
+              refId={lookup.card?.kind}
+              width={geometry?.width ?? 0}
+            />
+          </div>
+        </SlideStage>
       ) : (
         <div className={styles["message"]}>
           <p>Opening the deck.</p>
         </div>
+      )}
+      {lookup.card && anchorRect && slideRect && (
+        <LookupCard
+          result={lookup.card}
+          anchor={anchorRect}
+          slide={slideRect}
+          onPickTerm={lookup.showTerm}
+        />
       )}
       {noteText !== null && <NoteCapture value={noteText} onChange={setNoteText} />}
       <StatusStrip items={items} mode="lecture" />

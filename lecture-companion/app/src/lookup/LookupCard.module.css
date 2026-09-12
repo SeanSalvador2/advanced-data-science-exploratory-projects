@@ -1,0 +1,141 @@
+/*
+ * ui-direction.md §C: 420 wide, max-height 320, radius 8, one rule, one
+ * shadow, anchored beside the line it explains. No scrim, ever.
+ */
+
+.card {
+  position: fixed;
+  z-index: 30;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  background: var(--surface-raised);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-card);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  color: var(--ink);
+  /* The measure, not the box, is what keeps the body readable. */
+  max-width: 420px;
+}
+
+.card[data-placed="no"] {
+  /* Measured but not yet placed: never shown in the wrong spot. */
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card[data-placed="yes"] {
+  animation: card-in var(--t-card-in) var(--ease);
+}
+
+.phrase {
+  margin: 0;
+  font-size: var(--t-phrase);
+  line-height: var(--lh-phrase);
+  font-weight: 600;
+}
+
+.body,
+.muted {
+  margin: 0;
+  font-size: var(--t-card);
+  line-height: var(--lh-card);
+  max-width: 62ch;
+}
+
+.muted {
+  color: var(--ink-muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+}
+
+.chip {
+  padding: var(--s-1) var(--s-4);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-input);
+  background: none;
+  color: var(--ink);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  cursor: pointer;
+}
+
+.meta {
+  margin: 0;
+  display: flex;
+  gap: var(--s-7);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: var(--lh-meta);
+  letter-spacing: 0.01em;
+  color: var(--ink-muted);
+}
+
+.meta span:last-child {
+  margin-left: auto;
+}
+
+/* The 1 px leader from the anchor box to the card edge. */
+.leader {
+  position: fixed;
+  z-index: 29;
+  width: 1px;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--accent) 40%, transparent);
+  transform-origin: 50% 0%;
+  animation: leader-in var(--t-card-in) var(--ease);
+}
+
+.leader[data-flipped="yes"] {
+  transform-origin: 50% 100%;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes leader-in {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/*
+ * Reduced motion: the transforms drop and both parts are a 90 ms opacity
+ * fade. The class selector outranks the global `*` rule in tokens.css, which
+ * is what lets this stay 90 ms rather than being cut to nothing.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .card[data-placed="yes"],
+  .leader {
+    animation-name: fade-in;
+    animation-duration: 90ms !important;
+    animation-timing-function: linear;
+  }
+}

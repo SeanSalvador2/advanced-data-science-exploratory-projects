@@ -21,3 +21,13 @@
   /* Brightness reduction only, never inversion (ui-direction.md §A). */
   filter: brightness(var(--dim)) contrast(1.03);
 }
+
+/*
+ * The overlay box: the anchor layer's home. It shares the canvas's box and
+ * never takes a pointer event, so text selection stays with the text layer.
+ */
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useRef } from "react";
 
-import type { KeyAction } from "./KeyRouter.ts";
+import type { KeyAction, KeyMode } from "./KeyRouter.ts";
 
 export type KeyHandler = (action: KeyAction) => void;
 
@@ -17,4 +17,16 @@ export function useKeyActions(handler: KeyHandler): void {
   const ref = useRef(handler);
   ref.current = handler;
   useEffect(() => register((action) => ref.current(action)), [register]);
+}
+
+/**
+ * The router's mode, for the state the router cannot see: a card opened by a
+ * mouse selection, or a term cursor that Esc must still pop. The shell owns
+ * the router, so a screen reaches it through here rather than by sniffing the
+ * active element (anti-pattern 2).
+ */
+export const KeyModeContext = createContext<(mode: KeyMode) => void>(() => {});
+
+export function useSetKeyMode(): (mode: KeyMode) => void {
+  return useContext(KeyModeContext);
 }

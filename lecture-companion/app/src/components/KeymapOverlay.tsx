@@ -7,7 +7,7 @@ export interface KeymapEntry {
   action: string;
 }
 
-/** Everything bound today. Task 5 adds lookup, task 7 review, task 8 the palette. */
+/** Everything bound today. Task 7 adds review, task 8 the palette. */
 export const KEYMAP: Array<{ group: string; entries: KeymapEntry[] }> = [
   {
     group: "Slides",
@@ -28,6 +28,15 @@ export const KEYMAP: Array<{ group: string; entries: KeymapEntry[] }> = [
     ],
   },
   {
+    group: "Lookup",
+    entries: [
+      { keys: "e", action: "Explain the selection, or the term under the cursor" },
+      { keys: "t and Shift+T", action: "Step through this slide's known terms" },
+      { keys: "Enter", action: "Open the card for the term under the cursor" },
+      { keys: "Esc", action: "Close the card, then clear the term cursor" },
+    ],
+  },
+  {
     group: "Library",
     entries: [
       { keys: "j and k", action: "Move between lectures" },
@@ -45,11 +54,7 @@ export const KEYMAP: Array<{ group: string; entries: KeymapEntry[] }> = [
   },
   {
     group: "Not built yet",
-    entries: [
-      { keys: "e", action: "Explain the selection (task 5)" },
-      { keys: "t", action: "Step through the slide's known terms (task 5)" },
-      { keys: "Cmd+K", action: "Command palette (task 8)" },
-    ],
+    entries: [{ keys: "Cmd+K", action: "Command palette (task 8)" }],
   },
 ];
 

@@ -15,6 +15,8 @@ export const VAULT = path.join(APP_DIR, "test-results", "vault");
 export const COURSE = "TEST";
 export const FIXTURE = "lec-fixture";
 export const LATEX = "lec-latex";
+/** A copy of the fixture with no `terms.json`, built by `lookup.spec.ts`. */
+export const NOINDEX = "lec-noindex";
 
 export function lectureDir(lectureId: string): string {
   return path.join(VAULT, COURSE, lectureId);

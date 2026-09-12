@@ -1,8 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { KeymapOverlay } from "./components/KeymapOverlay.tsx";
-import { bindKeyRouter, KeyRouter, type KeyAction, type KeyScope } from "./keys/KeyRouter.ts";
-import { KeyActionsContext, type KeyHandler } from "./keys/useKeys.ts";
+import {
+  bindKeyRouter,
+  KeyRouter,
+  type KeyAction,
+  type KeyMode,
+  type KeyScope,
+} from "./keys/KeyRouter.ts";
+import { KeyActionsContext, KeyModeContext, type KeyHandler } from "./keys/useKeys.ts";
 import { Library } from "./screens/library/Library.tsx";
 import { Lecture } from "./screens/lecture/Lecture.tsx";
 import { ReviewPlaceholder } from "./screens/review/ReviewPlaceholder.tsx";
@@ -107,6 +113,8 @@ export function App(): React.JSX.Element {
 
   useEffect(() => bindKeyRouter(router, dispatch), [router, dispatch]);
 
+  const setKeyMode = useCallback((mode: KeyMode) => router.setMode(mode), [router]);
+
   const closeKeymap = useCallback(() => {
     setKeymapOpen(false);
     router.setMode("idle");
@@ -143,8 +151,10 @@ export function App(): React.JSX.Element {
 
   return (
     <KeyActionsContext.Provider value={register}>
-      {screen}
-      <KeymapOverlay open={keymapOpen} onClose={closeKeymap} />
+      <KeyModeContext.Provider value={setKeyMode}>
+        {screen}
+        <KeymapOverlay open={keymapOpen} onClose={closeKeymap} />
+      </KeyModeContext.Provider>
     </KeyActionsContext.Provider>
   );
 }

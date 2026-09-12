@@ -1,0 +1,1725 @@
+{
+  "schema": "spans/1",
+  "pdfjsVersion": "6.3.289",
+  "extractOptions": {
+    "includeMarkedContent": false,
+    "disableNormalization": false
+  },
+  "deckSha256": "4229166453f7cd67034b7eeb624bab22be938f37a612d5a51b4e22631edb1041",
+  "pages": [
+    {
+      "page": 1,
+      "width": 960,
+      "height": 540,
+      "items": [
+        {
+          "id": 0,
+          "str": "Certi",
+          "box": [
+            64.793,
+            51,
+            106.317,
+            39
+          ],
+          "transform": [
+            39,
+            0,
+            0,
+            39,
+            64.793,
+            450
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 1,
+          "str": "fi",
+          "box": [
+            171.11,
+            51,
+            28.907,
+            39
+          ],
+          "transform": [
+            39,
+            0,
+            0,
+            39,
+            171.11,
+            450
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 2,
+          "str": "ed Defenses",
+          "box": [
+            200.017,
+            51,
+            270.829,
+            39
+          ],
+          "transform": [
+            39,
+            0,
+            0,
+            39,
+            200.017,
+            450
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 3,
+          "str": "",
+          "box": [
+            64.793,
+            129,
+            0,
+            0
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            64.793,
+            411
+          ],
+          "font": "g_d0_f2",
+          "eol": true
+        },
+        {
+          "id": 4,
+          "str": "Lecture 5 —",
+          "box": [
+            64.793,
+            111,
+            108.123,
+            18
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            64.793,
+            411
+          ],
+          "font": "g_d0_f2",
+          "eol": false
+        },
+        {
+          "id": 5,
+          "str": " ",
+          "box": [
+            172.916,
+            129,
+            7.629,
+            0
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            172.916,
+            411
+          ],
+          "font": "g_d0_f2",
+          "eol": false
+        },
+        {
+          "id": 6,
+          "str": "fi",
+          "box": [
+            178.638,
+            111,
+            11.338,
+            18
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            178.638,
+            411
+          ],
+          "font": "g_d0_f2",
+          "eol": false
+        },
+        {
+          "id": 7,
+          "str": "xture deck for the span pipeline",
+          "box": [
+            189.976,
+            111,
+            287.569,
+            18
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            189.976,
+            411
+          ],
+          "font": "g_d0_f2",
+          "eol": false
+        }
+      ],
+      "lines": [
+        {
+          "id": 0,
+          "items": [
+            0,
+            1,
+            2
+          ],
+          "text": "Certified Defenses",
+          "box": [
+            64.793,
+            51,
+            406.053,
+            39
+          ],
+          "kind": "title"
+        },
+        {
+          "id": 1,
+          "items": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "text": "Lecture 5 — fixture deck for the span pipeline",
+          "box": [
+            64.793,
+            111,
+            412.752,
+            18
+          ],
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "width": 960,
+      "height": 540,
+      "items": [
+        {
+          "id": 0,
+          "str": "Randomized smoothing",
+          "box": [
+            64.793,
+            51.75,
+            397.207,
+            30
+          ],
+          "transform": [
+            30,
+            0,
+            0,
+            30,
+            64.793,
+            458.25
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 1,
+          "str": "",
+          "box": [
+            64.793,
+            132.75,
+            0,
+            0
+          ],
+          "transform": [
+            19.5,
+            0,
+            0,
+            19.5,
+            64.793,
+            407.25
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 2,
+          "str": "• Add Gaussian noise at prediction time",
+          "box": [
+            64.793,
+            113.25,
+            389.257,
+            19.5
+          ],
+          "transform": [
+            19.5,
+            0,
+            0,
+            19.5,
+            64.793,
+            407.25
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 3,
+          "str": "",
+          "box": [
+            90.293,
+            166.5,
+            0,
+            0
+          ],
+          "transform": [
+            16.5,
+            0,
+            0,
+            16.5,
+            90.293,
+            373.5
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 4,
+          "str": "◦ the noise level is chosen at training time",
+          "box": [
+            90.293,
+            150,
+            351.68,
+            16.5
+          ],
+          "transform": [
+            16.5,
+            0,
+            0,
+            16.5,
+            90.293,
+            373.5
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 5,
+          "str": "◦ not at certi",
+          "box": [
+            90.293,
+            178.5,
+            106.13,
+            16.5
+          ],
+          "transform": [
+            16.5,
+            0,
+            0,
+            16.5,
+            90.293,
+            345
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 6,
+          "str": "fi",
+          "box": [
+            196.423,
+            178.5,
+            10.393,
+            16.5
+          ],
+          "transform": [
+            16.5,
+            0,
+            0,
+            16.5,
+            196.423,
+            345
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 7,
+          "str": "cation time",
+          "box": [
+            206.816,
+            178.5,
+            93.312,
+            16.5
+          ],
+          "transform": [
+            16.5,
+            0,
+            0,
+            16.5,
+            206.816,
+            345
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 8,
+          "str": "",
+          "box": [
+            64.793,
+            226.5,
+            0,
+            0
+          ],
+          "transform": [
+            19.5,
+            0,
+            0,
+            19.5,
+            64.793,
+            313.5
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 9,
+          "str": "• Take a majority vote over the noisy copies",
+          "box": [
+            64.793,
+            207,
+            429.79,
+            19.5
+          ],
+          "transform": [
+            19.5,
+            0,
+            0,
+            19.5,
+            64.793,
+            313.5
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 10,
+          "str": "• The vote margin becomes a radius",
+          "box": [
+            64.793,
+            240,
+            357.256,
+            19.5
+          ],
+          "transform": [
+            19.5,
+            0,
+            0,
+            19.5,
+            64.793,
+            280.5
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 11,
+          "str": "",
+          "box": [
+            90.293,
+            293.25,
+            0,
+            0
+          ],
+          "transform": [
+            16.5,
+            0,
+            0,
+            16.5,
+            90.293,
+            246.75
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 12,
+          "str": "1) bigger margin, bigger certi",
+          "box": [
+            90.293,
+            276.75,
+            244.293,
+            16.5
+          ],
+          "transform": [
+            16.5,
+            0,
+            0,
+            16.5,
+            90.293,
+            246.75
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 13,
+          "str": "fi",
+          "box": [
+            334.586,
+            276.75,
+            10.393,
+            16.5
+          ],
+          "transform": [
+            16.5,
+            0,
+            0,
+            16.5,
+            334.586,
+            246.75
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 14,
+          "str": "cate",
+          "box": [
+            344.979,
+            276.75,
+            35.804,
+            16.5
+          ],
+          "transform": [
+            16.5,
+            0,
+            0,
+            16.5,
+            344.979,
+            246.75
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        }
+      ],
+      "lines": [
+        {
+          "id": 0,
+          "items": [
+            0
+          ],
+          "text": "Randomized smoothing",
+          "box": [
+            64.793,
+            51.75,
+            397.207,
+            30
+          ],
+          "kind": "title"
+        },
+        {
+          "id": 1,
+          "items": [
+            2
+          ],
+          "text": "• Add Gaussian noise at prediction time",
+          "box": [
+            64.793,
+            113.25,
+            389.257,
+            19.5
+          ],
+          "kind": "bullet"
+        },
+        {
+          "id": 2,
+          "items": [
+            4
+          ],
+          "text": "◦ the noise level is chosen at training time",
+          "box": [
+            90.293,
+            150,
+            351.68,
+            16.5
+          ],
+          "kind": "bullet"
+        },
+        {
+          "id": 3,
+          "items": [
+            5,
+            6,
+            7
+          ],
+          "text": "◦ not at certification time",
+          "box": [
+            90.293,
+            178.5,
+            209.835,
+            16.5
+          ],
+          "kind": "bullet"
+        },
+        {
+          "id": 4,
+          "items": [
+            9
+          ],
+          "text": "• Take a majority vote over the noisy copies",
+          "box": [
+            64.793,
+            207,
+            429.79,
+            19.5
+          ],
+          "kind": "bullet"
+        },
+        {
+          "id": 5,
+          "items": [
+            10
+          ],
+          "text": "• The vote margin becomes a radius",
+          "box": [
+            64.793,
+            240,
+            357.256,
+            19.5
+          ],
+          "kind": "bullet"
+        },
+        {
+          "id": 6,
+          "items": [
+            12,
+            13,
+            14
+          ],
+          "text": "1) bigger margin, bigger certificate",
+          "box": [
+            90.293,
+            276.75,
+            290.49,
+            16.5
+          ],
+          "kind": "bullet"
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "width": 960,
+      "height": 540,
+      "items": [
+        {
+          "id": 0,
+          "str": "The certi",
+          "box": [
+            64.793,
+            51.75,
+            150.161,
+            30
+          ],
+          "transform": [
+            30,
+            0,
+            0,
+            30,
+            64.793,
+            458.25
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 1,
+          "str": "fi",
+          "box": [
+            214.954,
+            51.75,
+            22.236,
+            30
+          ],
+          "transform": [
+            30,
+            0,
+            0,
+            30,
+            214.954,
+            458.25
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 2,
+          "str": "cate",
+          "box": [
+            237.19,
+            51.75,
+            72.715,
+            30
+          ],
+          "transform": [
+            30,
+            0,
+            0,
+            30,
+            237.19,
+            458.25
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 3,
+          "str": "",
+          "box": [
+            64.793,
+            139.5,
+            0,
+            0
+          ],
+          "transform": [
+            22.5,
+            0,
+            0,
+            22.5,
+            64.793,
+            400.5
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 4,
+          "str": "Noise scale σ² controls the trade-o",
+          "box": [
+            64.793,
+            117,
+            388.356,
+            22.5
+          ],
+          "transform": [
+            22.5,
+            0,
+            0,
+            22.5,
+            64.793,
+            400.5
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 5,
+          "str": "ff",
+          "box": [
+            453.149,
+            117,
+            15.502,
+            22.5
+          ],
+          "transform": [
+            22.5,
+            0,
+            0,
+            22.5,
+            453.149,
+            400.5
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 6,
+          "str": ".",
+          "box": [
+            468.65,
+            117,
+            7.152,
+            22.5
+          ],
+          "transform": [
+            22.5,
+            0,
+            0,
+            22.5,
+            468.65,
+            400.5
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 7,
+          "str": "‖x′−x‖∞ ≤ ε",
+          "box": [
+            64.793,
+            172.5,
+            137.153,
+            22.5
+          ],
+          "transform": [
+            22.5,
+            0,
+            0,
+            22.5,
+            64.793,
+            345
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 8,
+          "str": "Radius uses Φ⁻¹ of the vote probability.",
+          "box": [
+            64.793,
+            228,
+            440.859,
+            22.5
+          ],
+          "transform": [
+            22.5,
+            0,
+            0,
+            22.5,
+            64.793,
+            289.5
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        }
+      ],
+      "lines": [
+        {
+          "id": 0,
+          "items": [
+            0,
+            1,
+            2
+          ],
+          "text": "The certificate",
+          "box": [
+            64.793,
+            51.75,
+            245.112,
+            30
+          ],
+          "kind": "title"
+        },
+        {
+          "id": 1,
+          "items": [
+            4,
+            5,
+            6
+          ],
+          "text": "Noise scale σ² controls the trade-off.",
+          "box": [
+            64.793,
+            117,
+            411.009,
+            22.5
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 2,
+          "items": [
+            7
+          ],
+          "text": "‖x′−x‖∞ ≤ ε",
+          "box": [
+            64.793,
+            172.5,
+            137.153,
+            22.5
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 3,
+          "items": [
+            8
+          ],
+          "text": "Radius uses Φ⁻¹ of the vote probability.",
+          "box": [
+            64.793,
+            228,
+            440.859,
+            22.5
+          ],
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "page": 4,
+      "width": 960,
+      "height": 540,
+      "items": [
+        {
+          "id": 0,
+          "str": "Two views",
+          "box": [
+            64.793,
+            51.75,
+            171.694,
+            30
+          ],
+          "transform": [
+            30,
+            0,
+            0,
+            30,
+            64.793,
+            458.25
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 1,
+          "str": "",
+          "box": [
+            64.793,
+            131.25,
+            0,
+            0
+          ],
+          "transform": [
+            19.5,
+            0,
+            0,
+            19.5,
+            64.793,
+            408.75
+          ],
+          "font": "g_d0_f1",
+          "eol": true
+        },
+        {
+          "id": 2,
+          "str": "Empirical",
+          "box": [
+            64.793,
+            111.75,
+            101.985,
+            19.5
+          ],
+          "transform": [
+            19.5,
+            0,
+            0,
+            19.5,
+            64.793,
+            408.75
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 3,
+          "str": "",
+          "box": [
+            64.793,
+            179.25,
+            0,
+            0
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            64.793,
+            360.75
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 4,
+          "str": "Attack the model and report",
+          "box": [
+            64.793,
+            161.25,
+            254.777,
+            18
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            64.793,
+            360.75
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 5,
+          "str": "what survives. Cheap to run,",
+          "box": [
+            64.793,
+            189.75,
+            259.286,
+            18
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            64.793,
+            332.25
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 6,
+          "str": "easy to break later.",
+          "box": [
+            64.793,
+            218.25,
+            173.962,
+            18
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            64.793,
+            303.75
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 7,
+          "str": "",
+          "box": [
+            467.977,
+            131.25,
+            0,
+            0
+          ],
+          "transform": [
+            19.5,
+            0,
+            0,
+            19.5,
+            467.977,
+            408.75
+          ],
+          "font": "g_d0_f1",
+          "eol": true
+        },
+        {
+          "id": 8,
+          "str": "Certi",
+          "box": [
+            467.977,
+            111.75,
+            53.158,
+            19.5
+          ],
+          "transform": [
+            19.5,
+            0,
+            0,
+            19.5,
+            467.977,
+            408.75
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 9,
+          "str": "fi",
+          "box": [
+            521.135,
+            111.75,
+            14.454,
+            19.5
+          ],
+          "transform": [
+            19.5,
+            0,
+            0,
+            19.5,
+            521.135,
+            408.75
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 10,
+          "str": "ed",
+          "box": [
+            535.589,
+            111.75,
+            27.184,
+            19.5
+          ],
+          "transform": [
+            19.5,
+            0,
+            0,
+            19.5,
+            535.589,
+            408.75
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 11,
+          "str": "",
+          "box": [
+            467.977,
+            179.25,
+            0,
+            0
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            467.977,
+            360.75
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 12,
+          "str": "Prove a radius no attack can",
+          "box": [
+            467.977,
+            161.25,
+            256.816,
+            18
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            467.977,
+            360.75
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 13,
+          "str": "cross. Expensive, smaller",
+          "box": [
+            467.977,
+            189.75,
+            228.015,
+            18
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            467.977,
+            332.25
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 14,
+          "str": "numbers, but honest.",
+          "box": [
+            467.977,
+            218.25,
+            193.746,
+            18
+          ],
+          "transform": [
+            18,
+            0,
+            0,
+            18,
+            467.977,
+            303.75
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        }
+      ],
+      "lines": [
+        {
+          "id": 0,
+          "items": [
+            0
+          ],
+          "text": "Two views",
+          "box": [
+            64.793,
+            51.75,
+            171.694,
+            30
+          ],
+          "kind": "title"
+        },
+        {
+          "id": 1,
+          "items": [
+            2
+          ],
+          "text": "Empirical",
+          "box": [
+            64.793,
+            111.75,
+            101.985,
+            19.5
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 2,
+          "items": [
+            8,
+            9,
+            10
+          ],
+          "text": "Certified",
+          "box": [
+            467.977,
+            111.75,
+            94.796,
+            19.5
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 3,
+          "items": [
+            4
+          ],
+          "text": "Attack the model and report",
+          "box": [
+            64.793,
+            161.25,
+            254.777,
+            18
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 4,
+          "items": [
+            12
+          ],
+          "text": "Prove a radius no attack can",
+          "box": [
+            467.977,
+            161.25,
+            256.816,
+            18
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 5,
+          "items": [
+            5
+          ],
+          "text": "what survives. Cheap to run,",
+          "box": [
+            64.793,
+            189.75,
+            259.286,
+            18
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 6,
+          "items": [
+            13
+          ],
+          "text": "cross. Expensive, smaller",
+          "box": [
+            467.977,
+            189.75,
+            228.015,
+            18
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 7,
+          "items": [
+            6
+          ],
+          "text": "easy to break later.",
+          "box": [
+            64.793,
+            218.25,
+            173.962,
+            18
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 8,
+          "items": [
+            14
+          ],
+          "text": "numbers, but honest.",
+          "box": [
+            467.977,
+            218.25,
+            193.746,
+            18
+          ],
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "page": 5,
+      "width": 960,
+      "height": 540,
+      "items": [
+        {
+          "id": 0,
+          "str": "Delta comes fourth on the page.",
+          "box": [
+            64.793,
+            387,
+            341.588,
+            21
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            64.793,
+            132
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 1,
+          "str": "Bravo comes second on the page.",
+          "box": [
+            64.793,
+            171,
+            357.913,
+            21
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            64.793,
+            348
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 2,
+          "str": "Charlie comes third on the page.",
+          "box": [
+            64.793,
+            279,
+            344.87,
+            21
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            64.793,
+            240
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 3,
+          "str": "Alpha comes",
+          "box": [
+            64.793,
+            63,
+            135.095,
+            21
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            64.793,
+            456
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 4,
+          "str": " ",
+          "box": [
+            199.888,
+            84,
+            8.9,
+            0
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            199.888,
+            456
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 5,
+          "str": "fi",
+          "box": [
+            206.563,
+            63,
+            13.228,
+            21
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            206.563,
+            456
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 6,
+          "str": "rst on the page.",
+          "box": [
+            219.791,
+            63,
+            167.58,
+            21
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            219.791,
+            456
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        }
+      ],
+      "lines": [
+        {
+          "id": 0,
+          "items": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "text": "Alpha comes first on the page.",
+          "box": [
+            64.793,
+            63,
+            322.578,
+            21
+          ],
+          "kind": "title"
+        },
+        {
+          "id": 1,
+          "items": [
+            1
+          ],
+          "text": "Bravo comes second on the page.",
+          "box": [
+            64.793,
+            171,
+            357.913,
+            21
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 2,
+          "items": [
+            2
+          ],
+          "text": "Charlie comes third on the page.",
+          "box": [
+            64.793,
+            279,
+            344.87,
+            21
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 3,
+          "items": [
+            0
+          ],
+          "text": "Delta comes fourth on the page.",
+          "box": [
+            64.793,
+            387,
+            341.588,
+            21
+          ],
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "page": 6,
+      "width": 960,
+      "height": 540,
+      "items": [
+        {
+          "id": 0,
+          "str": "Summary",
+          "box": [
+            64.793,
+            51.75,
+            160.078,
+            30
+          ],
+          "transform": [
+            30,
+            0,
+            0,
+            30,
+            64.793,
+            458.25
+          ],
+          "font": "g_d0_f1",
+          "eol": false
+        },
+        {
+          "id": 1,
+          "str": "",
+          "box": [
+            64.793,
+            132.75,
+            0,
+            0
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            64.793,
+            407.25
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 2,
+          "str": "Certi",
+          "box": [
+            64.793,
+            111.75,
+            50.285,
+            21
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            64.793,
+            407.25
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 3,
+          "str": "fi",
+          "box": [
+            115.078,
+            111.75,
+            13.228,
+            21
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            115.078,
+            407.25
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        },
+        {
+          "id": 4,
+          "str": "ed defenses trade accuracy for a guarantee that",
+          "box": [
+            128.306,
+            111.75,
+            511.167,
+            21
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            128.306,
+            407.25
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 5,
+          "str": "holds against every attack inside the radius, so the",
+          "box": [
+            64.793,
+            145.5,
+            538.771,
+            21
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            64.793,
+            373.5
+          ],
+          "font": "g_d0_f3",
+          "eol": true
+        },
+        {
+          "id": 6,
+          "str": "numbers look small.",
+          "box": [
+            64.793,
+            179.25,
+            212.553,
+            21
+          ],
+          "transform": [
+            21,
+            0,
+            0,
+            21,
+            64.793,
+            339.75
+          ],
+          "font": "g_d0_f3",
+          "eol": false
+        }
+      ],
+      "lines": [
+        {
+          "id": 0,
+          "items": [
+            0
+          ],
+          "text": "Summary",
+          "box": [
+            64.793,
+            51.75,
+            160.078,
+            30
+          ],
+          "kind": "title"
+        },
+        {
+          "id": 1,
+          "items": [
+            2,
+            3,
+            4
+          ],
+          "text": "Certified defenses trade accuracy for a guarantee that",
+          "box": [
+            64.793,
+            111.75,
+            574.68,
+            21
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 2,
+          "items": [
+            5
+          ],
+          "text": "holds against every attack inside the radius, so the",
+          "box": [
+            64.793,
+            145.5,
+            538.771,
+            21
+          ],
+          "kind": "text"
+        },
+        {
+          "id": 3,
+          "items": [
+            6
+          ],
+          "text": "numbers look small.",
+          "box": [
+            64.793,
+            179.25,
+            212.553,
+            21
+          ],
+          "kind": "text"
+        }
+      ]
+    }
+  ]
+}
