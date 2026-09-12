@@ -1,6 +1,6 @@
 # Phase 2 — Research findings and recommended stack
 
-Status: awaiting approval before Phase 3 (architecture).
+Status: approved 2026-09-12; see architecture.md for Phase 3.
 Date: 2026-09-11. Every finding below was verified by a research subagent against
 current primary sources (package source, specs, product docs) or measured
 empirically; items that could not be verified are marked UNVERIFIED.
