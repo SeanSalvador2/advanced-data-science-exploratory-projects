@@ -429,7 +429,8 @@ Student notes:
   "student" and its time. Attach lineIds if it clearly refers to a line.
 - If a student note is a question and the transcript answers it within the
   page window or the next page, add the answer in the answer field with a
-  quote. Otherwise add it to openQuestions.
+  quote, and do not also emit a generated note saying the same thing; the
+  answer lives under the question. Otherwise add it to openQuestions.
 - If the professor posed a question and left it open, add it to
   openQuestions with source "professor".
 

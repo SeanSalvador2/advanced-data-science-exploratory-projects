@@ -1,0 +1,9164 @@
+{
+  "schema": "transcript/1",
+  "engine": "faster-whisper",
+  "model": "small.en",
+  "condition": "biased",
+  "created": "2026-09-15T14:21:30.000+00:00",
+  "segments": [
+    {
+      "id": 0,
+      "slide": 1,
+      "start": 2.0,
+      "end": 14.03,
+      "prompt": "certified defenses, certified defense, certification",
+      "text": "Okay, we're recording, we're live. Let's get going.",
+      "words": [
+        {
+          "w": "Okay,",
+          "start": 2.0,
+          "end": 3.38
+        },
+        {
+          "w": "we're",
+          "start": 3.5,
+          "end": 4.89
+        },
+        {
+          "w": "recording,",
+          "start": 5.01,
+          "end": 6.39
+        },
+        {
+          "w": "we're",
+          "start": 6.51,
+          "end": 7.9
+        },
+        {
+          "w": "live.",
+          "start": 8.02,
+          "end": 9.4
+        },
+        {
+          "w": "Let's",
+          "start": 9.52,
+          "end": 10.9
+        },
+        {
+          "w": "get",
+          "start": 11.02,
+          "end": 12.41
+        },
+        {
+          "w": "going.",
+          "start": 12.53,
+          "end": 13.91
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "slide": 1,
+      "start": 14.8,
+      "end": 26.83,
+      "prompt": "certified defenses, certified defense, certification",
+      "text": "Before anything else: the problem set that was due Friday is now due Monday, because I haven't finished grading the last one and that would be unfair to you.",
+      "words": [
+        {
+          "w": "Before",
+          "start": 14.8,
+          "end": 15.18
+        },
+        {
+          "w": "anything",
+          "start": 15.21,
+          "end": 15.6
+        },
+        {
+          "w": "else:",
+          "start": 15.63,
+          "end": 16.01
+        },
+        {
+          "w": "the",
+          "start": 16.04,
+          "end": 16.43
+        },
+        {
+          "w": "problem",
+          "start": 16.46,
+          "end": 16.84
+        },
+        {
+          "w": "set",
+          "start": 16.87,
+          "end": 17.26
+        },
+        {
+          "w": "that",
+          "start": 17.29,
+          "end": 17.67
+        },
+        {
+          "w": "was",
+          "start": 17.7,
+          "end": 18.09
+        },
+        {
+          "w": "due",
+          "start": 18.12,
+          "end": 18.5
+        },
+        {
+          "w": "Friday",
+          "start": 18.53,
+          "end": 18.92
+        },
+        {
+          "w": "is",
+          "start": 18.95,
+          "end": 19.33
+        },
+        {
+          "w": "now",
+          "start": 19.36,
+          "end": 19.75
+        },
+        {
+          "w": "due",
+          "start": 19.78,
+          "end": 20.16
+        },
+        {
+          "w": "Monday,",
+          "start": 20.19,
+          "end": 20.58
+        },
+        {
+          "w": "because",
+          "start": 20.61,
+          "end": 20.99
+        },
+        {
+          "w": "I",
+          "start": 21.02,
+          "end": 21.41
+        },
+        {
+          "w": "haven't",
+          "start": 21.44,
+          "end": 21.82
+        },
+        {
+          "w": "finished",
+          "start": 21.85,
+          "end": 22.23
+        },
+        {
+          "w": "grading",
+          "start": 22.27,
+          "end": 22.65
+        },
+        {
+          "w": "the",
+          "start": 22.68,
+          "end": 23.06
+        },
+        {
+          "w": "last",
+          "start": 23.1,
+          "end": 23.48
+        },
+        {
+          "w": "one",
+          "start": 23.51,
+          "end": 23.89
+        },
+        {
+          "w": "and",
+          "start": 23.93,
+          "end": 24.31
+        },
+        {
+          "w": "that",
+          "start": 24.34,
+          "end": 24.72
+        },
+        {
+          "w": "would",
+          "start": 24.76,
+          "end": 25.14
+        },
+        {
+          "w": "be",
+          "start": 25.17,
+          "end": 25.55
+        },
+        {
+          "w": "unfair",
+          "start": 25.59,
+          "end": 25.97
+        },
+        {
+          "w": "to",
+          "start": 26.0,
+          "end": 26.38
+        },
+        {
+          "w": "you.",
+          "start": 26.42,
+          "end": 26.8
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "slide": 1,
+      "start": 27.6,
+      "end": 39.63,
+      "prompt": "certified defenses, certified defense, certification",
+      "text": "And a heads up, there's no class a week from Thursday, I'm at a workshop that week, I'll post a recording instead.",
+      "words": [
+        {
+          "w": "And",
+          "start": 27.6,
+          "end": 28.1
+        },
+        {
+          "w": "a",
+          "start": 28.15,
+          "end": 28.65
+        },
+        {
+          "w": "heads",
+          "start": 28.69,
+          "end": 29.2
+        },
+        {
+          "w": "up,",
+          "start": 29.24,
+          "end": 29.74
+        },
+        {
+          "w": "there's",
+          "start": 29.79,
+          "end": 30.29
+        },
+        {
+          "w": "no",
+          "start": 30.33,
+          "end": 30.84
+        },
+        {
+          "w": "class",
+          "start": 30.88,
+          "end": 31.38
+        },
+        {
+          "w": "a",
+          "start": 31.43,
+          "end": 31.93
+        },
+        {
+          "w": "week",
+          "start": 31.98,
+          "end": 32.48
+        },
+        {
+          "w": "from",
+          "start": 32.52,
+          "end": 33.03
+        },
+        {
+          "w": "Thursday,",
+          "start": 33.07,
+          "end": 33.57
+        },
+        {
+          "w": "I'm",
+          "start": 33.62,
+          "end": 34.12
+        },
+        {
+          "w": "at",
+          "start": 34.16,
+          "end": 34.67
+        },
+        {
+          "w": "a",
+          "start": 34.71,
+          "end": 35.21
+        },
+        {
+          "w": "workshop",
+          "start": 35.26,
+          "end": 35.76
+        },
+        {
+          "w": "that",
+          "start": 35.8,
+          "end": 36.31
+        },
+        {
+          "w": "week,",
+          "start": 36.35,
+          "end": 36.85
+        },
+        {
+          "w": "I'll",
+          "start": 36.9,
+          "end": 37.4
+        },
+        {
+          "w": "post",
+          "start": 37.44,
+          "end": 37.95
+        },
+        {
+          "w": "a",
+          "start": 37.99,
+          "end": 38.49
+        },
+        {
+          "w": "recording",
+          "start": 38.54,
+          "end": 39.04
+        },
+        {
+          "w": "instead.",
+          "start": 39.09,
+          "end": 39.59
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "slide": 1,
+      "start": 40.4,
+      "end": 52.43,
+      "prompt": "certified defenses, certified defense, certification",
+      "text": "Today is certified defenses, which is the other half of the robustness story we started three weeks ago.",
+      "words": [
+        {
+          "w": "Today",
+          "start": 40.4,
+          "end": 41.01
+        },
+        {
+          "w": "is",
+          "start": 41.07,
+          "end": 41.68
+        },
+        {
+          "w": "certified",
+          "start": 41.74,
+          "end": 42.35
+        },
+        {
+          "w": "defenses,",
+          "start": 42.41,
+          "end": 43.02
+        },
+        {
+          "w": "which",
+          "start": 43.07,
+          "end": 43.69
+        },
+        {
+          "w": "is",
+          "start": 43.74,
+          "end": 44.36
+        },
+        {
+          "w": "the",
+          "start": 44.41,
+          "end": 45.03
+        },
+        {
+          "w": "other",
+          "start": 45.08,
+          "end": 45.69
+        },
+        {
+          "w": "half",
+          "start": 45.75,
+          "end": 46.36
+        },
+        {
+          "w": "of",
+          "start": 46.42,
+          "end": 47.03
+        },
+        {
+          "w": "the",
+          "start": 47.08,
+          "end": 47.7
+        },
+        {
+          "w": "robustness",
+          "start": 47.75,
+          "end": 48.37
+        },
+        {
+          "w": "story",
+          "start": 48.42,
+          "end": 49.04
+        },
+        {
+          "w": "we",
+          "start": 49.09,
+          "end": 49.7
+        },
+        {
+          "w": "started",
+          "start": 49.76,
+          "end": 50.37
+        },
+        {
+          "w": "three",
+          "start": 50.43,
+          "end": 51.04
+        },
+        {
+          "w": "weeks",
+          "start": 51.1,
+          "end": 51.71
+        },
+        {
+          "w": "ago.",
+          "start": 51.76,
+          "end": 52.38
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "slide": 1,
+      "start": 53.2,
+      "end": 65.23,
+      "prompt": "certified defenses, certified defense, certification",
+      "text": "Almost everything today is from the Cohen, Rosenfeld and Kolter paper. It's on the reading list. You don't strictly have to read it before the exam but you should.",
+      "words": [
+        {
+          "w": "Almost",
+          "start": 53.2,
+          "end": 53.58
+        },
+        {
+          "w": "everything",
+          "start": 53.61,
+          "end": 54.0
+        },
+        {
+          "w": "today",
+          "start": 54.03,
+          "end": 54.41
+        },
+        {
+          "w": "is",
+          "start": 54.44,
+          "end": 54.83
+        },
+        {
+          "w": "from",
+          "start": 54.86,
+          "end": 55.24
+        },
+        {
+          "w": "the",
+          "start": 55.27,
+          "end": 55.66
+        },
+        {
+          "w": "Cohen,",
+          "start": 55.69,
+          "end": 56.07
+        },
+        {
+          "w": "Rosenfeld",
+          "start": 56.1,
+          "end": 56.49
+        },
+        {
+          "w": "and",
+          "start": 56.52,
+          "end": 56.9
+        },
+        {
+          "w": "Kolter",
+          "start": 56.93,
+          "end": 57.32
+        },
+        {
+          "w": "paper.",
+          "start": 57.35,
+          "end": 57.73
+        },
+        {
+          "w": "It's",
+          "start": 57.76,
+          "end": 58.15
+        },
+        {
+          "w": "on",
+          "start": 58.18,
+          "end": 58.56
+        },
+        {
+          "w": "the",
+          "start": 58.59,
+          "end": 58.98
+        },
+        {
+          "w": "reading",
+          "start": 59.01,
+          "end": 59.39
+        },
+        {
+          "w": "list.",
+          "start": 59.42,
+          "end": 59.81
+        },
+        {
+          "w": "You",
+          "start": 59.84,
+          "end": 60.22
+        },
+        {
+          "w": "don't",
+          "start": 60.25,
+          "end": 60.63
+        },
+        {
+          "w": "strictly",
+          "start": 60.67,
+          "end": 61.05
+        },
+        {
+          "w": "have",
+          "start": 61.08,
+          "end": 61.46
+        },
+        {
+          "w": "to",
+          "start": 61.5,
+          "end": 61.88
+        },
+        {
+          "w": "read",
+          "start": 61.91,
+          "end": 62.29
+        },
+        {
+          "w": "it",
+          "start": 62.33,
+          "end": 62.71
+        },
+        {
+          "w": "before",
+          "start": 62.74,
+          "end": 63.12
+        },
+        {
+          "w": "the",
+          "start": 63.16,
+          "end": 63.54
+        },
+        {
+          "w": "exam",
+          "start": 63.57,
+          "end": 63.95
+        },
+        {
+          "w": "but",
+          "start": 63.99,
+          "end": 64.37
+        },
+        {
+          "w": "you",
+          "start": 64.4,
+          "end": 64.78
+        },
+        {
+          "w": "should.",
+          "start": 64.82,
+          "end": 65.2
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "slide": 1,
+      "start": 66.0,
+      "end": 78.03,
+      "prompt": "certified defenses, certified defense, certification",
+      "text": "If you were here for the empirical attacks lecture, this is the lecture where we stop playing whack a mole.",
+      "words": [
+        {
+          "w": "If",
+          "start": 66.0,
+          "end": 66.55
+        },
+        {
+          "w": "you",
+          "start": 66.6,
+          "end": 67.16
+        },
+        {
+          "w": "were",
+          "start": 67.2,
+          "end": 67.76
+        },
+        {
+          "w": "here",
+          "start": 67.8,
+          "end": 68.36
+        },
+        {
+          "w": "for",
+          "start": 68.41,
+          "end": 68.96
+        },
+        {
+          "w": "the",
+          "start": 69.01,
+          "end": 69.56
+        },
+        {
+          "w": "empirical",
+          "start": 69.61,
+          "end": 70.16
+        },
+        {
+          "w": "attacks",
+          "start": 70.21,
+          "end": 70.76
+        },
+        {
+          "w": "lecture,",
+          "start": 70.81,
+          "end": 71.37
+        },
+        {
+          "w": "this",
+          "start": 71.41,
+          "end": 71.97
+        },
+        {
+          "w": "is",
+          "start": 72.02,
+          "end": 72.57
+        },
+        {
+          "w": "the",
+          "start": 72.62,
+          "end": 73.17
+        },
+        {
+          "w": "lecture",
+          "start": 73.22,
+          "end": 73.77
+        },
+        {
+          "w": "where",
+          "start": 73.82,
+          "end": 74.37
+        },
+        {
+          "w": "we",
+          "start": 74.42,
+          "end": 74.98
+        },
+        {
+          "w": "stop",
+          "start": 75.02,
+          "end": 75.58
+        },
+        {
+          "w": "playing",
+          "start": 75.63,
+          "end": 76.18
+        },
+        {
+          "w": "whack",
+          "start": 76.23,
+          "end": 76.78
+        },
+        {
+          "w": "a",
+          "start": 76.83,
+          "end": 77.38
+        },
+        {
+          "w": "mole.",
+          "start": 77.43,
+          "end": 77.98
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "slide": 1,
+      "start": 78.8,
+      "end": 90.83,
+      "prompt": "certified defenses, certified defense, certification",
+      "text": "Quick poll, how many of you actually ran the PGD code from problem set two? Okay, about half of you. Good enough, I'll take it.",
+      "words": [
+        {
+          "w": "Quick",
+          "start": 78.8,
+          "end": 79.24
+        },
+        {
+          "w": "poll,",
+          "start": 79.28,
+          "end": 79.72
+        },
+        {
+          "w": "how",
+          "start": 79.76,
+          "end": 80.21
+        },
+        {
+          "w": "many",
+          "start": 80.24,
+          "end": 80.69
+        },
+        {
+          "w": "of",
+          "start": 80.73,
+          "end": 81.17
+        },
+        {
+          "w": "you",
+          "start": 81.21,
+          "end": 81.65
+        },
+        {
+          "w": "actually",
+          "start": 81.69,
+          "end": 82.13
+        },
+        {
+          "w": "ran",
+          "start": 82.17,
+          "end": 82.61
+        },
+        {
+          "w": "the",
+          "start": 82.65,
+          "end": 83.09
+        },
+        {
+          "w": "PGD",
+          "start": 83.13,
+          "end": 83.57
+        },
+        {
+          "w": "code",
+          "start": 83.61,
+          "end": 84.06
+        },
+        {
+          "w": "from",
+          "start": 84.09,
+          "end": 84.54
+        },
+        {
+          "w": "problem",
+          "start": 84.58,
+          "end": 85.02
+        },
+        {
+          "w": "set",
+          "start": 85.06,
+          "end": 85.5
+        },
+        {
+          "w": "two?",
+          "start": 85.54,
+          "end": 85.98
+        },
+        {
+          "w": "Okay,",
+          "start": 86.02,
+          "end": 86.46
+        },
+        {
+          "w": "about",
+          "start": 86.5,
+          "end": 86.94
+        },
+        {
+          "w": "half",
+          "start": 86.98,
+          "end": 87.42
+        },
+        {
+          "w": "of",
+          "start": 87.46,
+          "end": 87.91
+        },
+        {
+          "w": "you.",
+          "start": 87.94,
+          "end": 88.39
+        },
+        {
+          "w": "Good",
+          "start": 88.43,
+          "end": 88.87
+        },
+        {
+          "w": "enough,",
+          "start": 88.91,
+          "end": 89.35
+        },
+        {
+          "w": "I'll",
+          "start": 89.39,
+          "end": 89.83
+        },
+        {
+          "w": "take",
+          "start": 89.87,
+          "end": 90.31
+        },
+        {
+          "w": "it.",
+          "start": 90.35,
+          "end": 90.79
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "slide": 1,
+      "start": 91.6,
+      "end": 103.63,
+      "prompt": "certified defenses, certified defense, certification",
+      "text": "Last thing on logistics, office hours have moved to Wednesday two to four, same room as before.",
+      "words": [
+        {
+          "w": "Last",
+          "start": 91.6,
+          "end": 92.25
+        },
+        {
+          "w": "thing",
+          "start": 92.31,
+          "end": 92.96
+        },
+        {
+          "w": "on",
+          "start": 93.02,
+          "end": 93.67
+        },
+        {
+          "w": "logistics,",
+          "start": 93.72,
+          "end": 94.37
+        },
+        {
+          "w": "office",
+          "start": 94.43,
+          "end": 95.08
+        },
+        {
+          "w": "hours",
+          "start": 95.14,
+          "end": 95.79
+        },
+        {
+          "w": "have",
+          "start": 95.85,
+          "end": 96.5
+        },
+        {
+          "w": "moved",
+          "start": 96.55,
+          "end": 97.21
+        },
+        {
+          "w": "to",
+          "start": 97.26,
+          "end": 97.91
+        },
+        {
+          "w": "Wednesday",
+          "start": 97.97,
+          "end": 98.62
+        },
+        {
+          "w": "two",
+          "start": 98.68,
+          "end": 99.33
+        },
+        {
+          "w": "to",
+          "start": 99.39,
+          "end": 100.04
+        },
+        {
+          "w": "four,",
+          "start": 100.09,
+          "end": 100.74
+        },
+        {
+          "w": "same",
+          "start": 100.8,
+          "end": 101.45
+        },
+        {
+          "w": "room",
+          "start": 101.51,
+          "end": 102.16
+        },
+        {
+          "w": "as",
+          "start": 102.22,
+          "end": 102.87
+        },
+        {
+          "w": "before.",
+          "start": 102.92,
+          "end": 103.58
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "slide": 1,
+      "start": 104.4,
+      "end": 116.43,
+      "prompt": "certified defenses, certified defense, certification",
+      "text": "Alright, that's the admin out of the way.",
+      "words": [
+        {
+          "w": "Alright,",
+          "start": 104.4,
+          "end": 105.78
+        },
+        {
+          "w": "that's",
+          "start": 105.9,
+          "end": 107.29
+        },
+        {
+          "w": "the",
+          "start": 107.41,
+          "end": 108.79
+        },
+        {
+          "w": "admin",
+          "start": 108.91,
+          "end": 110.3
+        },
+        {
+          "w": "out",
+          "start": 110.42,
+          "end": 111.8
+        },
+        {
+          "w": "of",
+          "start": 111.92,
+          "end": 113.3
+        },
+        {
+          "w": "the",
+          "start": 113.42,
+          "end": 114.81
+        },
+        {
+          "w": "way.",
+          "start": 114.93,
+          "end": 116.31
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "slide": 1,
+      "start": 117.2,
+      "end": 129.23,
+      "prompt": "certified defenses, certified defense, certification",
+      "text": "Let's start with the method itself.",
+      "words": [
+        {
+          "w": "Let's",
+          "start": 117.2,
+          "end": 119.04
+        },
+        {
+          "w": "start",
+          "start": 119.21,
+          "end": 121.05
+        },
+        {
+          "w": "with",
+          "start": 121.21,
+          "end": 123.06
+        },
+        {
+          "w": "the",
+          "start": 123.22,
+          "end": 125.06
+        },
+        {
+          "w": "method",
+          "start": 125.22,
+          "end": 127.07
+        },
+        {
+          "w": "itself.",
+          "start": 127.23,
+          "end": 129.07
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "slide": 2,
+      "start": 130.0,
+      "end": 145.67,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "So, randomized smoothing. Add Gaussian noise at prediction time. The noise level is chosen at training time, not at certification time.",
+      "words": [
+        {
+          "w": "So,",
+          "start": 130.0,
+          "end": 130.69
+        },
+        {
+          "w": "randomized",
+          "start": 130.75,
+          "end": 131.43
+        },
+        {
+          "w": "smoothing.",
+          "start": 131.49,
+          "end": 132.18
+        },
+        {
+          "w": "Add",
+          "start": 132.24,
+          "end": 132.92
+        },
+        {
+          "w": "Gaussian",
+          "start": 132.98,
+          "end": 133.67
+        },
+        {
+          "w": "noise",
+          "start": 133.73,
+          "end": 134.42
+        },
+        {
+          "w": "at",
+          "start": 134.48,
+          "end": 135.16
+        },
+        {
+          "w": "prediction",
+          "start": 135.22,
+          "end": 135.91
+        },
+        {
+          "w": "time.",
+          "start": 135.97,
+          "end": 136.65
+        },
+        {
+          "w": "The",
+          "start": 136.71,
+          "end": 137.4
+        },
+        {
+          "w": "noise",
+          "start": 137.46,
+          "end": 138.15
+        },
+        {
+          "w": "level",
+          "start": 138.21,
+          "end": 138.89
+        },
+        {
+          "w": "is",
+          "start": 138.95,
+          "end": 139.64
+        },
+        {
+          "w": "chosen",
+          "start": 139.7,
+          "end": 140.38
+        },
+        {
+          "w": "at",
+          "start": 140.44,
+          "end": 141.13
+        },
+        {
+          "w": "training",
+          "start": 141.19,
+          "end": 141.88
+        },
+        {
+          "w": "time,",
+          "start": 141.94,
+          "end": 142.62
+        },
+        {
+          "w": "not",
+          "start": 142.68,
+          "end": 143.37
+        },
+        {
+          "w": "at",
+          "start": 143.43,
+          "end": 144.11
+        },
+        {
+          "w": "certification",
+          "start": 144.17,
+          "end": 144.86
+        },
+        {
+          "w": "time.",
+          "start": 144.92,
+          "end": 145.61
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "slide": 2,
+      "start": 146.67,
+      "end": 162.33,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "Take a majority vote over the noisy copies. The vote margin becomes a radius. Bigger margin, bigger certificate.",
+      "words": [
+        {
+          "w": "Take",
+          "start": 146.67,
+          "end": 147.47
+        },
+        {
+          "w": "a",
+          "start": 147.54,
+          "end": 148.34
+        },
+        {
+          "w": "majority",
+          "start": 148.41,
+          "end": 149.21
+        },
+        {
+          "w": "vote",
+          "start": 149.28,
+          "end": 150.08
+        },
+        {
+          "w": "over",
+          "start": 150.15,
+          "end": 150.95
+        },
+        {
+          "w": "the",
+          "start": 151.02,
+          "end": 151.82
+        },
+        {
+          "w": "noisy",
+          "start": 151.89,
+          "end": 152.69
+        },
+        {
+          "w": "copies.",
+          "start": 152.76,
+          "end": 153.56
+        },
+        {
+          "w": "The",
+          "start": 153.63,
+          "end": 154.43
+        },
+        {
+          "w": "vote",
+          "start": 154.5,
+          "end": 155.3
+        },
+        {
+          "w": "margin",
+          "start": 155.37,
+          "end": 156.17
+        },
+        {
+          "w": "becomes",
+          "start": 156.24,
+          "end": 157.04
+        },
+        {
+          "w": "a",
+          "start": 157.11,
+          "end": 157.91
+        },
+        {
+          "w": "radius.",
+          "start": 157.98,
+          "end": 158.78
+        },
+        {
+          "w": "Bigger",
+          "start": 158.85,
+          "end": 159.65
+        },
+        {
+          "w": "margin,",
+          "start": 159.72,
+          "end": 160.52
+        },
+        {
+          "w": "bigger",
+          "start": 160.59,
+          "end": 161.39
+        },
+        {
+          "w": "certificate.",
+          "start": 161.46,
+          "end": 162.26
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "slide": 2,
+      "start": 163.33,
+      "end": 179.0,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "Here's the way I actually think about it, and this isn't on the slide. You are not defending the classifier you trained. You are defending a blurred version of it, and the blurring is what buys you the guarantee.",
+      "words": [
+        {
+          "w": "Here's",
+          "start": 163.33,
+          "end": 163.7
+        },
+        {
+          "w": "the",
+          "start": 163.74,
+          "end": 164.1
+        },
+        {
+          "w": "way",
+          "start": 164.14,
+          "end": 164.51
+        },
+        {
+          "w": "I",
+          "start": 164.54,
+          "end": 164.91
+        },
+        {
+          "w": "actually",
+          "start": 164.94,
+          "end": 165.31
+        },
+        {
+          "w": "think",
+          "start": 165.34,
+          "end": 165.71
+        },
+        {
+          "w": "about",
+          "start": 165.74,
+          "end": 166.11
+        },
+        {
+          "w": "it,",
+          "start": 166.15,
+          "end": 166.51
+        },
+        {
+          "w": "and",
+          "start": 166.55,
+          "end": 166.92
+        },
+        {
+          "w": "this",
+          "start": 166.95,
+          "end": 167.32
+        },
+        {
+          "w": "isn't",
+          "start": 167.35,
+          "end": 167.72
+        },
+        {
+          "w": "on",
+          "start": 167.75,
+          "end": 168.12
+        },
+        {
+          "w": "the",
+          "start": 168.15,
+          "end": 168.52
+        },
+        {
+          "w": "slide.",
+          "start": 168.56,
+          "end": 168.93
+        },
+        {
+          "w": "You",
+          "start": 168.96,
+          "end": 169.33
+        },
+        {
+          "w": "are",
+          "start": 169.36,
+          "end": 169.73
+        },
+        {
+          "w": "not",
+          "start": 169.76,
+          "end": 170.13
+        },
+        {
+          "w": "defending",
+          "start": 170.16,
+          "end": 170.53
+        },
+        {
+          "w": "the",
+          "start": 170.56,
+          "end": 170.93
+        },
+        {
+          "w": "classifier",
+          "start": 170.97,
+          "end": 171.34
+        },
+        {
+          "w": "you",
+          "start": 171.37,
+          "end": 171.74
+        },
+        {
+          "w": "trained.",
+          "start": 171.77,
+          "end": 172.14
+        },
+        {
+          "w": "You",
+          "start": 172.17,
+          "end": 172.54
+        },
+        {
+          "w": "are",
+          "start": 172.57,
+          "end": 172.94
+        },
+        {
+          "w": "defending",
+          "start": 172.97,
+          "end": 173.34
+        },
+        {
+          "w": "a",
+          "start": 173.38,
+          "end": 173.75
+        },
+        {
+          "w": "blurred",
+          "start": 173.78,
+          "end": 174.15
+        },
+        {
+          "w": "version",
+          "start": 174.18,
+          "end": 174.55
+        },
+        {
+          "w": "of",
+          "start": 174.58,
+          "end": 174.95
+        },
+        {
+          "w": "it,",
+          "start": 174.98,
+          "end": 175.35
+        },
+        {
+          "w": "and",
+          "start": 175.38,
+          "end": 175.75
+        },
+        {
+          "w": "the",
+          "start": 175.79,
+          "end": 176.16
+        },
+        {
+          "w": "blurring",
+          "start": 176.19,
+          "end": 176.56
+        },
+        {
+          "w": "is",
+          "start": 176.59,
+          "end": 176.96
+        },
+        {
+          "w": "what",
+          "start": 176.99,
+          "end": 177.36
+        },
+        {
+          "w": "buys",
+          "start": 177.39,
+          "end": 177.76
+        },
+        {
+          "w": "you",
+          "start": 177.79,
+          "end": 178.16
+        },
+        {
+          "w": "the",
+          "start": 178.2,
+          "end": 178.57
+        },
+        {
+          "w": "guarantee.",
+          "start": 178.6,
+          "end": 178.97
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "slide": 2,
+      "start": 180.0,
+      "end": 195.67,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "Take a photograph of the decision boundary and smear it with a Gaussian kernel. That smeared boundary is what g is. A tiny push can't get you across a smeared boundary.",
+      "words": [
+        {
+          "w": "Take",
+          "start": 180.0,
+          "end": 180.46
+        },
+        {
+          "w": "a",
+          "start": 180.51,
+          "end": 180.97
+        },
+        {
+          "w": "photograph",
+          "start": 181.01,
+          "end": 181.48
+        },
+        {
+          "w": "of",
+          "start": 181.52,
+          "end": 181.98
+        },
+        {
+          "w": "the",
+          "start": 182.02,
+          "end": 182.49
+        },
+        {
+          "w": "decision",
+          "start": 182.53,
+          "end": 182.99
+        },
+        {
+          "w": "boundary",
+          "start": 183.03,
+          "end": 183.5
+        },
+        {
+          "w": "and",
+          "start": 183.54,
+          "end": 184.0
+        },
+        {
+          "w": "smear",
+          "start": 184.04,
+          "end": 184.51
+        },
+        {
+          "w": "it",
+          "start": 184.55,
+          "end": 185.01
+        },
+        {
+          "w": "with",
+          "start": 185.05,
+          "end": 185.52
+        },
+        {
+          "w": "a",
+          "start": 185.56,
+          "end": 186.02
+        },
+        {
+          "w": "Gaussian",
+          "start": 186.06,
+          "end": 186.53
+        },
+        {
+          "w": "kernel.",
+          "start": 186.57,
+          "end": 187.03
+        },
+        {
+          "w": "That",
+          "start": 187.08,
+          "end": 187.54
+        },
+        {
+          "w": "smeared",
+          "start": 187.58,
+          "end": 188.05
+        },
+        {
+          "w": "boundary",
+          "start": 188.09,
+          "end": 188.55
+        },
+        {
+          "w": "is",
+          "start": 188.59,
+          "end": 189.06
+        },
+        {
+          "w": "what",
+          "start": 189.1,
+          "end": 189.56
+        },
+        {
+          "w": "g",
+          "start": 189.6,
+          "end": 190.07
+        },
+        {
+          "w": "is.",
+          "start": 190.11,
+          "end": 190.57
+        },
+        {
+          "w": "A",
+          "start": 190.61,
+          "end": 191.08
+        },
+        {
+          "w": "tiny",
+          "start": 191.12,
+          "end": 191.58
+        },
+        {
+          "w": "push",
+          "start": 191.62,
+          "end": 192.09
+        },
+        {
+          "w": "can't",
+          "start": 192.13,
+          "end": 192.59
+        },
+        {
+          "w": "get",
+          "start": 192.63,
+          "end": 193.1
+        },
+        {
+          "w": "you",
+          "start": 193.14,
+          "end": 193.6
+        },
+        {
+          "w": "across",
+          "start": 193.65,
+          "end": 194.11
+        },
+        {
+          "w": "a",
+          "start": 194.15,
+          "end": 194.62
+        },
+        {
+          "w": "smeared",
+          "start": 194.66,
+          "end": 195.12
+        },
+        {
+          "w": "boundary.",
+          "start": 195.16,
+          "end": 195.63
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "slide": 2,
+      "start": 196.67,
+      "end": 212.33,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "By the way, this is more or less the same trick as label smoothing wearing a completely different costume, and I've always found that pleasing. Different literature, same instinct: don't trust the sharp thing.",
+      "words": [
+        {
+          "w": "By",
+          "start": 196.67,
+          "end": 197.09
+        },
+        {
+          "w": "the",
+          "start": 197.13,
+          "end": 197.55
+        },
+        {
+          "w": "way,",
+          "start": 197.59,
+          "end": 198.01
+        },
+        {
+          "w": "this",
+          "start": 198.05,
+          "end": 198.47
+        },
+        {
+          "w": "is",
+          "start": 198.51,
+          "end": 198.93
+        },
+        {
+          "w": "more",
+          "start": 198.97,
+          "end": 199.39
+        },
+        {
+          "w": "or",
+          "start": 199.43,
+          "end": 199.86
+        },
+        {
+          "w": "less",
+          "start": 199.89,
+          "end": 200.32
+        },
+        {
+          "w": "the",
+          "start": 200.35,
+          "end": 200.78
+        },
+        {
+          "w": "same",
+          "start": 200.81,
+          "end": 201.24
+        },
+        {
+          "w": "trick",
+          "start": 201.27,
+          "end": 201.7
+        },
+        {
+          "w": "as",
+          "start": 201.74,
+          "end": 202.16
+        },
+        {
+          "w": "label",
+          "start": 202.2,
+          "end": 202.62
+        },
+        {
+          "w": "smoothing",
+          "start": 202.66,
+          "end": 203.08
+        },
+        {
+          "w": "wearing",
+          "start": 203.12,
+          "end": 203.54
+        },
+        {
+          "w": "a",
+          "start": 203.58,
+          "end": 204.0
+        },
+        {
+          "w": "completely",
+          "start": 204.04,
+          "end": 204.46
+        },
+        {
+          "w": "different",
+          "start": 204.5,
+          "end": 204.92
+        },
+        {
+          "w": "costume,",
+          "start": 204.96,
+          "end": 205.38
+        },
+        {
+          "w": "and",
+          "start": 205.42,
+          "end": 205.85
+        },
+        {
+          "w": "I've",
+          "start": 205.88,
+          "end": 206.31
+        },
+        {
+          "w": "always",
+          "start": 206.34,
+          "end": 206.77
+        },
+        {
+          "w": "found",
+          "start": 206.8,
+          "end": 207.23
+        },
+        {
+          "w": "that",
+          "start": 207.26,
+          "end": 207.69
+        },
+        {
+          "w": "pleasing.",
+          "start": 207.73,
+          "end": 208.15
+        },
+        {
+          "w": "Different",
+          "start": 208.19,
+          "end": 208.61
+        },
+        {
+          "w": "literature,",
+          "start": 208.65,
+          "end": 209.07
+        },
+        {
+          "w": "same",
+          "start": 209.11,
+          "end": 209.53
+        },
+        {
+          "w": "instinct:",
+          "start": 209.57,
+          "end": 209.99
+        },
+        {
+          "w": "don't",
+          "start": 210.03,
+          "end": 210.45
+        },
+        {
+          "w": "trust",
+          "start": 210.49,
+          "end": 210.91
+        },
+        {
+          "w": "the",
+          "start": 210.95,
+          "end": 211.37
+        },
+        {
+          "w": "sharp",
+          "start": 211.41,
+          "end": 211.84
+        },
+        {
+          "w": "thing.",
+          "start": 211.87,
+          "end": 212.3
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "slide": 2,
+      "start": 213.33,
+      "end": 229.0,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "One practical thing the slide doesn't say. In every implementation you will ever see, the noisy copies are a batch, usually a hundred thousand of them, so prediction is about four orders of magnitude slower than a forward pass.",
+      "words": [
+        {
+          "w": "One",
+          "start": 213.33,
+          "end": 213.7
+        },
+        {
+          "w": "practical",
+          "start": 213.74,
+          "end": 214.1
+        },
+        {
+          "w": "thing",
+          "start": 214.14,
+          "end": 214.51
+        },
+        {
+          "w": "the",
+          "start": 214.54,
+          "end": 214.91
+        },
+        {
+          "w": "slide",
+          "start": 214.94,
+          "end": 215.31
+        },
+        {
+          "w": "doesn't",
+          "start": 215.34,
+          "end": 215.71
+        },
+        {
+          "w": "say.",
+          "start": 215.74,
+          "end": 216.11
+        },
+        {
+          "w": "In",
+          "start": 216.15,
+          "end": 216.51
+        },
+        {
+          "w": "every",
+          "start": 216.55,
+          "end": 216.92
+        },
+        {
+          "w": "implementation",
+          "start": 216.95,
+          "end": 217.32
+        },
+        {
+          "w": "you",
+          "start": 217.35,
+          "end": 217.72
+        },
+        {
+          "w": "will",
+          "start": 217.75,
+          "end": 218.12
+        },
+        {
+          "w": "ever",
+          "start": 218.15,
+          "end": 218.52
+        },
+        {
+          "w": "see,",
+          "start": 218.56,
+          "end": 218.93
+        },
+        {
+          "w": "the",
+          "start": 218.96,
+          "end": 219.33
+        },
+        {
+          "w": "noisy",
+          "start": 219.36,
+          "end": 219.73
+        },
+        {
+          "w": "copies",
+          "start": 219.76,
+          "end": 220.13
+        },
+        {
+          "w": "are",
+          "start": 220.16,
+          "end": 220.53
+        },
+        {
+          "w": "a",
+          "start": 220.56,
+          "end": 220.93
+        },
+        {
+          "w": "batch,",
+          "start": 220.97,
+          "end": 221.34
+        },
+        {
+          "w": "usually",
+          "start": 221.37,
+          "end": 221.74
+        },
+        {
+          "w": "a",
+          "start": 221.77,
+          "end": 222.14
+        },
+        {
+          "w": "hundred",
+          "start": 222.17,
+          "end": 222.54
+        },
+        {
+          "w": "thousand",
+          "start": 222.57,
+          "end": 222.94
+        },
+        {
+          "w": "of",
+          "start": 222.97,
+          "end": 223.34
+        },
+        {
+          "w": "them,",
+          "start": 223.38,
+          "end": 223.75
+        },
+        {
+          "w": "so",
+          "start": 223.78,
+          "end": 224.15
+        },
+        {
+          "w": "prediction",
+          "start": 224.18,
+          "end": 224.55
+        },
+        {
+          "w": "is",
+          "start": 224.58,
+          "end": 224.95
+        },
+        {
+          "w": "about",
+          "start": 224.98,
+          "end": 225.35
+        },
+        {
+          "w": "four",
+          "start": 225.38,
+          "end": 225.75
+        },
+        {
+          "w": "orders",
+          "start": 225.79,
+          "end": 226.16
+        },
+        {
+          "w": "of",
+          "start": 226.19,
+          "end": 226.56
+        },
+        {
+          "w": "magnitude",
+          "start": 226.59,
+          "end": 226.96
+        },
+        {
+          "w": "slower",
+          "start": 226.99,
+          "end": 227.36
+        },
+        {
+          "w": "than",
+          "start": 227.39,
+          "end": 227.76
+        },
+        {
+          "w": "a",
+          "start": 227.79,
+          "end": 228.16
+        },
+        {
+          "w": "forward",
+          "start": 228.2,
+          "end": 228.57
+        },
+        {
+          "w": "pass.",
+          "start": 228.6,
+          "end": 228.97
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "slide": 2,
+      "start": 230.0,
+      "end": 245.67,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "That cost is the real reason certified numbers are rare in papers. Nobody wants to certify ImageNet at a hundred thousand samples per image.",
+      "words": [
+        {
+          "w": "That",
+          "start": 230.0,
+          "end": 230.6
+        },
+        {
+          "w": "cost",
+          "start": 230.65,
+          "end": 231.25
+        },
+        {
+          "w": "is",
+          "start": 231.31,
+          "end": 231.91
+        },
+        {
+          "w": "the",
+          "start": 231.96,
+          "end": 232.56
+        },
+        {
+          "w": "real",
+          "start": 232.61,
+          "end": 233.21
+        },
+        {
+          "w": "reason",
+          "start": 233.26,
+          "end": 233.86
+        },
+        {
+          "w": "certified",
+          "start": 233.92,
+          "end": 234.52
+        },
+        {
+          "w": "numbers",
+          "start": 234.57,
+          "end": 235.17
+        },
+        {
+          "w": "are",
+          "start": 235.22,
+          "end": 235.82
+        },
+        {
+          "w": "rare",
+          "start": 235.88,
+          "end": 236.48
+        },
+        {
+          "w": "in",
+          "start": 236.53,
+          "end": 237.13
+        },
+        {
+          "w": "papers.",
+          "start": 237.18,
+          "end": 237.78
+        },
+        {
+          "w": "Nobody",
+          "start": 237.83,
+          "end": 238.43
+        },
+        {
+          "w": "wants",
+          "start": 238.49,
+          "end": 239.09
+        },
+        {
+          "w": "to",
+          "start": 239.14,
+          "end": 239.74
+        },
+        {
+          "w": "certify",
+          "start": 239.79,
+          "end": 240.39
+        },
+        {
+          "w": "ImageNet",
+          "start": 240.44,
+          "end": 241.04
+        },
+        {
+          "w": "at",
+          "start": 241.1,
+          "end": 241.7
+        },
+        {
+          "w": "a",
+          "start": 241.75,
+          "end": 242.35
+        },
+        {
+          "w": "hundred",
+          "start": 242.4,
+          "end": 243.0
+        },
+        {
+          "w": "thousand",
+          "start": 243.06,
+          "end": 243.66
+        },
+        {
+          "w": "samples",
+          "start": 243.71,
+          "end": 244.31
+        },
+        {
+          "w": "per",
+          "start": 244.36,
+          "end": 244.96
+        },
+        {
+          "w": "image.",
+          "start": 245.01,
+          "end": 245.61
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "slide": 2,
+      "start": 246.67,
+      "end": 262.33,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "And the training part matters far more than people expect. If you train on clean data and then smooth at test time you get garbage, because the base classifier has never seen a noisy input in its life.",
+      "words": [
+        {
+          "w": "And",
+          "start": 246.67,
+          "end": 247.05
+        },
+        {
+          "w": "the",
+          "start": 247.08,
+          "end": 247.46
+        },
+        {
+          "w": "training",
+          "start": 247.49,
+          "end": 247.87
+        },
+        {
+          "w": "part",
+          "start": 247.9,
+          "end": 248.28
+        },
+        {
+          "w": "matters",
+          "start": 248.32,
+          "end": 248.7
+        },
+        {
+          "w": "far",
+          "start": 248.73,
+          "end": 249.11
+        },
+        {
+          "w": "more",
+          "start": 249.14,
+          "end": 249.52
+        },
+        {
+          "w": "than",
+          "start": 249.55,
+          "end": 249.93
+        },
+        {
+          "w": "people",
+          "start": 249.96,
+          "end": 250.34
+        },
+        {
+          "w": "expect.",
+          "start": 250.38,
+          "end": 250.76
+        },
+        {
+          "w": "If",
+          "start": 250.79,
+          "end": 251.17
+        },
+        {
+          "w": "you",
+          "start": 251.2,
+          "end": 251.58
+        },
+        {
+          "w": "train",
+          "start": 251.61,
+          "end": 251.99
+        },
+        {
+          "w": "on",
+          "start": 252.03,
+          "end": 252.41
+        },
+        {
+          "w": "clean",
+          "start": 252.44,
+          "end": 252.82
+        },
+        {
+          "w": "data",
+          "start": 252.85,
+          "end": 253.23
+        },
+        {
+          "w": "and",
+          "start": 253.26,
+          "end": 253.64
+        },
+        {
+          "w": "then",
+          "start": 253.68,
+          "end": 254.05
+        },
+        {
+          "w": "smooth",
+          "start": 254.09,
+          "end": 254.47
+        },
+        {
+          "w": "at",
+          "start": 254.5,
+          "end": 254.88
+        },
+        {
+          "w": "test",
+          "start": 254.91,
+          "end": 255.29
+        },
+        {
+          "w": "time",
+          "start": 255.32,
+          "end": 255.7
+        },
+        {
+          "w": "you",
+          "start": 255.74,
+          "end": 256.12
+        },
+        {
+          "w": "get",
+          "start": 256.15,
+          "end": 256.53
+        },
+        {
+          "w": "garbage,",
+          "start": 256.56,
+          "end": 256.94
+        },
+        {
+          "w": "because",
+          "start": 256.97,
+          "end": 257.35
+        },
+        {
+          "w": "the",
+          "start": 257.39,
+          "end": 257.77
+        },
+        {
+          "w": "base",
+          "start": 257.8,
+          "end": 258.18
+        },
+        {
+          "w": "classifier",
+          "start": 258.21,
+          "end": 258.59
+        },
+        {
+          "w": "has",
+          "start": 258.62,
+          "end": 259.0
+        },
+        {
+          "w": "never",
+          "start": 259.04,
+          "end": 259.41
+        },
+        {
+          "w": "seen",
+          "start": 259.45,
+          "end": 259.83
+        },
+        {
+          "w": "a",
+          "start": 259.86,
+          "end": 260.24
+        },
+        {
+          "w": "noisy",
+          "start": 260.27,
+          "end": 260.65
+        },
+        {
+          "w": "input",
+          "start": 260.68,
+          "end": 261.06
+        },
+        {
+          "w": "in",
+          "start": 261.1,
+          "end": 261.48
+        },
+        {
+          "w": "its",
+          "start": 261.51,
+          "end": 261.89
+        },
+        {
+          "w": "life.",
+          "start": 261.92,
+          "end": 262.3
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "slide": 2,
+      "start": 263.33,
+      "end": 279.0,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "So you train with Gaussian augmentation at the same sigma you are going to certify at. Same sigma in both places. That is the bit people get wrong in the project reports.",
+      "words": [
+        {
+          "w": "So",
+          "start": 263.33,
+          "end": 263.78
+        },
+        {
+          "w": "you",
+          "start": 263.82,
+          "end": 264.27
+        },
+        {
+          "w": "train",
+          "start": 264.31,
+          "end": 264.76
+        },
+        {
+          "w": "with",
+          "start": 264.8,
+          "end": 265.25
+        },
+        {
+          "w": "Gaussian",
+          "start": 265.29,
+          "end": 265.74
+        },
+        {
+          "w": "augmentation",
+          "start": 265.78,
+          "end": 266.23
+        },
+        {
+          "w": "at",
+          "start": 266.27,
+          "end": 266.72
+        },
+        {
+          "w": "the",
+          "start": 266.76,
+          "end": 267.21
+        },
+        {
+          "w": "same",
+          "start": 267.25,
+          "end": 267.7
+        },
+        {
+          "w": "sigma",
+          "start": 267.74,
+          "end": 268.19
+        },
+        {
+          "w": "you",
+          "start": 268.23,
+          "end": 268.68
+        },
+        {
+          "w": "are",
+          "start": 268.72,
+          "end": 269.17
+        },
+        {
+          "w": "going",
+          "start": 269.21,
+          "end": 269.66
+        },
+        {
+          "w": "to",
+          "start": 269.7,
+          "end": 270.15
+        },
+        {
+          "w": "certify",
+          "start": 270.19,
+          "end": 270.64
+        },
+        {
+          "w": "at.",
+          "start": 270.68,
+          "end": 271.13
+        },
+        {
+          "w": "Same",
+          "start": 271.17,
+          "end": 271.62
+        },
+        {
+          "w": "sigma",
+          "start": 271.66,
+          "end": 272.11
+        },
+        {
+          "w": "in",
+          "start": 272.15,
+          "end": 272.6
+        },
+        {
+          "w": "both",
+          "start": 272.64,
+          "end": 273.09
+        },
+        {
+          "w": "places.",
+          "start": 273.13,
+          "end": 273.58
+        },
+        {
+          "w": "That",
+          "start": 273.61,
+          "end": 274.07
+        },
+        {
+          "w": "is",
+          "start": 274.1,
+          "end": 274.55
+        },
+        {
+          "w": "the",
+          "start": 274.59,
+          "end": 275.04
+        },
+        {
+          "w": "bit",
+          "start": 275.08,
+          "end": 275.53
+        },
+        {
+          "w": "people",
+          "start": 275.57,
+          "end": 276.02
+        },
+        {
+          "w": "get",
+          "start": 276.06,
+          "end": 276.51
+        },
+        {
+          "w": "wrong",
+          "start": 276.55,
+          "end": 277.0
+        },
+        {
+          "w": "in",
+          "start": 277.04,
+          "end": 277.49
+        },
+        {
+          "w": "the",
+          "start": 277.53,
+          "end": 277.98
+        },
+        {
+          "w": "project",
+          "start": 278.02,
+          "end": 278.47
+        },
+        {
+          "w": "reports.",
+          "start": 278.51,
+          "end": 278.96
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "slide": 2,
+      "start": 280.0,
+      "end": 295.67,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "The reason the margin turns into a radius at all is that the vote is a probability, and probabilities under a Gaussian have a geometry. We do that on the next slide.",
+      "words": [
+        {
+          "w": "The",
+          "start": 280.0,
+          "end": 280.45
+        },
+        {
+          "w": "reason",
+          "start": 280.49,
+          "end": 280.94
+        },
+        {
+          "w": "the",
+          "start": 280.98,
+          "end": 281.43
+        },
+        {
+          "w": "margin",
+          "start": 281.47,
+          "end": 281.92
+        },
+        {
+          "w": "turns",
+          "start": 281.96,
+          "end": 282.41
+        },
+        {
+          "w": "into",
+          "start": 282.45,
+          "end": 282.9
+        },
+        {
+          "w": "a",
+          "start": 282.94,
+          "end": 283.39
+        },
+        {
+          "w": "radius",
+          "start": 283.43,
+          "end": 283.88
+        },
+        {
+          "w": "at",
+          "start": 283.92,
+          "end": 284.37
+        },
+        {
+          "w": "all",
+          "start": 284.41,
+          "end": 284.86
+        },
+        {
+          "w": "is",
+          "start": 284.9,
+          "end": 285.35
+        },
+        {
+          "w": "that",
+          "start": 285.39,
+          "end": 285.84
+        },
+        {
+          "w": "the",
+          "start": 285.88,
+          "end": 286.33
+        },
+        {
+          "w": "vote",
+          "start": 286.36,
+          "end": 286.81
+        },
+        {
+          "w": "is",
+          "start": 286.85,
+          "end": 287.3
+        },
+        {
+          "w": "a",
+          "start": 287.34,
+          "end": 287.79
+        },
+        {
+          "w": "probability,",
+          "start": 287.83,
+          "end": 288.28
+        },
+        {
+          "w": "and",
+          "start": 288.32,
+          "end": 288.77
+        },
+        {
+          "w": "probabilities",
+          "start": 288.81,
+          "end": 289.26
+        },
+        {
+          "w": "under",
+          "start": 289.3,
+          "end": 289.75
+        },
+        {
+          "w": "a",
+          "start": 289.79,
+          "end": 290.24
+        },
+        {
+          "w": "Gaussian",
+          "start": 290.28,
+          "end": 290.73
+        },
+        {
+          "w": "have",
+          "start": 290.77,
+          "end": 291.22
+        },
+        {
+          "w": "a",
+          "start": 291.26,
+          "end": 291.71
+        },
+        {
+          "w": "geometry.",
+          "start": 291.75,
+          "end": 292.2
+        },
+        {
+          "w": "We",
+          "start": 292.24,
+          "end": 292.69
+        },
+        {
+          "w": "do",
+          "start": 292.73,
+          "end": 293.18
+        },
+        {
+          "w": "that",
+          "start": 293.22,
+          "end": 293.67
+        },
+        {
+          "w": "on",
+          "start": 293.71,
+          "end": 294.16
+        },
+        {
+          "w": "the",
+          "start": 294.2,
+          "end": 294.65
+        },
+        {
+          "w": "next",
+          "start": 294.69,
+          "end": 295.14
+        },
+        {
+          "w": "slide.",
+          "start": 295.18,
+          "end": 295.63
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "slide": 2,
+      "start": 296.67,
+      "end": 312.33,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "A question I get every single year: can you just draw more samples to get a bigger radius? No. More samples tighten your estimate of the probability, they don't change the probability.",
+      "words": [
+        {
+          "w": "A",
+          "start": 296.67,
+          "end": 297.12
+        },
+        {
+          "w": "question",
+          "start": 297.16,
+          "end": 297.61
+        },
+        {
+          "w": "I",
+          "start": 297.65,
+          "end": 298.1
+        },
+        {
+          "w": "get",
+          "start": 298.14,
+          "end": 298.59
+        },
+        {
+          "w": "every",
+          "start": 298.62,
+          "end": 299.08
+        },
+        {
+          "w": "single",
+          "start": 299.11,
+          "end": 299.57
+        },
+        {
+          "w": "year:",
+          "start": 299.6,
+          "end": 300.05
+        },
+        {
+          "w": "can",
+          "start": 300.09,
+          "end": 300.54
+        },
+        {
+          "w": "you",
+          "start": 300.58,
+          "end": 301.03
+        },
+        {
+          "w": "just",
+          "start": 301.07,
+          "end": 301.52
+        },
+        {
+          "w": "draw",
+          "start": 301.56,
+          "end": 302.01
+        },
+        {
+          "w": "more",
+          "start": 302.05,
+          "end": 302.5
+        },
+        {
+          "w": "samples",
+          "start": 302.54,
+          "end": 302.99
+        },
+        {
+          "w": "to",
+          "start": 303.03,
+          "end": 303.48
+        },
+        {
+          "w": "get",
+          "start": 303.52,
+          "end": 303.97
+        },
+        {
+          "w": "a",
+          "start": 304.01,
+          "end": 304.46
+        },
+        {
+          "w": "bigger",
+          "start": 304.5,
+          "end": 304.95
+        },
+        {
+          "w": "radius?",
+          "start": 304.99,
+          "end": 305.44
+        },
+        {
+          "w": "No.",
+          "start": 305.48,
+          "end": 305.93
+        },
+        {
+          "w": "More",
+          "start": 305.97,
+          "end": 306.42
+        },
+        {
+          "w": "samples",
+          "start": 306.46,
+          "end": 306.91
+        },
+        {
+          "w": "tighten",
+          "start": 306.95,
+          "end": 307.4
+        },
+        {
+          "w": "your",
+          "start": 307.44,
+          "end": 307.89
+        },
+        {
+          "w": "estimate",
+          "start": 307.93,
+          "end": 308.38
+        },
+        {
+          "w": "of",
+          "start": 308.42,
+          "end": 308.87
+        },
+        {
+          "w": "the",
+          "start": 308.91,
+          "end": 309.36
+        },
+        {
+          "w": "probability,",
+          "start": 309.4,
+          "end": 309.85
+        },
+        {
+          "w": "they",
+          "start": 309.89,
+          "end": 310.34
+        },
+        {
+          "w": "don't",
+          "start": 310.38,
+          "end": 310.83
+        },
+        {
+          "w": "change",
+          "start": 310.86,
+          "end": 311.32
+        },
+        {
+          "w": "the",
+          "start": 311.35,
+          "end": 311.8
+        },
+        {
+          "w": "probability.",
+          "start": 311.84,
+          "end": 312.29
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "slide": 2,
+      "start": 313.33,
+      "end": 329.0,
+      "prompt": "randomized smoothing, Gaussian noise, majority vote, vote margin, certified radius",
+      "text": "Alright, so that's the recipe. Now the actual certificate.",
+      "words": [
+        {
+          "w": "Alright,",
+          "start": 313.33,
+          "end": 314.93
+        },
+        {
+          "w": "so",
+          "start": 315.07,
+          "end": 316.68
+        },
+        {
+          "w": "that's",
+          "start": 316.81,
+          "end": 318.42
+        },
+        {
+          "w": "the",
+          "start": 318.56,
+          "end": 320.16
+        },
+        {
+          "w": "recipe.",
+          "start": 320.3,
+          "end": 321.9
+        },
+        {
+          "w": "Now",
+          "start": 322.04,
+          "end": 323.64
+        },
+        {
+          "w": "the",
+          "start": 323.78,
+          "end": 325.38
+        },
+        {
+          "w": "actual",
+          "start": 325.52,
+          "end": 327.12
+        },
+        {
+          "w": "certificate.",
+          "start": 327.26,
+          "end": 328.86
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "slide": 3,
+      "start": 330.0,
+      "end": 347.95,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "Right, the certificate. Noise scale sigma squared controls the trade off, and the radius uses fee inverse of the vote probability.",
+      "words": [
+        {
+          "w": "Right,",
+          "start": 330.0,
+          "end": 330.79
+        },
+        {
+          "w": "the",
+          "start": 330.85,
+          "end": 331.64
+        },
+        {
+          "w": "certificate.",
+          "start": 331.71,
+          "end": 332.5
+        },
+        {
+          "w": "Noise",
+          "start": 332.56,
+          "end": 333.35
+        },
+        {
+          "w": "scale",
+          "start": 333.42,
+          "end": 334.2
+        },
+        {
+          "w": "sigma",
+          "start": 334.27,
+          "end": 335.06
+        },
+        {
+          "w": "squared",
+          "start": 335.13,
+          "end": 335.91
+        },
+        {
+          "w": "controls",
+          "start": 335.98,
+          "end": 336.77
+        },
+        {
+          "w": "the",
+          "start": 336.84,
+          "end": 337.62
+        },
+        {
+          "w": "trade",
+          "start": 337.69,
+          "end": 338.48
+        },
+        {
+          "w": "off,",
+          "start": 338.55,
+          "end": 339.33
+        },
+        {
+          "w": "and",
+          "start": 339.4,
+          "end": 340.19
+        },
+        {
+          "w": "the",
+          "start": 340.25,
+          "end": 341.04
+        },
+        {
+          "w": "radius",
+          "start": 341.11,
+          "end": 341.9
+        },
+        {
+          "w": "uses",
+          "start": 341.96,
+          "end": 342.75
+        },
+        {
+          "w": "fee",
+          "start": 342.82,
+          "end": 343.6
+        },
+        {
+          "w": "inverse",
+          "start": 343.67,
+          "end": 344.46
+        },
+        {
+          "w": "of",
+          "start": 344.53,
+          "end": 345.31
+        },
+        {
+          "w": "the",
+          "start": 345.38,
+          "end": 346.17
+        },
+        {
+          "w": "vote",
+          "start": 346.24,
+          "end": 347.02
+        },
+        {
+          "w": "probability.",
+          "start": 347.09,
+          "end": 347.88
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "slide": 3,
+      "start": 349.09,
+      "end": 367.04,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "Let me say what the vote probability actually is, because it is nowhere on this slide. It is the probability that the base classifier returns the top class when you draw one single noise sample. One draw, not the majority over many.",
+      "words": [
+        {
+          "w": "Let",
+          "start": 349.09,
+          "end": 349.48
+        },
+        {
+          "w": "me",
+          "start": 349.52,
+          "end": 349.91
+        },
+        {
+          "w": "say",
+          "start": 349.95,
+          "end": 350.34
+        },
+        {
+          "w": "what",
+          "start": 350.37,
+          "end": 350.77
+        },
+        {
+          "w": "the",
+          "start": 350.8,
+          "end": 351.19
+        },
+        {
+          "w": "vote",
+          "start": 351.23,
+          "end": 351.62
+        },
+        {
+          "w": "probability",
+          "start": 351.65,
+          "end": 352.05
+        },
+        {
+          "w": "actually",
+          "start": 352.08,
+          "end": 352.47
+        },
+        {
+          "w": "is,",
+          "start": 352.51,
+          "end": 352.9
+        },
+        {
+          "w": "because",
+          "start": 352.94,
+          "end": 353.33
+        },
+        {
+          "w": "it",
+          "start": 353.36,
+          "end": 353.76
+        },
+        {
+          "w": "is",
+          "start": 353.79,
+          "end": 354.18
+        },
+        {
+          "w": "nowhere",
+          "start": 354.22,
+          "end": 354.61
+        },
+        {
+          "w": "on",
+          "start": 354.65,
+          "end": 355.04
+        },
+        {
+          "w": "this",
+          "start": 355.07,
+          "end": 355.47
+        },
+        {
+          "w": "slide.",
+          "start": 355.5,
+          "end": 355.89
+        },
+        {
+          "w": "It",
+          "start": 355.93,
+          "end": 356.32
+        },
+        {
+          "w": "is",
+          "start": 356.35,
+          "end": 356.75
+        },
+        {
+          "w": "the",
+          "start": 356.78,
+          "end": 357.17
+        },
+        {
+          "w": "probability",
+          "start": 357.21,
+          "end": 357.6
+        },
+        {
+          "w": "that",
+          "start": 357.64,
+          "end": 358.03
+        },
+        {
+          "w": "the",
+          "start": 358.06,
+          "end": 358.46
+        },
+        {
+          "w": "base",
+          "start": 358.49,
+          "end": 358.88
+        },
+        {
+          "w": "classifier",
+          "start": 358.92,
+          "end": 359.31
+        },
+        {
+          "w": "returns",
+          "start": 359.35,
+          "end": 359.74
+        },
+        {
+          "w": "the",
+          "start": 359.77,
+          "end": 360.17
+        },
+        {
+          "w": "top",
+          "start": 360.2,
+          "end": 360.59
+        },
+        {
+          "w": "class",
+          "start": 360.63,
+          "end": 361.02
+        },
+        {
+          "w": "when",
+          "start": 361.05,
+          "end": 361.45
+        },
+        {
+          "w": "you",
+          "start": 361.48,
+          "end": 361.87
+        },
+        {
+          "w": "draw",
+          "start": 361.91,
+          "end": 362.3
+        },
+        {
+          "w": "one",
+          "start": 362.34,
+          "end": 362.73
+        },
+        {
+          "w": "single",
+          "start": 362.76,
+          "end": 363.16
+        },
+        {
+          "w": "noise",
+          "start": 363.19,
+          "end": 363.58
+        },
+        {
+          "w": "sample.",
+          "start": 363.62,
+          "end": 364.01
+        },
+        {
+          "w": "One",
+          "start": 364.05,
+          "end": 364.44
+        },
+        {
+          "w": "draw,",
+          "start": 364.47,
+          "end": 364.87
+        },
+        {
+          "w": "not",
+          "start": 364.9,
+          "end": 365.29
+        },
+        {
+          "w": "the",
+          "start": 365.33,
+          "end": 365.72
+        },
+        {
+          "w": "majority",
+          "start": 365.75,
+          "end": 366.15
+        },
+        {
+          "w": "over",
+          "start": 366.18,
+          "end": 366.57
+        },
+        {
+          "w": "many.",
+          "start": 366.61,
+          "end": 367.0
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "slide": 3,
+      "start": 368.18,
+      "end": 386.13,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "So it is a number between a half and one for a class that is genuinely winning, and everything downstream is a function of that one number.",
+      "words": [
+        {
+          "w": "So",
+          "start": 368.18,
+          "end": 368.79
+        },
+        {
+          "w": "it",
+          "start": 368.85,
+          "end": 369.46
+        },
+        {
+          "w": "is",
+          "start": 369.51,
+          "end": 370.12
+        },
+        {
+          "w": "a",
+          "start": 370.18,
+          "end": 370.79
+        },
+        {
+          "w": "number",
+          "start": 370.84,
+          "end": 371.45
+        },
+        {
+          "w": "between",
+          "start": 371.51,
+          "end": 372.12
+        },
+        {
+          "w": "a",
+          "start": 372.17,
+          "end": 372.78
+        },
+        {
+          "w": "half",
+          "start": 372.83,
+          "end": 373.45
+        },
+        {
+          "w": "and",
+          "start": 373.5,
+          "end": 374.11
+        },
+        {
+          "w": "one",
+          "start": 374.16,
+          "end": 374.78
+        },
+        {
+          "w": "for",
+          "start": 374.83,
+          "end": 375.44
+        },
+        {
+          "w": "a",
+          "start": 375.49,
+          "end": 376.1
+        },
+        {
+          "w": "class",
+          "start": 376.16,
+          "end": 376.77
+        },
+        {
+          "w": "that",
+          "start": 376.82,
+          "end": 377.43
+        },
+        {
+          "w": "is",
+          "start": 377.49,
+          "end": 378.1
+        },
+        {
+          "w": "genuinely",
+          "start": 378.15,
+          "end": 378.76
+        },
+        {
+          "w": "winning,",
+          "start": 378.82,
+          "end": 379.43
+        },
+        {
+          "w": "and",
+          "start": 379.48,
+          "end": 380.09
+        },
+        {
+          "w": "everything",
+          "start": 380.15,
+          "end": 380.76
+        },
+        {
+          "w": "downstream",
+          "start": 380.81,
+          "end": 381.42
+        },
+        {
+          "w": "is",
+          "start": 381.47,
+          "end": 382.09
+        },
+        {
+          "w": "a",
+          "start": 382.14,
+          "end": 382.75
+        },
+        {
+          "w": "function",
+          "start": 382.8,
+          "end": 383.42
+        },
+        {
+          "w": "of",
+          "start": 383.47,
+          "end": 384.08
+        },
+        {
+          "w": "that",
+          "start": 384.13,
+          "end": 384.74
+        },
+        {
+          "w": "one",
+          "start": 384.8,
+          "end": 385.41
+        },
+        {
+          "w": "number.",
+          "start": 385.46,
+          "end": 386.07
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "slide": 3,
+      "start": 387.27,
+      "end": 405.22,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "Now. Why fee inverse. Why the inverse Gaussian CDF, and not, say, a Hoeffding tail bound, which is what most of you would reach for and what I reached for the first time.",
+      "words": [
+        {
+          "w": "Now.",
+          "start": 387.27,
+          "end": 387.77
+        },
+        {
+          "w": "Why",
+          "start": 387.82,
+          "end": 388.32
+        },
+        {
+          "w": "fee",
+          "start": 388.36,
+          "end": 388.86
+        },
+        {
+          "w": "inverse.",
+          "start": 388.9,
+          "end": 389.4
+        },
+        {
+          "w": "Why",
+          "start": 389.45,
+          "end": 389.95
+        },
+        {
+          "w": "the",
+          "start": 389.99,
+          "end": 390.49
+        },
+        {
+          "w": "inverse",
+          "start": 390.54,
+          "end": 391.04
+        },
+        {
+          "w": "Gaussian",
+          "start": 391.08,
+          "end": 391.58
+        },
+        {
+          "w": "CDF,",
+          "start": 391.62,
+          "end": 392.12
+        },
+        {
+          "w": "and",
+          "start": 392.17,
+          "end": 392.67
+        },
+        {
+          "w": "not,",
+          "start": 392.71,
+          "end": 393.21
+        },
+        {
+          "w": "say,",
+          "start": 393.25,
+          "end": 393.75
+        },
+        {
+          "w": "a",
+          "start": 393.8,
+          "end": 394.3
+        },
+        {
+          "w": "Hoeffding",
+          "start": 394.34,
+          "end": 394.84
+        },
+        {
+          "w": "tail",
+          "start": 394.89,
+          "end": 395.39
+        },
+        {
+          "w": "bound,",
+          "start": 395.43,
+          "end": 395.93
+        },
+        {
+          "w": "which",
+          "start": 395.97,
+          "end": 396.47
+        },
+        {
+          "w": "is",
+          "start": 396.52,
+          "end": 397.02
+        },
+        {
+          "w": "what",
+          "start": 397.06,
+          "end": 397.56
+        },
+        {
+          "w": "most",
+          "start": 397.6,
+          "end": 398.11
+        },
+        {
+          "w": "of",
+          "start": 398.15,
+          "end": 398.65
+        },
+        {
+          "w": "you",
+          "start": 398.69,
+          "end": 399.19
+        },
+        {
+          "w": "would",
+          "start": 399.24,
+          "end": 399.74
+        },
+        {
+          "w": "reach",
+          "start": 399.78,
+          "end": 400.28
+        },
+        {
+          "w": "for",
+          "start": 400.32,
+          "end": 400.82
+        },
+        {
+          "w": "and",
+          "start": 400.87,
+          "end": 401.37
+        },
+        {
+          "w": "what",
+          "start": 401.41,
+          "end": 401.91
+        },
+        {
+          "w": "I",
+          "start": 401.96,
+          "end": 402.46
+        },
+        {
+          "w": "reached",
+          "start": 402.5,
+          "end": 403.0
+        },
+        {
+          "w": "for",
+          "start": 403.04,
+          "end": 403.54
+        },
+        {
+          "w": "the",
+          "start": 403.59,
+          "end": 404.09
+        },
+        {
+          "w": "first",
+          "start": 404.13,
+          "end": 404.63
+        },
+        {
+          "w": "time.",
+          "start": 404.67,
+          "end": 405.17
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "slide": 3,
+      "start": 406.36,
+      "end": 424.31,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "The honest answer is Neiman Pearson. You ask: among all classifiers that agree with this one on the noisy distribution around x, which one is easiest to flip? Neyman Pearson tells you the worst case is a half space.",
+      "words": [
+        {
+          "w": "The",
+          "start": 406.36,
+          "end": 406.79
+        },
+        {
+          "w": "honest",
+          "start": 406.82,
+          "end": 407.25
+        },
+        {
+          "w": "answer",
+          "start": 407.28,
+          "end": 407.71
+        },
+        {
+          "w": "is",
+          "start": 407.74,
+          "end": 408.17
+        },
+        {
+          "w": "Neiman",
+          "start": 408.2,
+          "end": 408.63
+        },
+        {
+          "w": "Pearson.",
+          "start": 408.66,
+          "end": 409.09
+        },
+        {
+          "w": "You",
+          "start": 409.12,
+          "end": 409.55
+        },
+        {
+          "w": "ask:",
+          "start": 409.58,
+          "end": 410.01
+        },
+        {
+          "w": "among",
+          "start": 410.04,
+          "end": 410.47
+        },
+        {
+          "w": "all",
+          "start": 410.5,
+          "end": 410.93
+        },
+        {
+          "w": "classifiers",
+          "start": 410.97,
+          "end": 411.39
+        },
+        {
+          "w": "that",
+          "start": 411.43,
+          "end": 411.85
+        },
+        {
+          "w": "agree",
+          "start": 411.89,
+          "end": 412.31
+        },
+        {
+          "w": "with",
+          "start": 412.35,
+          "end": 412.77
+        },
+        {
+          "w": "this",
+          "start": 412.81,
+          "end": 413.23
+        },
+        {
+          "w": "one",
+          "start": 413.27,
+          "end": 413.69
+        },
+        {
+          "w": "on",
+          "start": 413.73,
+          "end": 414.15
+        },
+        {
+          "w": "the",
+          "start": 414.19,
+          "end": 414.61
+        },
+        {
+          "w": "noisy",
+          "start": 414.65,
+          "end": 415.07
+        },
+        {
+          "w": "distribution",
+          "start": 415.11,
+          "end": 415.53
+        },
+        {
+          "w": "around",
+          "start": 415.57,
+          "end": 415.99
+        },
+        {
+          "w": "x,",
+          "start": 416.03,
+          "end": 416.45
+        },
+        {
+          "w": "which",
+          "start": 416.49,
+          "end": 416.91
+        },
+        {
+          "w": "one",
+          "start": 416.95,
+          "end": 417.37
+        },
+        {
+          "w": "is",
+          "start": 417.41,
+          "end": 417.83
+        },
+        {
+          "w": "easiest",
+          "start": 417.87,
+          "end": 418.29
+        },
+        {
+          "w": "to",
+          "start": 418.33,
+          "end": 418.75
+        },
+        {
+          "w": "flip?",
+          "start": 418.79,
+          "end": 419.21
+        },
+        {
+          "w": "Neyman",
+          "start": 419.25,
+          "end": 419.67
+        },
+        {
+          "w": "Pearson",
+          "start": 419.71,
+          "end": 420.13
+        },
+        {
+          "w": "tells",
+          "start": 420.17,
+          "end": 420.59
+        },
+        {
+          "w": "you",
+          "start": 420.63,
+          "end": 421.05
+        },
+        {
+          "w": "the",
+          "start": 421.09,
+          "end": 421.51
+        },
+        {
+          "w": "worst",
+          "start": 421.55,
+          "end": 421.97
+        },
+        {
+          "w": "case",
+          "start": 422.01,
+          "end": 422.43
+        },
+        {
+          "w": "is",
+          "start": 422.47,
+          "end": 422.89
+        },
+        {
+          "w": "a",
+          "start": 422.93,
+          "end": 423.35
+        },
+        {
+          "w": "half",
+          "start": 423.39,
+          "end": 423.81
+        },
+        {
+          "w": "space.",
+          "start": 423.85,
+          "end": 424.27
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "slide": 3,
+      "start": 425.45,
+      "end": 443.4,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "And once the worst case is a half space, the distance from the centre of a Gaussian to a half space of a given mass is exactly fee inverse of that mass. It is not a bound. It is the answer.",
+      "words": [
+        {
+          "w": "And",
+          "start": 425.45,
+          "end": 425.86
+        },
+        {
+          "w": "once",
+          "start": 425.89,
+          "end": 426.29
+        },
+        {
+          "w": "the",
+          "start": 426.33,
+          "end": 426.73
+        },
+        {
+          "w": "worst",
+          "start": 426.77,
+          "end": 427.17
+        },
+        {
+          "w": "case",
+          "start": 427.21,
+          "end": 427.61
+        },
+        {
+          "w": "is",
+          "start": 427.64,
+          "end": 428.05
+        },
+        {
+          "w": "a",
+          "start": 428.08,
+          "end": 428.48
+        },
+        {
+          "w": "half",
+          "start": 428.52,
+          "end": 428.92
+        },
+        {
+          "w": "space,",
+          "start": 428.96,
+          "end": 429.36
+        },
+        {
+          "w": "the",
+          "start": 429.39,
+          "end": 429.8
+        },
+        {
+          "w": "distance",
+          "start": 429.83,
+          "end": 430.23
+        },
+        {
+          "w": "from",
+          "start": 430.27,
+          "end": 430.67
+        },
+        {
+          "w": "the",
+          "start": 430.71,
+          "end": 431.11
+        },
+        {
+          "w": "centre",
+          "start": 431.14,
+          "end": 431.55
+        },
+        {
+          "w": "of",
+          "start": 431.58,
+          "end": 431.98
+        },
+        {
+          "w": "a",
+          "start": 432.02,
+          "end": 432.42
+        },
+        {
+          "w": "Gaussian",
+          "start": 432.46,
+          "end": 432.86
+        },
+        {
+          "w": "to",
+          "start": 432.9,
+          "end": 433.3
+        },
+        {
+          "w": "a",
+          "start": 433.33,
+          "end": 433.74
+        },
+        {
+          "w": "half",
+          "start": 433.77,
+          "end": 434.17
+        },
+        {
+          "w": "space",
+          "start": 434.21,
+          "end": 434.61
+        },
+        {
+          "w": "of",
+          "start": 434.65,
+          "end": 435.05
+        },
+        {
+          "w": "a",
+          "start": 435.08,
+          "end": 435.49
+        },
+        {
+          "w": "given",
+          "start": 435.52,
+          "end": 435.92
+        },
+        {
+          "w": "mass",
+          "start": 435.96,
+          "end": 436.36
+        },
+        {
+          "w": "is",
+          "start": 436.4,
+          "end": 436.8
+        },
+        {
+          "w": "exactly",
+          "start": 436.83,
+          "end": 437.24
+        },
+        {
+          "w": "fee",
+          "start": 437.27,
+          "end": 437.67
+        },
+        {
+          "w": "inverse",
+          "start": 437.71,
+          "end": 438.11
+        },
+        {
+          "w": "of",
+          "start": 438.15,
+          "end": 438.55
+        },
+        {
+          "w": "that",
+          "start": 438.59,
+          "end": 438.99
+        },
+        {
+          "w": "mass.",
+          "start": 439.02,
+          "end": 439.43
+        },
+        {
+          "w": "It",
+          "start": 439.46,
+          "end": 439.86
+        },
+        {
+          "w": "is",
+          "start": 439.9,
+          "end": 440.3
+        },
+        {
+          "w": "not",
+          "start": 440.34,
+          "end": 440.74
+        },
+        {
+          "w": "a",
+          "start": 440.77,
+          "end": 441.18
+        },
+        {
+          "w": "bound.",
+          "start": 441.21,
+          "end": 441.61
+        },
+        {
+          "w": "It",
+          "start": 441.65,
+          "end": 442.05
+        },
+        {
+          "w": "is",
+          "start": 442.09,
+          "end": 442.49
+        },
+        {
+          "w": "the",
+          "start": 442.52,
+          "end": 442.93
+        },
+        {
+          "w": "answer.",
+          "start": 442.96,
+          "end": 443.36
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "slide": 3,
+      "start": 444.55,
+      "end": 462.49,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "A tail bound would also be true. It would just be loose, and loose here means you throw away radius that you actually earned. That is the whole difference.",
+      "words": [
+        {
+          "w": "A",
+          "start": 444.55,
+          "end": 445.11
+        },
+        {
+          "w": "tail",
+          "start": 445.16,
+          "end": 445.73
+        },
+        {
+          "w": "bound",
+          "start": 445.78,
+          "end": 446.35
+        },
+        {
+          "w": "would",
+          "start": 446.4,
+          "end": 446.97
+        },
+        {
+          "w": "also",
+          "start": 447.02,
+          "end": 447.59
+        },
+        {
+          "w": "be",
+          "start": 447.64,
+          "end": 448.21
+        },
+        {
+          "w": "true.",
+          "start": 448.26,
+          "end": 448.83
+        },
+        {
+          "w": "It",
+          "start": 448.88,
+          "end": 449.45
+        },
+        {
+          "w": "would",
+          "start": 449.5,
+          "end": 450.07
+        },
+        {
+          "w": "just",
+          "start": 450.11,
+          "end": 450.68
+        },
+        {
+          "w": "be",
+          "start": 450.73,
+          "end": 451.3
+        },
+        {
+          "w": "loose,",
+          "start": 451.35,
+          "end": 451.92
+        },
+        {
+          "w": "and",
+          "start": 451.97,
+          "end": 452.54
+        },
+        {
+          "w": "loose",
+          "start": 452.59,
+          "end": 453.16
+        },
+        {
+          "w": "here",
+          "start": 453.21,
+          "end": 453.78
+        },
+        {
+          "w": "means",
+          "start": 453.83,
+          "end": 454.4
+        },
+        {
+          "w": "you",
+          "start": 454.45,
+          "end": 455.02
+        },
+        {
+          "w": "throw",
+          "start": 455.07,
+          "end": 455.63
+        },
+        {
+          "w": "away",
+          "start": 455.68,
+          "end": 456.25
+        },
+        {
+          "w": "radius",
+          "start": 456.3,
+          "end": 456.87
+        },
+        {
+          "w": "that",
+          "start": 456.92,
+          "end": 457.49
+        },
+        {
+          "w": "you",
+          "start": 457.54,
+          "end": 458.11
+        },
+        {
+          "w": "actually",
+          "start": 458.16,
+          "end": 458.73
+        },
+        {
+          "w": "earned.",
+          "start": 458.78,
+          "end": 459.35
+        },
+        {
+          "w": "That",
+          "start": 459.4,
+          "end": 459.97
+        },
+        {
+          "w": "is",
+          "start": 460.02,
+          "end": 460.58
+        },
+        {
+          "w": "the",
+          "start": 460.63,
+          "end": 461.2
+        },
+        {
+          "w": "whole",
+          "start": 461.25,
+          "end": 461.82
+        },
+        {
+          "w": "difference.",
+          "start": 461.87,
+          "end": 462.44
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "slide": 3,
+      "start": 463.64,
+      "end": 481.58,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "Notice that this is why the guarantee comes out in ell two and not ell infinity, even though the slide writes the threat model with an infinity norm. I'll come back to that, it's a bit of a wart.",
+      "words": [
+        {
+          "w": "Notice",
+          "start": 463.64,
+          "end": 464.06
+        },
+        {
+          "w": "that",
+          "start": 464.1,
+          "end": 464.52
+        },
+        {
+          "w": "this",
+          "start": 464.56,
+          "end": 464.98
+        },
+        {
+          "w": "is",
+          "start": 465.02,
+          "end": 465.44
+        },
+        {
+          "w": "why",
+          "start": 465.48,
+          "end": 465.9
+        },
+        {
+          "w": "the",
+          "start": 465.94,
+          "end": 466.36
+        },
+        {
+          "w": "guarantee",
+          "start": 466.4,
+          "end": 466.82
+        },
+        {
+          "w": "comes",
+          "start": 466.86,
+          "end": 467.28
+        },
+        {
+          "w": "out",
+          "start": 467.32,
+          "end": 467.74
+        },
+        {
+          "w": "in",
+          "start": 467.78,
+          "end": 468.2
+        },
+        {
+          "w": "ell",
+          "start": 468.24,
+          "end": 468.66
+        },
+        {
+          "w": "two",
+          "start": 468.7,
+          "end": 469.12
+        },
+        {
+          "w": "and",
+          "start": 469.16,
+          "end": 469.58
+        },
+        {
+          "w": "not",
+          "start": 469.62,
+          "end": 470.04
+        },
+        {
+          "w": "ell",
+          "start": 470.08,
+          "end": 470.5
+        },
+        {
+          "w": "infinity,",
+          "start": 470.54,
+          "end": 470.96
+        },
+        {
+          "w": "even",
+          "start": 471.0,
+          "end": 471.42
+        },
+        {
+          "w": "though",
+          "start": 471.46,
+          "end": 471.88
+        },
+        {
+          "w": "the",
+          "start": 471.92,
+          "end": 472.34
+        },
+        {
+          "w": "slide",
+          "start": 472.38,
+          "end": 472.8
+        },
+        {
+          "w": "writes",
+          "start": 472.84,
+          "end": 473.26
+        },
+        {
+          "w": "the",
+          "start": 473.3,
+          "end": 473.72
+        },
+        {
+          "w": "threat",
+          "start": 473.76,
+          "end": 474.18
+        },
+        {
+          "w": "model",
+          "start": 474.22,
+          "end": 474.64
+        },
+        {
+          "w": "with",
+          "start": 474.68,
+          "end": 475.1
+        },
+        {
+          "w": "an",
+          "start": 475.14,
+          "end": 475.56
+        },
+        {
+          "w": "infinity",
+          "start": 475.6,
+          "end": 476.02
+        },
+        {
+          "w": "norm.",
+          "start": 476.06,
+          "end": 476.48
+        },
+        {
+          "w": "I'll",
+          "start": 476.52,
+          "end": 476.94
+        },
+        {
+          "w": "come",
+          "start": 476.98,
+          "end": 477.4
+        },
+        {
+          "w": "back",
+          "start": 477.44,
+          "end": 477.86
+        },
+        {
+          "w": "to",
+          "start": 477.9,
+          "end": 478.32
+        },
+        {
+          "w": "that,",
+          "start": 478.36,
+          "end": 478.78
+        },
+        {
+          "w": "it's",
+          "start": 478.82,
+          "end": 479.24
+        },
+        {
+          "w": "a",
+          "start": 479.28,
+          "end": 479.7
+        },
+        {
+          "w": "bit",
+          "start": 479.74,
+          "end": 480.16
+        },
+        {
+          "w": "of",
+          "start": 480.2,
+          "end": 480.62
+        },
+        {
+          "w": "a",
+          "start": 480.66,
+          "end": 481.08
+        },
+        {
+          "w": "wart.",
+          "start": 481.12,
+          "end": 481.55
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "slide": 3,
+      "start": 482.73,
+      "end": 500.67,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "Sigma is the only knob you have. Crank it up and the radius goes up, the clean accuracy goes down, and at some point the base classifier can't see anything at all and the vote probability collapses to chance.",
+      "words": [
+        {
+          "w": "Sigma",
+          "start": 482.73,
+          "end": 483.15
+        },
+        {
+          "w": "is",
+          "start": 483.19,
+          "end": 483.61
+        },
+        {
+          "w": "the",
+          "start": 483.65,
+          "end": 484.07
+        },
+        {
+          "w": "only",
+          "start": 484.11,
+          "end": 484.53
+        },
+        {
+          "w": "knob",
+          "start": 484.57,
+          "end": 484.99
+        },
+        {
+          "w": "you",
+          "start": 485.03,
+          "end": 485.45
+        },
+        {
+          "w": "have.",
+          "start": 485.49,
+          "end": 485.91
+        },
+        {
+          "w": "Crank",
+          "start": 485.95,
+          "end": 486.37
+        },
+        {
+          "w": "it",
+          "start": 486.41,
+          "end": 486.83
+        },
+        {
+          "w": "up",
+          "start": 486.87,
+          "end": 487.29
+        },
+        {
+          "w": "and",
+          "start": 487.33,
+          "end": 487.75
+        },
+        {
+          "w": "the",
+          "start": 487.79,
+          "end": 488.21
+        },
+        {
+          "w": "radius",
+          "start": 488.25,
+          "end": 488.67
+        },
+        {
+          "w": "goes",
+          "start": 488.71,
+          "end": 489.13
+        },
+        {
+          "w": "up,",
+          "start": 489.17,
+          "end": 489.59
+        },
+        {
+          "w": "the",
+          "start": 489.63,
+          "end": 490.05
+        },
+        {
+          "w": "clean",
+          "start": 490.09,
+          "end": 490.51
+        },
+        {
+          "w": "accuracy",
+          "start": 490.55,
+          "end": 490.97
+        },
+        {
+          "w": "goes",
+          "start": 491.01,
+          "end": 491.43
+        },
+        {
+          "w": "down,",
+          "start": 491.47,
+          "end": 491.89
+        },
+        {
+          "w": "and",
+          "start": 491.93,
+          "end": 492.35
+        },
+        {
+          "w": "at",
+          "start": 492.39,
+          "end": 492.81
+        },
+        {
+          "w": "some",
+          "start": 492.85,
+          "end": 493.27
+        },
+        {
+          "w": "point",
+          "start": 493.31,
+          "end": 493.73
+        },
+        {
+          "w": "the",
+          "start": 493.77,
+          "end": 494.19
+        },
+        {
+          "w": "base",
+          "start": 494.23,
+          "end": 494.65
+        },
+        {
+          "w": "classifier",
+          "start": 494.69,
+          "end": 495.11
+        },
+        {
+          "w": "can't",
+          "start": 495.15,
+          "end": 495.57
+        },
+        {
+          "w": "see",
+          "start": 495.61,
+          "end": 496.03
+        },
+        {
+          "w": "anything",
+          "start": 496.07,
+          "end": 496.49
+        },
+        {
+          "w": "at",
+          "start": 496.53,
+          "end": 496.95
+        },
+        {
+          "w": "all",
+          "start": 496.99,
+          "end": 497.41
+        },
+        {
+          "w": "and",
+          "start": 497.45,
+          "end": 497.88
+        },
+        {
+          "w": "the",
+          "start": 497.91,
+          "end": 498.34
+        },
+        {
+          "w": "vote",
+          "start": 498.37,
+          "end": 498.8
+        },
+        {
+          "w": "probability",
+          "start": 498.83,
+          "end": 499.26
+        },
+        {
+          "w": "collapses",
+          "start": 499.29,
+          "end": 499.72
+        },
+        {
+          "w": "to",
+          "start": 499.75,
+          "end": 500.18
+        },
+        {
+          "w": "chance.",
+          "start": 500.21,
+          "end": 500.64
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "slide": 3,
+      "start": 501.82,
+      "end": 519.76,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "In the paper they sweep sigma at point two five, point five and one, and the point five curve is the one everybody ends up plotting.",
+      "words": [
+        {
+          "w": "In",
+          "start": 501.82,
+          "end": 502.45
+        },
+        {
+          "w": "the",
+          "start": 502.51,
+          "end": 503.14
+        },
+        {
+          "w": "paper",
+          "start": 503.2,
+          "end": 503.83
+        },
+        {
+          "w": "they",
+          "start": 503.89,
+          "end": 504.52
+        },
+        {
+          "w": "sweep",
+          "start": 504.58,
+          "end": 505.21
+        },
+        {
+          "w": "sigma",
+          "start": 505.27,
+          "end": 505.9
+        },
+        {
+          "w": "at",
+          "start": 505.96,
+          "end": 506.59
+        },
+        {
+          "w": "point",
+          "start": 506.65,
+          "end": 507.28
+        },
+        {
+          "w": "two",
+          "start": 507.34,
+          "end": 507.97
+        },
+        {
+          "w": "five,",
+          "start": 508.03,
+          "end": 508.67
+        },
+        {
+          "w": "point",
+          "start": 508.72,
+          "end": 509.36
+        },
+        {
+          "w": "five",
+          "start": 509.41,
+          "end": 510.05
+        },
+        {
+          "w": "and",
+          "start": 510.1,
+          "end": 510.74
+        },
+        {
+          "w": "one,",
+          "start": 510.79,
+          "end": 511.43
+        },
+        {
+          "w": "and",
+          "start": 511.48,
+          "end": 512.12
+        },
+        {
+          "w": "the",
+          "start": 512.17,
+          "end": 512.81
+        },
+        {
+          "w": "point",
+          "start": 512.86,
+          "end": 513.5
+        },
+        {
+          "w": "five",
+          "start": 513.55,
+          "end": 514.19
+        },
+        {
+          "w": "curve",
+          "start": 514.24,
+          "end": 514.88
+        },
+        {
+          "w": "is",
+          "start": 514.93,
+          "end": 515.57
+        },
+        {
+          "w": "the",
+          "start": 515.62,
+          "end": 516.26
+        },
+        {
+          "w": "one",
+          "start": 516.31,
+          "end": 516.95
+        },
+        {
+          "w": "everybody",
+          "start": 517.0,
+          "end": 517.64
+        },
+        {
+          "w": "ends",
+          "start": 517.69,
+          "end": 518.33
+        },
+        {
+          "w": "up",
+          "start": 518.38,
+          "end": 519.02
+        },
+        {
+          "w": "plotting.",
+          "start": 519.07,
+          "end": 519.71
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "slide": 3,
+      "start": 520.91,
+      "end": 538.85,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "Okay, hold that thought. Let's look at the two ways people report robustness.",
+      "words": [
+        {
+          "w": "Okay,",
+          "start": 520.91,
+          "end": 522.18
+        },
+        {
+          "w": "hold",
+          "start": 522.29,
+          "end": 523.56
+        },
+        {
+          "w": "that",
+          "start": 523.67,
+          "end": 524.94
+        },
+        {
+          "w": "thought.",
+          "start": 525.05,
+          "end": 526.32
+        },
+        {
+          "w": "Let's",
+          "start": 526.43,
+          "end": 527.7
+        },
+        {
+          "w": "look",
+          "start": 527.81,
+          "end": 529.08
+        },
+        {
+          "w": "at",
+          "start": 529.19,
+          "end": 530.46
+        },
+        {
+          "w": "the",
+          "start": 530.57,
+          "end": 531.84
+        },
+        {
+          "w": "two",
+          "start": 531.95,
+          "end": 533.22
+        },
+        {
+          "w": "ways",
+          "start": 533.33,
+          "end": 534.6
+        },
+        {
+          "w": "people",
+          "start": 534.71,
+          "end": 535.98
+        },
+        {
+          "w": "report",
+          "start": 536.09,
+          "end": 537.36
+        },
+        {
+          "w": "robustness.",
+          "start": 537.47,
+          "end": 538.74
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "slide": 4,
+      "start": 540.0,
+      "end": 558.8,
+      "prompt": "empirical robustness, certified robustness, certified radius, attack",
+      "text": "Two views. Empirical on the left, certified on the right.",
+      "words": [
+        {
+          "w": "Two",
+          "start": 540.0,
+          "end": 541.73
+        },
+        {
+          "w": "views.",
+          "start": 541.88,
+          "end": 543.61
+        },
+        {
+          "w": "Empirical",
+          "start": 543.76,
+          "end": 545.49
+        },
+        {
+          "w": "on",
+          "start": 545.64,
+          "end": 547.37
+        },
+        {
+          "w": "the",
+          "start": 547.52,
+          "end": 549.25
+        },
+        {
+          "w": "left,",
+          "start": 549.4,
+          "end": 551.13
+        },
+        {
+          "w": "certified",
+          "start": 551.28,
+          "end": 553.01
+        },
+        {
+          "w": "on",
+          "start": 553.16,
+          "end": 554.89
+        },
+        {
+          "w": "the",
+          "start": 555.04,
+          "end": 556.77
+        },
+        {
+          "w": "right.",
+          "start": 556.92,
+          "end": 558.65
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "slide": 4,
+      "start": 560.0,
+      "end": 578.8,
+      "prompt": "empirical robustness, certified robustness, certified radius, attack",
+      "text": "Remember lecture two, when we broke that published defense in about fifteen minutes with a transfer attack? That is this left hand column. It was published, it had numbers, and the numbers meant nothing.",
+      "words": [
+        {
+          "w": "Remember",
+          "start": 560.0,
+          "end": 560.51
+        },
+        {
+          "w": "lecture",
+          "start": 560.55,
+          "end": 561.06
+        },
+        {
+          "w": "two,",
+          "start": 561.11,
+          "end": 561.61
+        },
+        {
+          "w": "when",
+          "start": 561.66,
+          "end": 562.17
+        },
+        {
+          "w": "we",
+          "start": 562.21,
+          "end": 562.72
+        },
+        {
+          "w": "broke",
+          "start": 562.76,
+          "end": 563.27
+        },
+        {
+          "w": "that",
+          "start": 563.32,
+          "end": 563.83
+        },
+        {
+          "w": "published",
+          "start": 563.87,
+          "end": 564.38
+        },
+        {
+          "w": "defense",
+          "start": 564.42,
+          "end": 564.93
+        },
+        {
+          "w": "in",
+          "start": 564.98,
+          "end": 565.49
+        },
+        {
+          "w": "about",
+          "start": 565.53,
+          "end": 566.04
+        },
+        {
+          "w": "fifteen",
+          "start": 566.08,
+          "end": 566.59
+        },
+        {
+          "w": "minutes",
+          "start": 566.64,
+          "end": 567.14
+        },
+        {
+          "w": "with",
+          "start": 567.19,
+          "end": 567.7
+        },
+        {
+          "w": "a",
+          "start": 567.74,
+          "end": 568.25
+        },
+        {
+          "w": "transfer",
+          "start": 568.29,
+          "end": 568.8
+        },
+        {
+          "w": "attack?",
+          "start": 568.85,
+          "end": 569.36
+        },
+        {
+          "w": "That",
+          "start": 569.4,
+          "end": 569.91
+        },
+        {
+          "w": "is",
+          "start": 569.95,
+          "end": 570.46
+        },
+        {
+          "w": "this",
+          "start": 570.51,
+          "end": 571.01
+        },
+        {
+          "w": "left",
+          "start": 571.06,
+          "end": 571.57
+        },
+        {
+          "w": "hand",
+          "start": 571.61,
+          "end": 572.12
+        },
+        {
+          "w": "column.",
+          "start": 572.16,
+          "end": 572.67
+        },
+        {
+          "w": "It",
+          "start": 572.72,
+          "end": 573.23
+        },
+        {
+          "w": "was",
+          "start": 573.27,
+          "end": 573.78
+        },
+        {
+          "w": "published,",
+          "start": 573.82,
+          "end": 574.33
+        },
+        {
+          "w": "it",
+          "start": 574.38,
+          "end": 574.89
+        },
+        {
+          "w": "had",
+          "start": 574.93,
+          "end": 575.44
+        },
+        {
+          "w": "numbers,",
+          "start": 575.48,
+          "end": 575.99
+        },
+        {
+          "w": "and",
+          "start": 576.04,
+          "end": 576.54
+        },
+        {
+          "w": "the",
+          "start": 576.59,
+          "end": 577.1
+        },
+        {
+          "w": "numbers",
+          "start": 577.14,
+          "end": 577.65
+        },
+        {
+          "w": "meant",
+          "start": 577.69,
+          "end": 578.2
+        },
+        {
+          "w": "nothing.",
+          "start": 578.25,
+          "end": 578.76
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "slide": 4,
+      "start": 580.0,
+      "end": 598.8,
+      "prompt": "empirical robustness, certified robustness, certified radius, attack",
+      "text": "That is the connection I want you to hold on to. Empirical robustness is a claim about the attacks somebody happened to run that week.",
+      "words": [
+        {
+          "w": "That",
+          "start": 580.0,
+          "end": 580.69
+        },
+        {
+          "w": "is",
+          "start": 580.75,
+          "end": 581.44
+        },
+        {
+          "w": "the",
+          "start": 581.5,
+          "end": 582.2
+        },
+        {
+          "w": "connection",
+          "start": 582.26,
+          "end": 582.95
+        },
+        {
+          "w": "I",
+          "start": 583.01,
+          "end": 583.7
+        },
+        {
+          "w": "want",
+          "start": 583.76,
+          "end": 584.45
+        },
+        {
+          "w": "you",
+          "start": 584.51,
+          "end": 585.2
+        },
+        {
+          "w": "to",
+          "start": 585.26,
+          "end": 585.96
+        },
+        {
+          "w": "hold",
+          "start": 586.02,
+          "end": 586.71
+        },
+        {
+          "w": "on",
+          "start": 586.77,
+          "end": 587.46
+        },
+        {
+          "w": "to.",
+          "start": 587.52,
+          "end": 588.21
+        },
+        {
+          "w": "Empirical",
+          "start": 588.27,
+          "end": 588.96
+        },
+        {
+          "w": "robustness",
+          "start": 589.02,
+          "end": 589.72
+        },
+        {
+          "w": "is",
+          "start": 589.78,
+          "end": 590.47
+        },
+        {
+          "w": "a",
+          "start": 590.53,
+          "end": 591.22
+        },
+        {
+          "w": "claim",
+          "start": 591.28,
+          "end": 591.97
+        },
+        {
+          "w": "about",
+          "start": 592.03,
+          "end": 592.72
+        },
+        {
+          "w": "the",
+          "start": 592.78,
+          "end": 593.48
+        },
+        {
+          "w": "attacks",
+          "start": 593.54,
+          "end": 594.23
+        },
+        {
+          "w": "somebody",
+          "start": 594.29,
+          "end": 594.98
+        },
+        {
+          "w": "happened",
+          "start": 595.04,
+          "end": 595.73
+        },
+        {
+          "w": "to",
+          "start": 595.79,
+          "end": 596.48
+        },
+        {
+          "w": "run",
+          "start": 596.54,
+          "end": 597.24
+        },
+        {
+          "w": "that",
+          "start": 597.3,
+          "end": 597.99
+        },
+        {
+          "w": "week.",
+          "start": 598.05,
+          "end": 598.74
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "slide": 4,
+      "start": 600.0,
+      "end": 618.8,
+      "prompt": "empirical robustness, certified robustness, certified radius, attack",
+      "text": "Exam hint, and I will say this exactly once: if I hand you a table of robust accuracies and ask what is wrong with it, the answer I am looking for is almost always that the attack was fixed and the defense was tuned against it.",
+      "words": [
+        {
+          "w": "Exam",
+          "start": 600.0,
+          "end": 600.38
+        },
+        {
+          "w": "hint,",
+          "start": 600.41,
+          "end": 600.78
+        },
+        {
+          "w": "and",
+          "start": 600.82,
+          "end": 601.19
+        },
+        {
+          "w": "I",
+          "start": 601.23,
+          "end": 601.6
+        },
+        {
+          "w": "will",
+          "start": 601.63,
+          "end": 602.01
+        },
+        {
+          "w": "say",
+          "start": 602.04,
+          "end": 602.42
+        },
+        {
+          "w": "this",
+          "start": 602.45,
+          "end": 602.83
+        },
+        {
+          "w": "exactly",
+          "start": 602.86,
+          "end": 603.24
+        },
+        {
+          "w": "once:",
+          "start": 603.27,
+          "end": 603.65
+        },
+        {
+          "w": "if",
+          "start": 603.68,
+          "end": 604.05
+        },
+        {
+          "w": "I",
+          "start": 604.09,
+          "end": 604.46
+        },
+        {
+          "w": "hand",
+          "start": 604.5,
+          "end": 604.87
+        },
+        {
+          "w": "you",
+          "start": 604.9,
+          "end": 605.28
+        },
+        {
+          "w": "a",
+          "start": 605.31,
+          "end": 605.69
+        },
+        {
+          "w": "table",
+          "start": 605.72,
+          "end": 606.1
+        },
+        {
+          "w": "of",
+          "start": 606.13,
+          "end": 606.51
+        },
+        {
+          "w": "robust",
+          "start": 606.54,
+          "end": 606.92
+        },
+        {
+          "w": "accuracies",
+          "start": 606.95,
+          "end": 607.32
+        },
+        {
+          "w": "and",
+          "start": 607.36,
+          "end": 607.73
+        },
+        {
+          "w": "ask",
+          "start": 607.77,
+          "end": 608.14
+        },
+        {
+          "w": "what",
+          "start": 608.17,
+          "end": 608.55
+        },
+        {
+          "w": "is",
+          "start": 608.58,
+          "end": 608.96
+        },
+        {
+          "w": "wrong",
+          "start": 608.99,
+          "end": 609.37
+        },
+        {
+          "w": "with",
+          "start": 609.4,
+          "end": 609.78
+        },
+        {
+          "w": "it,",
+          "start": 609.81,
+          "end": 610.18
+        },
+        {
+          "w": "the",
+          "start": 610.22,
+          "end": 610.59
+        },
+        {
+          "w": "answer",
+          "start": 610.63,
+          "end": 611.0
+        },
+        {
+          "w": "I",
+          "start": 611.03,
+          "end": 611.41
+        },
+        {
+          "w": "am",
+          "start": 611.44,
+          "end": 611.82
+        },
+        {
+          "w": "looking",
+          "start": 611.85,
+          "end": 612.23
+        },
+        {
+          "w": "for",
+          "start": 612.26,
+          "end": 612.64
+        },
+        {
+          "w": "is",
+          "start": 612.67,
+          "end": 613.05
+        },
+        {
+          "w": "almost",
+          "start": 613.08,
+          "end": 613.45
+        },
+        {
+          "w": "always",
+          "start": 613.49,
+          "end": 613.86
+        },
+        {
+          "w": "that",
+          "start": 613.9,
+          "end": 614.27
+        },
+        {
+          "w": "the",
+          "start": 614.3,
+          "end": 614.68
+        },
+        {
+          "w": "attack",
+          "start": 614.71,
+          "end": 615.09
+        },
+        {
+          "w": "was",
+          "start": 615.12,
+          "end": 615.5
+        },
+        {
+          "w": "fixed",
+          "start": 615.53,
+          "end": 615.91
+        },
+        {
+          "w": "and",
+          "start": 615.94,
+          "end": 616.32
+        },
+        {
+          "w": "the",
+          "start": 616.35,
+          "end": 616.72
+        },
+        {
+          "w": "defense",
+          "start": 616.76,
+          "end": 617.13
+        },
+        {
+          "w": "was",
+          "start": 617.17,
+          "end": 617.54
+        },
+        {
+          "w": "tuned",
+          "start": 617.57,
+          "end": 617.95
+        },
+        {
+          "w": "against",
+          "start": 617.98,
+          "end": 618.36
+        },
+        {
+          "w": "it.",
+          "start": 618.39,
+          "end": 618.77
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "slide": 4,
+      "start": 620.0,
+      "end": 638.8,
+      "prompt": "empirical robustness, certified robustness, certified radius, attack",
+      "text": "Certified numbers are smaller. Every single time. If you ever see a certified number that beats an empirical number on the same model, something is broken in the evaluation and you should go and find it.",
+      "words": [
+        {
+          "w": "Certified",
+          "start": 620.0,
+          "end": 620.48
+        },
+        {
+          "w": "numbers",
+          "start": 620.52,
+          "end": 621.0
+        },
+        {
+          "w": "are",
+          "start": 621.04,
+          "end": 621.52
+        },
+        {
+          "w": "smaller.",
+          "start": 621.57,
+          "end": 622.05
+        },
+        {
+          "w": "Every",
+          "start": 622.09,
+          "end": 622.57
+        },
+        {
+          "w": "single",
+          "start": 622.61,
+          "end": 623.09
+        },
+        {
+          "w": "time.",
+          "start": 623.13,
+          "end": 623.61
+        },
+        {
+          "w": "If",
+          "start": 623.66,
+          "end": 624.14
+        },
+        {
+          "w": "you",
+          "start": 624.18,
+          "end": 624.66
+        },
+        {
+          "w": "ever",
+          "start": 624.7,
+          "end": 625.18
+        },
+        {
+          "w": "see",
+          "start": 625.22,
+          "end": 625.7
+        },
+        {
+          "w": "a",
+          "start": 625.74,
+          "end": 626.22
+        },
+        {
+          "w": "certified",
+          "start": 626.27,
+          "end": 626.75
+        },
+        {
+          "w": "number",
+          "start": 626.79,
+          "end": 627.27
+        },
+        {
+          "w": "that",
+          "start": 627.31,
+          "end": 627.79
+        },
+        {
+          "w": "beats",
+          "start": 627.83,
+          "end": 628.31
+        },
+        {
+          "w": "an",
+          "start": 628.36,
+          "end": 628.84
+        },
+        {
+          "w": "empirical",
+          "start": 628.88,
+          "end": 629.36
+        },
+        {
+          "w": "number",
+          "start": 629.4,
+          "end": 629.88
+        },
+        {
+          "w": "on",
+          "start": 629.92,
+          "end": 630.4
+        },
+        {
+          "w": "the",
+          "start": 630.44,
+          "end": 630.92
+        },
+        {
+          "w": "same",
+          "start": 630.97,
+          "end": 631.45
+        },
+        {
+          "w": "model,",
+          "start": 631.49,
+          "end": 631.97
+        },
+        {
+          "w": "something",
+          "start": 632.01,
+          "end": 632.49
+        },
+        {
+          "w": "is",
+          "start": 632.53,
+          "end": 633.01
+        },
+        {
+          "w": "broken",
+          "start": 633.06,
+          "end": 633.54
+        },
+        {
+          "w": "in",
+          "start": 633.58,
+          "end": 634.06
+        },
+        {
+          "w": "the",
+          "start": 634.1,
+          "end": 634.58
+        },
+        {
+          "w": "evaluation",
+          "start": 634.62,
+          "end": 635.1
+        },
+        {
+          "w": "and",
+          "start": 635.14,
+          "end": 635.62
+        },
+        {
+          "w": "you",
+          "start": 635.67,
+          "end": 636.15
+        },
+        {
+          "w": "should",
+          "start": 636.19,
+          "end": 636.67
+        },
+        {
+          "w": "go",
+          "start": 636.71,
+          "end": 637.19
+        },
+        {
+          "w": "and",
+          "start": 637.23,
+          "end": 637.71
+        },
+        {
+          "w": "find",
+          "start": 637.76,
+          "end": 638.24
+        },
+        {
+          "w": "it.",
+          "start": 638.28,
+          "end": 638.76
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "slide": 4,
+      "start": 640.0,
+      "end": 658.8,
+      "prompt": "empirical robustness, certified robustness, certified radius, attack",
+      "text": "People find that demoralising and I think that is exactly the wrong reaction. A small honest number is a floor. The empirical number is a ceiling that may not even exist.",
+      "words": [
+        {
+          "w": "People",
+          "start": 640.0,
+          "end": 640.56
+        },
+        {
+          "w": "find",
+          "start": 640.61,
+          "end": 641.16
+        },
+        {
+          "w": "that",
+          "start": 641.21,
+          "end": 641.77
+        },
+        {
+          "w": "demoralising",
+          "start": 641.82,
+          "end": 642.38
+        },
+        {
+          "w": "and",
+          "start": 642.43,
+          "end": 642.98
+        },
+        {
+          "w": "I",
+          "start": 643.03,
+          "end": 643.59
+        },
+        {
+          "w": "think",
+          "start": 643.64,
+          "end": 644.2
+        },
+        {
+          "w": "that",
+          "start": 644.25,
+          "end": 644.8
+        },
+        {
+          "w": "is",
+          "start": 644.85,
+          "end": 645.41
+        },
+        {
+          "w": "exactly",
+          "start": 645.46,
+          "end": 646.02
+        },
+        {
+          "w": "the",
+          "start": 646.06,
+          "end": 646.62
+        },
+        {
+          "w": "wrong",
+          "start": 646.67,
+          "end": 647.23
+        },
+        {
+          "w": "reaction.",
+          "start": 647.28,
+          "end": 647.84
+        },
+        {
+          "w": "A",
+          "start": 647.88,
+          "end": 648.44
+        },
+        {
+          "w": "small",
+          "start": 648.49,
+          "end": 649.05
+        },
+        {
+          "w": "honest",
+          "start": 649.1,
+          "end": 649.65
+        },
+        {
+          "w": "number",
+          "start": 649.7,
+          "end": 650.26
+        },
+        {
+          "w": "is",
+          "start": 650.31,
+          "end": 650.87
+        },
+        {
+          "w": "a",
+          "start": 650.92,
+          "end": 651.47
+        },
+        {
+          "w": "floor.",
+          "start": 651.52,
+          "end": 652.08
+        },
+        {
+          "w": "The",
+          "start": 652.13,
+          "end": 652.69
+        },
+        {
+          "w": "empirical",
+          "start": 652.74,
+          "end": 653.29
+        },
+        {
+          "w": "number",
+          "start": 653.34,
+          "end": 653.9
+        },
+        {
+          "w": "is",
+          "start": 653.95,
+          "end": 654.51
+        },
+        {
+          "w": "a",
+          "start": 654.55,
+          "end": 655.11
+        },
+        {
+          "w": "ceiling",
+          "start": 655.16,
+          "end": 655.72
+        },
+        {
+          "w": "that",
+          "start": 655.77,
+          "end": 656.33
+        },
+        {
+          "w": "may",
+          "start": 656.37,
+          "end": 656.93
+        },
+        {
+          "w": "not",
+          "start": 656.98,
+          "end": 657.54
+        },
+        {
+          "w": "even",
+          "start": 657.59,
+          "end": 658.15
+        },
+        {
+          "w": "exist.",
+          "start": 658.19,
+          "end": 658.75
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "slide": 4,
+      "start": 660.0,
+      "end": 678.8,
+      "prompt": "empirical robustness, certified robustness, certified radius, attack",
+      "text": "One more thing that is not on the slide. Certified accuracy is always reported at a radius. A certified accuracy without a radius attached is meaningless, and you will see it in papers anyway.",
+      "words": [
+        {
+          "w": "One",
+          "start": 660.0,
+          "end": 660.51
+        },
+        {
+          "w": "more",
+          "start": 660.55,
+          "end": 661.06
+        },
+        {
+          "w": "thing",
+          "start": 661.11,
+          "end": 661.61
+        },
+        {
+          "w": "that",
+          "start": 661.66,
+          "end": 662.17
+        },
+        {
+          "w": "is",
+          "start": 662.21,
+          "end": 662.72
+        },
+        {
+          "w": "not",
+          "start": 662.76,
+          "end": 663.27
+        },
+        {
+          "w": "on",
+          "start": 663.32,
+          "end": 663.83
+        },
+        {
+          "w": "the",
+          "start": 663.87,
+          "end": 664.38
+        },
+        {
+          "w": "slide.",
+          "start": 664.42,
+          "end": 664.93
+        },
+        {
+          "w": "Certified",
+          "start": 664.98,
+          "end": 665.49
+        },
+        {
+          "w": "accuracy",
+          "start": 665.53,
+          "end": 666.04
+        },
+        {
+          "w": "is",
+          "start": 666.08,
+          "end": 666.59
+        },
+        {
+          "w": "always",
+          "start": 666.64,
+          "end": 667.14
+        },
+        {
+          "w": "reported",
+          "start": 667.19,
+          "end": 667.7
+        },
+        {
+          "w": "at",
+          "start": 667.74,
+          "end": 668.25
+        },
+        {
+          "w": "a",
+          "start": 668.29,
+          "end": 668.8
+        },
+        {
+          "w": "radius.",
+          "start": 668.85,
+          "end": 669.36
+        },
+        {
+          "w": "A",
+          "start": 669.4,
+          "end": 669.91
+        },
+        {
+          "w": "certified",
+          "start": 669.95,
+          "end": 670.46
+        },
+        {
+          "w": "accuracy",
+          "start": 670.51,
+          "end": 671.01
+        },
+        {
+          "w": "without",
+          "start": 671.06,
+          "end": 671.57
+        },
+        {
+          "w": "a",
+          "start": 671.61,
+          "end": 672.12
+        },
+        {
+          "w": "radius",
+          "start": 672.16,
+          "end": 672.67
+        },
+        {
+          "w": "attached",
+          "start": 672.72,
+          "end": 673.23
+        },
+        {
+          "w": "is",
+          "start": 673.27,
+          "end": 673.78
+        },
+        {
+          "w": "meaningless,",
+          "start": 673.82,
+          "end": 674.33
+        },
+        {
+          "w": "and",
+          "start": 674.38,
+          "end": 674.89
+        },
+        {
+          "w": "you",
+          "start": 674.93,
+          "end": 675.44
+        },
+        {
+          "w": "will",
+          "start": 675.48,
+          "end": 675.99
+        },
+        {
+          "w": "see",
+          "start": 676.04,
+          "end": 676.54
+        },
+        {
+          "w": "it",
+          "start": 676.59,
+          "end": 677.1
+        },
+        {
+          "w": "in",
+          "start": 677.14,
+          "end": 677.65
+        },
+        {
+          "w": "papers",
+          "start": 677.69,
+          "end": 678.2
+        },
+        {
+          "w": "anyway.",
+          "start": 678.25,
+          "end": 678.76
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "slide": 4,
+      "start": 680.0,
+      "end": 698.8,
+      "prompt": "empirical robustness, certified robustness, certified radius, attack",
+      "text": "So when you read a table, find the radius column first. If there isn't one, close the tab.",
+      "words": [
+        {
+          "w": "So",
+          "start": 680.0,
+          "end": 680.96
+        },
+        {
+          "w": "when",
+          "start": 681.04,
+          "end": 682.01
+        },
+        {
+          "w": "you",
+          "start": 682.09,
+          "end": 683.05
+        },
+        {
+          "w": "read",
+          "start": 683.13,
+          "end": 684.09
+        },
+        {
+          "w": "a",
+          "start": 684.18,
+          "end": 685.14
+        },
+        {
+          "w": "table,",
+          "start": 685.22,
+          "end": 686.18
+        },
+        {
+          "w": "find",
+          "start": 686.27,
+          "end": 687.23
+        },
+        {
+          "w": "the",
+          "start": 687.31,
+          "end": 688.27
+        },
+        {
+          "w": "radius",
+          "start": 688.36,
+          "end": 689.32
+        },
+        {
+          "w": "column",
+          "start": 689.4,
+          "end": 690.36
+        },
+        {
+          "w": "first.",
+          "start": 690.44,
+          "end": 691.41
+        },
+        {
+          "w": "If",
+          "start": 691.49,
+          "end": 692.45
+        },
+        {
+          "w": "there",
+          "start": 692.53,
+          "end": 693.49
+        },
+        {
+          "w": "isn't",
+          "start": 693.58,
+          "end": 694.54
+        },
+        {
+          "w": "one,",
+          "start": 694.62,
+          "end": 695.58
+        },
+        {
+          "w": "close",
+          "start": 695.67,
+          "end": 696.63
+        },
+        {
+          "w": "the",
+          "start": 696.71,
+          "end": 697.67
+        },
+        {
+          "w": "tab.",
+          "start": 697.76,
+          "end": 698.72
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "slide": 4,
+      "start": 700.0,
+      "end": 718.8,
+      "prompt": "empirical robustness, certified robustness, certified radius, attack",
+      "text": "Right. Let me go back a slide, I want to close a loop.",
+      "words": [
+        {
+          "w": "Right.",
+          "start": 700.0,
+          "end": 701.33
+        },
+        {
+          "w": "Let",
+          "start": 701.45,
+          "end": 702.78
+        },
+        {
+          "w": "me",
+          "start": 702.89,
+          "end": 704.22
+        },
+        {
+          "w": "go",
+          "start": 704.34,
+          "end": 705.67
+        },
+        {
+          "w": "back",
+          "start": 705.78,
+          "end": 707.12
+        },
+        {
+          "w": "a",
+          "start": 707.23,
+          "end": 708.56
+        },
+        {
+          "w": "slide,",
+          "start": 708.68,
+          "end": 710.01
+        },
+        {
+          "w": "I",
+          "start": 710.12,
+          "end": 711.45
+        },
+        {
+          "w": "want",
+          "start": 711.57,
+          "end": 712.9
+        },
+        {
+          "w": "to",
+          "start": 713.02,
+          "end": 714.35
+        },
+        {
+          "w": "close",
+          "start": 714.46,
+          "end": 715.79
+        },
+        {
+          "w": "a",
+          "start": 715.91,
+          "end": 717.24
+        },
+        {
+          "w": "loop.",
+          "start": 717.35,
+          "end": 718.68
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "slide": 3,
+      "start": 720.0,
+      "end": 738.8,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "Sorry, back one. Two back actually. I want to close the loop on the norm thing I promised.",
+      "words": [
+        {
+          "w": "Sorry,",
+          "start": 720.0,
+          "end": 720.96
+        },
+        {
+          "w": "back",
+          "start": 721.04,
+          "end": 722.01
+        },
+        {
+          "w": "one.",
+          "start": 722.09,
+          "end": 723.05
+        },
+        {
+          "w": "Two",
+          "start": 723.13,
+          "end": 724.09
+        },
+        {
+          "w": "back",
+          "start": 724.18,
+          "end": 725.14
+        },
+        {
+          "w": "actually.",
+          "start": 725.22,
+          "end": 726.18
+        },
+        {
+          "w": "I",
+          "start": 726.27,
+          "end": 727.23
+        },
+        {
+          "w": "want",
+          "start": 727.31,
+          "end": 728.27
+        },
+        {
+          "w": "to",
+          "start": 728.36,
+          "end": 729.32
+        },
+        {
+          "w": "close",
+          "start": 729.4,
+          "end": 730.36
+        },
+        {
+          "w": "the",
+          "start": 730.44,
+          "end": 731.41
+        },
+        {
+          "w": "loop",
+          "start": 731.49,
+          "end": 732.45
+        },
+        {
+          "w": "on",
+          "start": 732.53,
+          "end": 733.49
+        },
+        {
+          "w": "the",
+          "start": 733.58,
+          "end": 734.54
+        },
+        {
+          "w": "norm",
+          "start": 734.62,
+          "end": 735.58
+        },
+        {
+          "w": "thing",
+          "start": 735.67,
+          "end": 736.63
+        },
+        {
+          "w": "I",
+          "start": 736.71,
+          "end": 737.67
+        },
+        {
+          "w": "promised.",
+          "start": 737.76,
+          "end": 738.72
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "slide": 3,
+      "start": 740.0,
+      "end": 758.8,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "I said the threat model on this slide is written in ell infinity, x prime minus x, infinity norm, less than epsilon. That is what the deck says and it is what most of the attack literature uses.",
+      "words": [
+        {
+          "w": "I",
+          "start": 740.0,
+          "end": 740.46
+        },
+        {
+          "w": "said",
+          "start": 740.49,
+          "end": 740.95
+        },
+        {
+          "w": "the",
+          "start": 740.99,
+          "end": 741.44
+        },
+        {
+          "w": "threat",
+          "start": 741.48,
+          "end": 741.94
+        },
+        {
+          "w": "model",
+          "start": 741.98,
+          "end": 742.43
+        },
+        {
+          "w": "on",
+          "start": 742.47,
+          "end": 742.93
+        },
+        {
+          "w": "this",
+          "start": 742.97,
+          "end": 743.42
+        },
+        {
+          "w": "slide",
+          "start": 743.46,
+          "end": 743.92
+        },
+        {
+          "w": "is",
+          "start": 743.96,
+          "end": 744.41
+        },
+        {
+          "w": "written",
+          "start": 744.45,
+          "end": 744.91
+        },
+        {
+          "w": "in",
+          "start": 744.95,
+          "end": 745.4
+        },
+        {
+          "w": "ell",
+          "start": 745.44,
+          "end": 745.9
+        },
+        {
+          "w": "infinity,",
+          "start": 745.94,
+          "end": 746.39
+        },
+        {
+          "w": "x",
+          "start": 746.43,
+          "end": 746.89
+        },
+        {
+          "w": "prime",
+          "start": 746.93,
+          "end": 747.38
+        },
+        {
+          "w": "minus",
+          "start": 747.42,
+          "end": 747.88
+        },
+        {
+          "w": "x,",
+          "start": 747.92,
+          "end": 748.37
+        },
+        {
+          "w": "infinity",
+          "start": 748.41,
+          "end": 748.87
+        },
+        {
+          "w": "norm,",
+          "start": 748.91,
+          "end": 749.36
+        },
+        {
+          "w": "less",
+          "start": 749.4,
+          "end": 749.86
+        },
+        {
+          "w": "than",
+          "start": 749.89,
+          "end": 750.35
+        },
+        {
+          "w": "epsilon.",
+          "start": 750.39,
+          "end": 750.84
+        },
+        {
+          "w": "That",
+          "start": 750.88,
+          "end": 751.34
+        },
+        {
+          "w": "is",
+          "start": 751.38,
+          "end": 751.83
+        },
+        {
+          "w": "what",
+          "start": 751.87,
+          "end": 752.33
+        },
+        {
+          "w": "the",
+          "start": 752.37,
+          "end": 752.82
+        },
+        {
+          "w": "deck",
+          "start": 752.86,
+          "end": 753.32
+        },
+        {
+          "w": "says",
+          "start": 753.36,
+          "end": 753.81
+        },
+        {
+          "w": "and",
+          "start": 753.85,
+          "end": 754.31
+        },
+        {
+          "w": "it",
+          "start": 754.35,
+          "end": 754.8
+        },
+        {
+          "w": "is",
+          "start": 754.84,
+          "end": 755.3
+        },
+        {
+          "w": "what",
+          "start": 755.34,
+          "end": 755.79
+        },
+        {
+          "w": "most",
+          "start": 755.83,
+          "end": 756.29
+        },
+        {
+          "w": "of",
+          "start": 756.33,
+          "end": 756.78
+        },
+        {
+          "w": "the",
+          "start": 756.82,
+          "end": 757.28
+        },
+        {
+          "w": "attack",
+          "start": 757.32,
+          "end": 757.77
+        },
+        {
+          "w": "literature",
+          "start": 757.81,
+          "end": 758.27
+        },
+        {
+          "w": "uses.",
+          "start": 758.31,
+          "end": 758.76
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "slide": 3,
+      "start": 760.0,
+      "end": 778.8,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "But the certificate we just derived is an ell two certificate. Fee inverse of a Gaussian mass is a Euclidean distance. That is what Neyman Pearson handed us.",
+      "words": [
+        {
+          "w": "But",
+          "start": 760.0,
+          "end": 760.62
+        },
+        {
+          "w": "the",
+          "start": 760.67,
+          "end": 761.29
+        },
+        {
+          "w": "certificate",
+          "start": 761.34,
+          "end": 761.96
+        },
+        {
+          "w": "we",
+          "start": 762.01,
+          "end": 762.63
+        },
+        {
+          "w": "just",
+          "start": 762.69,
+          "end": 763.3
+        },
+        {
+          "w": "derived",
+          "start": 763.36,
+          "end": 763.97
+        },
+        {
+          "w": "is",
+          "start": 764.03,
+          "end": 764.65
+        },
+        {
+          "w": "an",
+          "start": 764.7,
+          "end": 765.32
+        },
+        {
+          "w": "ell",
+          "start": 765.37,
+          "end": 765.99
+        },
+        {
+          "w": "two",
+          "start": 766.04,
+          "end": 766.66
+        },
+        {
+          "w": "certificate.",
+          "start": 766.71,
+          "end": 767.33
+        },
+        {
+          "w": "Fee",
+          "start": 767.39,
+          "end": 768.0
+        },
+        {
+          "w": "inverse",
+          "start": 768.06,
+          "end": 768.67
+        },
+        {
+          "w": "of",
+          "start": 768.73,
+          "end": 769.35
+        },
+        {
+          "w": "a",
+          "start": 769.4,
+          "end": 770.02
+        },
+        {
+          "w": "Gaussian",
+          "start": 770.07,
+          "end": 770.69
+        },
+        {
+          "w": "mass",
+          "start": 770.74,
+          "end": 771.36
+        },
+        {
+          "w": "is",
+          "start": 771.41,
+          "end": 772.03
+        },
+        {
+          "w": "a",
+          "start": 772.09,
+          "end": 772.7
+        },
+        {
+          "w": "Euclidean",
+          "start": 772.76,
+          "end": 773.37
+        },
+        {
+          "w": "distance.",
+          "start": 773.43,
+          "end": 774.05
+        },
+        {
+          "w": "That",
+          "start": 774.1,
+          "end": 774.72
+        },
+        {
+          "w": "is",
+          "start": 774.77,
+          "end": 775.39
+        },
+        {
+          "w": "what",
+          "start": 775.44,
+          "end": 776.06
+        },
+        {
+          "w": "Neyman",
+          "start": 776.11,
+          "end": 776.73
+        },
+        {
+          "w": "Pearson",
+          "start": 776.79,
+          "end": 777.4
+        },
+        {
+          "w": "handed",
+          "start": 777.46,
+          "end": 778.07
+        },
+        {
+          "w": "us.",
+          "start": 778.13,
+          "end": 778.75
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "slide": 3,
+      "start": 780.0,
+      "end": 798.8,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "You can convert. An ell two ball of radius r contains an ell infinity ball of radius r over root d. But that root d is brutal once d is a real image.",
+      "words": [
+        {
+          "w": "You",
+          "start": 780.0,
+          "end": 780.52
+        },
+        {
+          "w": "can",
+          "start": 780.57,
+          "end": 781.09
+        },
+        {
+          "w": "convert.",
+          "start": 781.14,
+          "end": 781.66
+        },
+        {
+          "w": "An",
+          "start": 781.71,
+          "end": 782.23
+        },
+        {
+          "w": "ell",
+          "start": 782.28,
+          "end": 782.8
+        },
+        {
+          "w": "two",
+          "start": 782.85,
+          "end": 783.37
+        },
+        {
+          "w": "ball",
+          "start": 783.42,
+          "end": 783.94
+        },
+        {
+          "w": "of",
+          "start": 783.99,
+          "end": 784.51
+        },
+        {
+          "w": "radius",
+          "start": 784.56,
+          "end": 785.08
+        },
+        {
+          "w": "r",
+          "start": 785.13,
+          "end": 785.65
+        },
+        {
+          "w": "contains",
+          "start": 785.7,
+          "end": 786.22
+        },
+        {
+          "w": "an",
+          "start": 786.27,
+          "end": 786.79
+        },
+        {
+          "w": "ell",
+          "start": 786.84,
+          "end": 787.36
+        },
+        {
+          "w": "infinity",
+          "start": 787.41,
+          "end": 787.93
+        },
+        {
+          "w": "ball",
+          "start": 787.98,
+          "end": 788.5
+        },
+        {
+          "w": "of",
+          "start": 788.55,
+          "end": 789.07
+        },
+        {
+          "w": "radius",
+          "start": 789.12,
+          "end": 789.64
+        },
+        {
+          "w": "r",
+          "start": 789.68,
+          "end": 790.21
+        },
+        {
+          "w": "over",
+          "start": 790.25,
+          "end": 790.78
+        },
+        {
+          "w": "root",
+          "start": 790.82,
+          "end": 791.35
+        },
+        {
+          "w": "d.",
+          "start": 791.39,
+          "end": 791.92
+        },
+        {
+          "w": "But",
+          "start": 791.96,
+          "end": 792.49
+        },
+        {
+          "w": "that",
+          "start": 792.53,
+          "end": 793.06
+        },
+        {
+          "w": "root",
+          "start": 793.1,
+          "end": 793.63
+        },
+        {
+          "w": "d",
+          "start": 793.67,
+          "end": 794.2
+        },
+        {
+          "w": "is",
+          "start": 794.24,
+          "end": 794.77
+        },
+        {
+          "w": "brutal",
+          "start": 794.81,
+          "end": 795.34
+        },
+        {
+          "w": "once",
+          "start": 795.38,
+          "end": 795.91
+        },
+        {
+          "w": "d",
+          "start": 795.95,
+          "end": 796.48
+        },
+        {
+          "w": "is",
+          "start": 796.52,
+          "end": 797.05
+        },
+        {
+          "w": "a",
+          "start": 797.09,
+          "end": 797.62
+        },
+        {
+          "w": "real",
+          "start": 797.66,
+          "end": 798.18
+        },
+        {
+          "w": "image.",
+          "start": 798.23,
+          "end": 798.75
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "slide": 3,
+      "start": 800.0,
+      "end": 818.8,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "So when a smoothing paper quotes an ell infinity radius, look at whether they converted or whether they trained a different smoothing distribution to get it directly.",
+      "words": [
+        {
+          "w": "So",
+          "start": 800.0,
+          "end": 800.64
+        },
+        {
+          "w": "when",
+          "start": 800.7,
+          "end": 801.34
+        },
+        {
+          "w": "a",
+          "start": 801.39,
+          "end": 802.03
+        },
+        {
+          "w": "smoothing",
+          "start": 802.09,
+          "end": 802.73
+        },
+        {
+          "w": "paper",
+          "start": 802.79,
+          "end": 803.43
+        },
+        {
+          "w": "quotes",
+          "start": 803.48,
+          "end": 804.12
+        },
+        {
+          "w": "an",
+          "start": 804.18,
+          "end": 804.82
+        },
+        {
+          "w": "ell",
+          "start": 804.87,
+          "end": 805.51
+        },
+        {
+          "w": "infinity",
+          "start": 805.57,
+          "end": 806.21
+        },
+        {
+          "w": "radius,",
+          "start": 806.27,
+          "end": 806.91
+        },
+        {
+          "w": "look",
+          "start": 806.96,
+          "end": 807.6
+        },
+        {
+          "w": "at",
+          "start": 807.66,
+          "end": 808.3
+        },
+        {
+          "w": "whether",
+          "start": 808.36,
+          "end": 809.0
+        },
+        {
+          "w": "they",
+          "start": 809.05,
+          "end": 809.69
+        },
+        {
+          "w": "converted",
+          "start": 809.75,
+          "end": 810.39
+        },
+        {
+          "w": "or",
+          "start": 810.44,
+          "end": 811.09
+        },
+        {
+          "w": "whether",
+          "start": 811.14,
+          "end": 811.78
+        },
+        {
+          "w": "they",
+          "start": 811.84,
+          "end": 812.48
+        },
+        {
+          "w": "trained",
+          "start": 812.53,
+          "end": 813.17
+        },
+        {
+          "w": "a",
+          "start": 813.23,
+          "end": 813.87
+        },
+        {
+          "w": "different",
+          "start": 813.93,
+          "end": 814.57
+        },
+        {
+          "w": "smoothing",
+          "start": 814.62,
+          "end": 815.26
+        },
+        {
+          "w": "distribution",
+          "start": 815.32,
+          "end": 815.96
+        },
+        {
+          "w": "to",
+          "start": 816.01,
+          "end": 816.66
+        },
+        {
+          "w": "get",
+          "start": 816.71,
+          "end": 817.35
+        },
+        {
+          "w": "it",
+          "start": 817.41,
+          "end": 818.05
+        },
+        {
+          "w": "directly.",
+          "start": 818.1,
+          "end": 818.74
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "slide": 3,
+      "start": 820.0,
+      "end": 838.8,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "There are papers that smooth with uniform noise, or with Laplace noise, precisely to get an ell one or an ell infinity certificate directly. Different noise, different geometry, same Neyman Pearson skeleton underneath.",
+      "words": [
+        {
+          "w": "There",
+          "start": 820.0,
+          "end": 820.52
+        },
+        {
+          "w": "are",
+          "start": 820.57,
+          "end": 821.09
+        },
+        {
+          "w": "papers",
+          "start": 821.14,
+          "end": 821.66
+        },
+        {
+          "w": "that",
+          "start": 821.71,
+          "end": 822.23
+        },
+        {
+          "w": "smooth",
+          "start": 822.28,
+          "end": 822.8
+        },
+        {
+          "w": "with",
+          "start": 822.85,
+          "end": 823.37
+        },
+        {
+          "w": "uniform",
+          "start": 823.42,
+          "end": 823.94
+        },
+        {
+          "w": "noise,",
+          "start": 823.99,
+          "end": 824.51
+        },
+        {
+          "w": "or",
+          "start": 824.56,
+          "end": 825.08
+        },
+        {
+          "w": "with",
+          "start": 825.13,
+          "end": 825.65
+        },
+        {
+          "w": "Laplace",
+          "start": 825.7,
+          "end": 826.22
+        },
+        {
+          "w": "noise,",
+          "start": 826.27,
+          "end": 826.79
+        },
+        {
+          "w": "precisely",
+          "start": 826.84,
+          "end": 827.36
+        },
+        {
+          "w": "to",
+          "start": 827.41,
+          "end": 827.93
+        },
+        {
+          "w": "get",
+          "start": 827.98,
+          "end": 828.5
+        },
+        {
+          "w": "an",
+          "start": 828.55,
+          "end": 829.07
+        },
+        {
+          "w": "ell",
+          "start": 829.12,
+          "end": 829.64
+        },
+        {
+          "w": "one",
+          "start": 829.68,
+          "end": 830.21
+        },
+        {
+          "w": "or",
+          "start": 830.25,
+          "end": 830.78
+        },
+        {
+          "w": "an",
+          "start": 830.82,
+          "end": 831.35
+        },
+        {
+          "w": "ell",
+          "start": 831.39,
+          "end": 831.92
+        },
+        {
+          "w": "infinity",
+          "start": 831.96,
+          "end": 832.49
+        },
+        {
+          "w": "certificate",
+          "start": 832.53,
+          "end": 833.06
+        },
+        {
+          "w": "directly.",
+          "start": 833.1,
+          "end": 833.63
+        },
+        {
+          "w": "Different",
+          "start": 833.67,
+          "end": 834.2
+        },
+        {
+          "w": "noise,",
+          "start": 834.24,
+          "end": 834.77
+        },
+        {
+          "w": "different",
+          "start": 834.81,
+          "end": 835.34
+        },
+        {
+          "w": "geometry,",
+          "start": 835.38,
+          "end": 835.91
+        },
+        {
+          "w": "same",
+          "start": 835.95,
+          "end": 836.48
+        },
+        {
+          "w": "Neyman",
+          "start": 836.52,
+          "end": 837.05
+        },
+        {
+          "w": "Pearson",
+          "start": 837.09,
+          "end": 837.62
+        },
+        {
+          "w": "skeleton",
+          "start": 837.66,
+          "end": 838.18
+        },
+        {
+          "w": "underneath.",
+          "start": 838.23,
+          "end": 838.75
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "slide": 3,
+      "start": 840.0,
+      "end": 858.8,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "I am labouring this because it is the single most common mistake in the project reports I get every year.",
+      "words": [
+        {
+          "w": "I",
+          "start": 840.0,
+          "end": 840.86
+        },
+        {
+          "w": "am",
+          "start": 840.94,
+          "end": 841.8
+        },
+        {
+          "w": "labouring",
+          "start": 841.88,
+          "end": 842.74
+        },
+        {
+          "w": "this",
+          "start": 842.82,
+          "end": 843.68
+        },
+        {
+          "w": "because",
+          "start": 843.76,
+          "end": 844.62
+        },
+        {
+          "w": "it",
+          "start": 844.7,
+          "end": 845.56
+        },
+        {
+          "w": "is",
+          "start": 845.64,
+          "end": 846.5
+        },
+        {
+          "w": "the",
+          "start": 846.58,
+          "end": 847.44
+        },
+        {
+          "w": "single",
+          "start": 847.52,
+          "end": 848.38
+        },
+        {
+          "w": "most",
+          "start": 848.46,
+          "end": 849.32
+        },
+        {
+          "w": "common",
+          "start": 849.4,
+          "end": 850.26
+        },
+        {
+          "w": "mistake",
+          "start": 850.34,
+          "end": 851.2
+        },
+        {
+          "w": "in",
+          "start": 851.28,
+          "end": 852.14
+        },
+        {
+          "w": "the",
+          "start": 852.22,
+          "end": 853.08
+        },
+        {
+          "w": "project",
+          "start": 853.16,
+          "end": 854.02
+        },
+        {
+          "w": "reports",
+          "start": 854.1,
+          "end": 854.96
+        },
+        {
+          "w": "I",
+          "start": 855.04,
+          "end": 855.9
+        },
+        {
+          "w": "get",
+          "start": 855.98,
+          "end": 856.84
+        },
+        {
+          "w": "every",
+          "start": 856.92,
+          "end": 857.78
+        },
+        {
+          "w": "year.",
+          "start": 857.86,
+          "end": 858.72
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "slide": 3,
+      "start": 860.0,
+      "end": 878.8,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "And while I'm here: sigma squared on this slide should really just be sigma. The noise scale is the standard deviation, not the variance. The deck is wrong there and I will fix it before I post it.",
+      "words": [
+        {
+          "w": "And",
+          "start": 860.0,
+          "end": 860.46
+        },
+        {
+          "w": "while",
+          "start": 860.49,
+          "end": 860.95
+        },
+        {
+          "w": "I'm",
+          "start": 860.99,
+          "end": 861.44
+        },
+        {
+          "w": "here:",
+          "start": 861.48,
+          "end": 861.94
+        },
+        {
+          "w": "sigma",
+          "start": 861.98,
+          "end": 862.43
+        },
+        {
+          "w": "squared",
+          "start": 862.47,
+          "end": 862.93
+        },
+        {
+          "w": "on",
+          "start": 862.97,
+          "end": 863.42
+        },
+        {
+          "w": "this",
+          "start": 863.46,
+          "end": 863.92
+        },
+        {
+          "w": "slide",
+          "start": 863.96,
+          "end": 864.41
+        },
+        {
+          "w": "should",
+          "start": 864.45,
+          "end": 864.91
+        },
+        {
+          "w": "really",
+          "start": 864.95,
+          "end": 865.4
+        },
+        {
+          "w": "just",
+          "start": 865.44,
+          "end": 865.9
+        },
+        {
+          "w": "be",
+          "start": 865.94,
+          "end": 866.39
+        },
+        {
+          "w": "sigma.",
+          "start": 866.43,
+          "end": 866.89
+        },
+        {
+          "w": "The",
+          "start": 866.93,
+          "end": 867.38
+        },
+        {
+          "w": "noise",
+          "start": 867.42,
+          "end": 867.88
+        },
+        {
+          "w": "scale",
+          "start": 867.92,
+          "end": 868.37
+        },
+        {
+          "w": "is",
+          "start": 868.41,
+          "end": 868.87
+        },
+        {
+          "w": "the",
+          "start": 868.91,
+          "end": 869.36
+        },
+        {
+          "w": "standard",
+          "start": 869.4,
+          "end": 869.86
+        },
+        {
+          "w": "deviation,",
+          "start": 869.89,
+          "end": 870.35
+        },
+        {
+          "w": "not",
+          "start": 870.39,
+          "end": 870.84
+        },
+        {
+          "w": "the",
+          "start": 870.88,
+          "end": 871.34
+        },
+        {
+          "w": "variance.",
+          "start": 871.38,
+          "end": 871.83
+        },
+        {
+          "w": "The",
+          "start": 871.87,
+          "end": 872.33
+        },
+        {
+          "w": "deck",
+          "start": 872.37,
+          "end": 872.82
+        },
+        {
+          "w": "is",
+          "start": 872.86,
+          "end": 873.32
+        },
+        {
+          "w": "wrong",
+          "start": 873.36,
+          "end": 873.81
+        },
+        {
+          "w": "there",
+          "start": 873.85,
+          "end": 874.31
+        },
+        {
+          "w": "and",
+          "start": 874.35,
+          "end": 874.8
+        },
+        {
+          "w": "I",
+          "start": 874.84,
+          "end": 875.3
+        },
+        {
+          "w": "will",
+          "start": 875.34,
+          "end": 875.79
+        },
+        {
+          "w": "fix",
+          "start": 875.83,
+          "end": 876.29
+        },
+        {
+          "w": "it",
+          "start": 876.33,
+          "end": 876.78
+        },
+        {
+          "w": "before",
+          "start": 876.82,
+          "end": 877.28
+        },
+        {
+          "w": "I",
+          "start": 877.32,
+          "end": 877.77
+        },
+        {
+          "w": "post",
+          "start": 877.81,
+          "end": 878.27
+        },
+        {
+          "w": "it.",
+          "start": 878.31,
+          "end": 878.76
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "slide": 3,
+      "start": 880.0,
+      "end": 898.8,
+      "prompt": "sigma squared, noise scale, epsilon, Phi inverse, vote probability, certified radius",
+      "text": "Alright. Summary.",
+      "words": [
+        {
+          "w": "Alright.",
+          "start": 880.0,
+          "end": 888.65
+        },
+        {
+          "w": "Summary.",
+          "start": 889.4,
+          "end": 898.05
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "slide": 6,
+      "start": 900.0,
+      "end": 921.69,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "Summary. Certified defenses trade accuracy for a guarantee that holds against every attack inside the radius, so the numbers look small.",
+      "words": [
+        {
+          "w": "Summary.",
+          "start": 900.0,
+          "end": 900.95
+        },
+        {
+          "w": "Certified",
+          "start": 901.03,
+          "end": 901.98
+        },
+        {
+          "w": "defenses",
+          "start": 902.07,
+          "end": 903.02
+        },
+        {
+          "w": "trade",
+          "start": 903.1,
+          "end": 904.05
+        },
+        {
+          "w": "accuracy",
+          "start": 904.13,
+          "end": 905.08
+        },
+        {
+          "w": "for",
+          "start": 905.16,
+          "end": 906.12
+        },
+        {
+          "w": "a",
+          "start": 906.2,
+          "end": 907.15
+        },
+        {
+          "w": "guarantee",
+          "start": 907.23,
+          "end": 908.18
+        },
+        {
+          "w": "that",
+          "start": 908.26,
+          "end": 909.21
+        },
+        {
+          "w": "holds",
+          "start": 909.3,
+          "end": 910.25
+        },
+        {
+          "w": "against",
+          "start": 910.33,
+          "end": 911.28
+        },
+        {
+          "w": "every",
+          "start": 911.36,
+          "end": 912.31
+        },
+        {
+          "w": "attack",
+          "start": 912.4,
+          "end": 913.35
+        },
+        {
+          "w": "inside",
+          "start": 913.43,
+          "end": 914.38
+        },
+        {
+          "w": "the",
+          "start": 914.46,
+          "end": 915.41
+        },
+        {
+          "w": "radius,",
+          "start": 915.49,
+          "end": 916.44
+        },
+        {
+          "w": "so",
+          "start": 916.53,
+          "end": 917.48
+        },
+        {
+          "w": "the",
+          "start": 917.56,
+          "end": 918.51
+        },
+        {
+          "w": "numbers",
+          "start": 918.59,
+          "end": 919.54
+        },
+        {
+          "w": "look",
+          "start": 919.63,
+          "end": 920.58
+        },
+        {
+          "w": "small.",
+          "start": 920.66,
+          "end": 921.61
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "slide": 6,
+      "start": 923.08,
+      "end": 944.77,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "The caveat I want to leave you with is dimension. Everything we did today degrades as the input gets bigger, and it degrades faster than almost anyone expects.",
+      "words": [
+        {
+          "w": "The",
+          "start": 923.08,
+          "end": 923.79
+        },
+        {
+          "w": "caveat",
+          "start": 923.85,
+          "end": 924.56
+        },
+        {
+          "w": "I",
+          "start": 924.63,
+          "end": 925.34
+        },
+        {
+          "w": "want",
+          "start": 925.4,
+          "end": 926.11
+        },
+        {
+          "w": "to",
+          "start": 926.18,
+          "end": 926.89
+        },
+        {
+          "w": "leave",
+          "start": 926.95,
+          "end": 927.66
+        },
+        {
+          "w": "you",
+          "start": 927.73,
+          "end": 928.44
+        },
+        {
+          "w": "with",
+          "start": 928.5,
+          "end": 929.21
+        },
+        {
+          "w": "is",
+          "start": 929.27,
+          "end": 929.99
+        },
+        {
+          "w": "dimension.",
+          "start": 930.05,
+          "end": 930.76
+        },
+        {
+          "w": "Everything",
+          "start": 930.82,
+          "end": 931.54
+        },
+        {
+          "w": "we",
+          "start": 931.6,
+          "end": 932.31
+        },
+        {
+          "w": "did",
+          "start": 932.37,
+          "end": 933.09
+        },
+        {
+          "w": "today",
+          "start": 933.15,
+          "end": 933.86
+        },
+        {
+          "w": "degrades",
+          "start": 933.92,
+          "end": 934.64
+        },
+        {
+          "w": "as",
+          "start": 934.7,
+          "end": 935.41
+        },
+        {
+          "w": "the",
+          "start": 935.47,
+          "end": 936.19
+        },
+        {
+          "w": "input",
+          "start": 936.25,
+          "end": 936.96
+        },
+        {
+          "w": "gets",
+          "start": 937.02,
+          "end": 937.73
+        },
+        {
+          "w": "bigger,",
+          "start": 937.8,
+          "end": 938.51
+        },
+        {
+          "w": "and",
+          "start": 938.57,
+          "end": 939.28
+        },
+        {
+          "w": "it",
+          "start": 939.35,
+          "end": 940.06
+        },
+        {
+          "w": "degrades",
+          "start": 940.12,
+          "end": 940.83
+        },
+        {
+          "w": "faster",
+          "start": 940.9,
+          "end": 941.61
+        },
+        {
+          "w": "than",
+          "start": 941.67,
+          "end": 942.38
+        },
+        {
+          "w": "almost",
+          "start": 942.45,
+          "end": 943.16
+        },
+        {
+          "w": "anyone",
+          "start": 943.22,
+          "end": 943.93
+        },
+        {
+          "w": "expects.",
+          "start": 943.99,
+          "end": 944.71
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "slide": 6,
+      "start": 946.15,
+      "end": 967.85,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "The certified radius you can get at a fixed accuracy shrinks roughly like one over root d once you insist on measuring it in ell infinity. On CIFAR that is tolerable. On ImageNet it is frankly embarrassing.",
+      "words": [
+        {
+          "w": "The",
+          "start": 946.15,
+          "end": 946.69
+        },
+        {
+          "w": "certified",
+          "start": 946.74,
+          "end": 947.28
+        },
+        {
+          "w": "radius",
+          "start": 947.33,
+          "end": 947.87
+        },
+        {
+          "w": "you",
+          "start": 947.91,
+          "end": 948.45
+        },
+        {
+          "w": "can",
+          "start": 948.5,
+          "end": 949.04
+        },
+        {
+          "w": "get",
+          "start": 949.09,
+          "end": 949.62
+        },
+        {
+          "w": "at",
+          "start": 949.67,
+          "end": 950.21
+        },
+        {
+          "w": "a",
+          "start": 950.26,
+          "end": 950.8
+        },
+        {
+          "w": "fixed",
+          "start": 950.84,
+          "end": 951.38
+        },
+        {
+          "w": "accuracy",
+          "start": 951.43,
+          "end": 951.97
+        },
+        {
+          "w": "shrinks",
+          "start": 952.02,
+          "end": 952.56
+        },
+        {
+          "w": "roughly",
+          "start": 952.6,
+          "end": 953.14
+        },
+        {
+          "w": "like",
+          "start": 953.19,
+          "end": 953.73
+        },
+        {
+          "w": "one",
+          "start": 953.78,
+          "end": 954.31
+        },
+        {
+          "w": "over",
+          "start": 954.36,
+          "end": 954.9
+        },
+        {
+          "w": "root",
+          "start": 954.95,
+          "end": 955.49
+        },
+        {
+          "w": "d",
+          "start": 955.53,
+          "end": 956.07
+        },
+        {
+          "w": "once",
+          "start": 956.12,
+          "end": 956.66
+        },
+        {
+          "w": "you",
+          "start": 956.71,
+          "end": 957.25
+        },
+        {
+          "w": "insist",
+          "start": 957.29,
+          "end": 957.83
+        },
+        {
+          "w": "on",
+          "start": 957.88,
+          "end": 958.42
+        },
+        {
+          "w": "measuring",
+          "start": 958.47,
+          "end": 959.01
+        },
+        {
+          "w": "it",
+          "start": 959.05,
+          "end": 959.59
+        },
+        {
+          "w": "in",
+          "start": 959.64,
+          "end": 960.18
+        },
+        {
+          "w": "ell",
+          "start": 960.22,
+          "end": 960.76
+        },
+        {
+          "w": "infinity.",
+          "start": 960.81,
+          "end": 961.35
+        },
+        {
+          "w": "On",
+          "start": 961.4,
+          "end": 961.94
+        },
+        {
+          "w": "CIFAR",
+          "start": 961.98,
+          "end": 962.52
+        },
+        {
+          "w": "that",
+          "start": 962.57,
+          "end": 963.11
+        },
+        {
+          "w": "is",
+          "start": 963.16,
+          "end": 963.7
+        },
+        {
+          "w": "tolerable.",
+          "start": 963.74,
+          "end": 964.28
+        },
+        {
+          "w": "On",
+          "start": 964.33,
+          "end": 964.87
+        },
+        {
+          "w": "ImageNet",
+          "start": 964.91,
+          "end": 965.45
+        },
+        {
+          "w": "it",
+          "start": 965.5,
+          "end": 966.04
+        },
+        {
+          "w": "is",
+          "start": 966.09,
+          "end": 966.63
+        },
+        {
+          "w": "frankly",
+          "start": 966.67,
+          "end": 967.21
+        },
+        {
+          "w": "embarrassing.",
+          "start": 967.26,
+          "end": 967.8
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "slide": 6,
+      "start": 969.23,
+      "end": 990.92,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "So certified robustness on high resolution images is, as of today, not a solved thing. It is a research area, it is not a tool you reach for.",
+      "words": [
+        {
+          "w": "So",
+          "start": 969.23,
+          "end": 969.94
+        },
+        {
+          "w": "certified",
+          "start": 970.01,
+          "end": 970.72
+        },
+        {
+          "w": "robustness",
+          "start": 970.78,
+          "end": 971.49
+        },
+        {
+          "w": "on",
+          "start": 971.55,
+          "end": 972.27
+        },
+        {
+          "w": "high",
+          "start": 972.33,
+          "end": 973.04
+        },
+        {
+          "w": "resolution",
+          "start": 973.1,
+          "end": 973.82
+        },
+        {
+          "w": "images",
+          "start": 973.88,
+          "end": 974.59
+        },
+        {
+          "w": "is,",
+          "start": 974.65,
+          "end": 975.37
+        },
+        {
+          "w": "as",
+          "start": 975.43,
+          "end": 976.14
+        },
+        {
+          "w": "of",
+          "start": 976.2,
+          "end": 976.92
+        },
+        {
+          "w": "today,",
+          "start": 976.98,
+          "end": 977.69
+        },
+        {
+          "w": "not",
+          "start": 977.75,
+          "end": 978.47
+        },
+        {
+          "w": "a",
+          "start": 978.53,
+          "end": 979.24
+        },
+        {
+          "w": "solved",
+          "start": 979.3,
+          "end": 980.01
+        },
+        {
+          "w": "thing.",
+          "start": 980.08,
+          "end": 980.79
+        },
+        {
+          "w": "It",
+          "start": 980.85,
+          "end": 981.56
+        },
+        {
+          "w": "is",
+          "start": 981.63,
+          "end": 982.34
+        },
+        {
+          "w": "a",
+          "start": 982.4,
+          "end": 983.11
+        },
+        {
+          "w": "research",
+          "start": 983.18,
+          "end": 983.89
+        },
+        {
+          "w": "area,",
+          "start": 983.95,
+          "end": 984.66
+        },
+        {
+          "w": "it",
+          "start": 984.73,
+          "end": 985.44
+        },
+        {
+          "w": "is",
+          "start": 985.5,
+          "end": 986.21
+        },
+        {
+          "w": "not",
+          "start": 986.27,
+          "end": 986.99
+        },
+        {
+          "w": "a",
+          "start": 987.05,
+          "end": 987.76
+        },
+        {
+          "w": "tool",
+          "start": 987.82,
+          "end": 988.54
+        },
+        {
+          "w": "you",
+          "start": 988.6,
+          "end": 989.31
+        },
+        {
+          "w": "reach",
+          "start": 989.37,
+          "end": 990.09
+        },
+        {
+          "w": "for.",
+          "start": 990.15,
+          "end": 990.86
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "slide": 6,
+      "start": 992.31,
+      "end": 1014.0,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "If somebody asks you in an interview whether they should certify their production model, the answer is almost certainly no, and the reasons are the sample cost and the dimension, in that order.",
+      "words": [
+        {
+          "w": "If",
+          "start": 992.31,
+          "end": 992.91
+        },
+        {
+          "w": "somebody",
+          "start": 992.97,
+          "end": 993.57
+        },
+        {
+          "w": "asks",
+          "start": 993.62,
+          "end": 994.23
+        },
+        {
+          "w": "you",
+          "start": 994.28,
+          "end": 994.88
+        },
+        {
+          "w": "in",
+          "start": 994.94,
+          "end": 995.54
+        },
+        {
+          "w": "an",
+          "start": 995.59,
+          "end": 996.2
+        },
+        {
+          "w": "interview",
+          "start": 996.25,
+          "end": 996.86
+        },
+        {
+          "w": "whether",
+          "start": 996.91,
+          "end": 997.51
+        },
+        {
+          "w": "they",
+          "start": 997.57,
+          "end": 998.17
+        },
+        {
+          "w": "should",
+          "start": 998.22,
+          "end": 998.83
+        },
+        {
+          "w": "certify",
+          "start": 998.88,
+          "end": 999.49
+        },
+        {
+          "w": "their",
+          "start": 999.54,
+          "end": 1000.14
+        },
+        {
+          "w": "production",
+          "start": 1000.2,
+          "end": 1000.8
+        },
+        {
+          "w": "model,",
+          "start": 1000.85,
+          "end": 1001.46
+        },
+        {
+          "w": "the",
+          "start": 1001.51,
+          "end": 1002.12
+        },
+        {
+          "w": "answer",
+          "start": 1002.17,
+          "end": 1002.77
+        },
+        {
+          "w": "is",
+          "start": 1002.83,
+          "end": 1003.43
+        },
+        {
+          "w": "almost",
+          "start": 1003.48,
+          "end": 1004.09
+        },
+        {
+          "w": "certainly",
+          "start": 1004.14,
+          "end": 1004.74
+        },
+        {
+          "w": "no,",
+          "start": 1004.8,
+          "end": 1005.4
+        },
+        {
+          "w": "and",
+          "start": 1005.45,
+          "end": 1006.06
+        },
+        {
+          "w": "the",
+          "start": 1006.11,
+          "end": 1006.72
+        },
+        {
+          "w": "reasons",
+          "start": 1006.77,
+          "end": 1007.37
+        },
+        {
+          "w": "are",
+          "start": 1007.43,
+          "end": 1008.03
+        },
+        {
+          "w": "the",
+          "start": 1008.08,
+          "end": 1008.69
+        },
+        {
+          "w": "sample",
+          "start": 1008.74,
+          "end": 1009.35
+        },
+        {
+          "w": "cost",
+          "start": 1009.4,
+          "end": 1010.0
+        },
+        {
+          "w": "and",
+          "start": 1010.06,
+          "end": 1010.66
+        },
+        {
+          "w": "the",
+          "start": 1010.71,
+          "end": 1011.32
+        },
+        {
+          "w": "dimension,",
+          "start": 1011.37,
+          "end": 1011.98
+        },
+        {
+          "w": "in",
+          "start": 1012.03,
+          "end": 1012.63
+        },
+        {
+          "w": "that",
+          "start": 1012.69,
+          "end": 1013.29
+        },
+        {
+          "w": "order.",
+          "start": 1013.34,
+          "end": 1013.95
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "slide": 6,
+      "start": 1015.38,
+      "end": 1037.08,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "What it is genuinely good for is small inputs with high stakes. Tabular medical data, control signals, anything where d is small and being wrong is expensive.",
+      "words": [
+        {
+          "w": "What",
+          "start": 1015.38,
+          "end": 1016.12
+        },
+        {
+          "w": "it",
+          "start": 1016.19,
+          "end": 1016.93
+        },
+        {
+          "w": "is",
+          "start": 1016.99,
+          "end": 1017.73
+        },
+        {
+          "w": "genuinely",
+          "start": 1017.79,
+          "end": 1018.53
+        },
+        {
+          "w": "good",
+          "start": 1018.6,
+          "end": 1019.34
+        },
+        {
+          "w": "for",
+          "start": 1019.4,
+          "end": 1020.14
+        },
+        {
+          "w": "is",
+          "start": 1020.21,
+          "end": 1020.94
+        },
+        {
+          "w": "small",
+          "start": 1021.01,
+          "end": 1021.75
+        },
+        {
+          "w": "inputs",
+          "start": 1021.81,
+          "end": 1022.55
+        },
+        {
+          "w": "with",
+          "start": 1022.62,
+          "end": 1023.35
+        },
+        {
+          "w": "high",
+          "start": 1023.42,
+          "end": 1024.16
+        },
+        {
+          "w": "stakes.",
+          "start": 1024.22,
+          "end": 1024.96
+        },
+        {
+          "w": "Tabular",
+          "start": 1025.03,
+          "end": 1025.76
+        },
+        {
+          "w": "medical",
+          "start": 1025.83,
+          "end": 1026.57
+        },
+        {
+          "w": "data,",
+          "start": 1026.63,
+          "end": 1027.37
+        },
+        {
+          "w": "control",
+          "start": 1027.44,
+          "end": 1028.18
+        },
+        {
+          "w": "signals,",
+          "start": 1028.24,
+          "end": 1028.98
+        },
+        {
+          "w": "anything",
+          "start": 1029.04,
+          "end": 1029.78
+        },
+        {
+          "w": "where",
+          "start": 1029.85,
+          "end": 1030.59
+        },
+        {
+          "w": "d",
+          "start": 1030.65,
+          "end": 1031.39
+        },
+        {
+          "w": "is",
+          "start": 1031.45,
+          "end": 1032.19
+        },
+        {
+          "w": "small",
+          "start": 1032.26,
+          "end": 1033.0
+        },
+        {
+          "w": "and",
+          "start": 1033.06,
+          "end": 1033.8
+        },
+        {
+          "w": "being",
+          "start": 1033.86,
+          "end": 1034.6
+        },
+        {
+          "w": "wrong",
+          "start": 1034.67,
+          "end": 1035.41
+        },
+        {
+          "w": "is",
+          "start": 1035.47,
+          "end": 1036.21
+        },
+        {
+          "w": "expensive.",
+          "start": 1036.27,
+          "end": 1037.01
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "slide": 6,
+      "start": 1038.46,
+      "end": 1060.15,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "Also worth saying, and this catches people: the guarantee is per input. It is not a property of the model, it is a property of the model at that point. Two images of the same class can have wildly different radii.",
+      "words": [
+        {
+          "w": "Also",
+          "start": 1038.46,
+          "end": 1038.95
+        },
+        {
+          "w": "worth",
+          "start": 1038.99,
+          "end": 1039.48
+        },
+        {
+          "w": "saying,",
+          "start": 1039.52,
+          "end": 1040.01
+        },
+        {
+          "w": "and",
+          "start": 1040.05,
+          "end": 1040.54
+        },
+        {
+          "w": "this",
+          "start": 1040.58,
+          "end": 1041.06
+        },
+        {
+          "w": "catches",
+          "start": 1041.11,
+          "end": 1041.59
+        },
+        {
+          "w": "people:",
+          "start": 1041.64,
+          "end": 1042.12
+        },
+        {
+          "w": "the",
+          "start": 1042.17,
+          "end": 1042.65
+        },
+        {
+          "w": "guarantee",
+          "start": 1042.69,
+          "end": 1043.18
+        },
+        {
+          "w": "is",
+          "start": 1043.22,
+          "end": 1043.71
+        },
+        {
+          "w": "per",
+          "start": 1043.75,
+          "end": 1044.24
+        },
+        {
+          "w": "input.",
+          "start": 1044.28,
+          "end": 1044.77
+        },
+        {
+          "w": "It",
+          "start": 1044.81,
+          "end": 1045.3
+        },
+        {
+          "w": "is",
+          "start": 1045.34,
+          "end": 1045.83
+        },
+        {
+          "w": "not",
+          "start": 1045.87,
+          "end": 1046.36
+        },
+        {
+          "w": "a",
+          "start": 1046.4,
+          "end": 1046.88
+        },
+        {
+          "w": "property",
+          "start": 1046.93,
+          "end": 1047.41
+        },
+        {
+          "w": "of",
+          "start": 1047.46,
+          "end": 1047.94
+        },
+        {
+          "w": "the",
+          "start": 1047.98,
+          "end": 1048.47
+        },
+        {
+          "w": "model,",
+          "start": 1048.51,
+          "end": 1049.0
+        },
+        {
+          "w": "it",
+          "start": 1049.04,
+          "end": 1049.53
+        },
+        {
+          "w": "is",
+          "start": 1049.57,
+          "end": 1050.06
+        },
+        {
+          "w": "a",
+          "start": 1050.1,
+          "end": 1050.59
+        },
+        {
+          "w": "property",
+          "start": 1050.63,
+          "end": 1051.12
+        },
+        {
+          "w": "of",
+          "start": 1051.16,
+          "end": 1051.65
+        },
+        {
+          "w": "the",
+          "start": 1051.69,
+          "end": 1052.18
+        },
+        {
+          "w": "model",
+          "start": 1052.22,
+          "end": 1052.7
+        },
+        {
+          "w": "at",
+          "start": 1052.75,
+          "end": 1053.23
+        },
+        {
+          "w": "that",
+          "start": 1053.28,
+          "end": 1053.76
+        },
+        {
+          "w": "point.",
+          "start": 1053.8,
+          "end": 1054.29
+        },
+        {
+          "w": "Two",
+          "start": 1054.33,
+          "end": 1054.82
+        },
+        {
+          "w": "images",
+          "start": 1054.86,
+          "end": 1055.35
+        },
+        {
+          "w": "of",
+          "start": 1055.39,
+          "end": 1055.88
+        },
+        {
+          "w": "the",
+          "start": 1055.92,
+          "end": 1056.41
+        },
+        {
+          "w": "same",
+          "start": 1056.45,
+          "end": 1056.94
+        },
+        {
+          "w": "class",
+          "start": 1056.98,
+          "end": 1057.47
+        },
+        {
+          "w": "can",
+          "start": 1057.51,
+          "end": 1058.0
+        },
+        {
+          "w": "have",
+          "start": 1058.04,
+          "end": 1058.52
+        },
+        {
+          "w": "wildly",
+          "start": 1058.57,
+          "end": 1059.05
+        },
+        {
+          "w": "different",
+          "start": 1059.1,
+          "end": 1059.58
+        },
+        {
+          "w": "radii.",
+          "start": 1059.62,
+          "end": 1060.11
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "slide": 6,
+      "start": 1061.54,
+      "end": 1083.23,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "People collapse that into one number by reporting certified accuracy at a radius, which is fine, but it hides an enormous amount of variance.",
+      "words": [
+        {
+          "w": "People",
+          "start": 1061.54,
+          "end": 1062.37
+        },
+        {
+          "w": "collapse",
+          "start": 1062.44,
+          "end": 1063.27
+        },
+        {
+          "w": "that",
+          "start": 1063.35,
+          "end": 1064.18
+        },
+        {
+          "w": "into",
+          "start": 1064.25,
+          "end": 1065.08
+        },
+        {
+          "w": "one",
+          "start": 1065.15,
+          "end": 1065.99
+        },
+        {
+          "w": "number",
+          "start": 1066.06,
+          "end": 1066.89
+        },
+        {
+          "w": "by",
+          "start": 1066.96,
+          "end": 1067.79
+        },
+        {
+          "w": "reporting",
+          "start": 1067.87,
+          "end": 1068.7
+        },
+        {
+          "w": "certified",
+          "start": 1068.77,
+          "end": 1069.6
+        },
+        {
+          "w": "accuracy",
+          "start": 1069.67,
+          "end": 1070.5
+        },
+        {
+          "w": "at",
+          "start": 1070.58,
+          "end": 1071.41
+        },
+        {
+          "w": "a",
+          "start": 1071.48,
+          "end": 1072.31
+        },
+        {
+          "w": "radius,",
+          "start": 1072.38,
+          "end": 1073.22
+        },
+        {
+          "w": "which",
+          "start": 1073.29,
+          "end": 1074.12
+        },
+        {
+          "w": "is",
+          "start": 1074.19,
+          "end": 1075.02
+        },
+        {
+          "w": "fine,",
+          "start": 1075.1,
+          "end": 1075.93
+        },
+        {
+          "w": "but",
+          "start": 1076.0,
+          "end": 1076.83
+        },
+        {
+          "w": "it",
+          "start": 1076.9,
+          "end": 1077.74
+        },
+        {
+          "w": "hides",
+          "start": 1077.81,
+          "end": 1078.64
+        },
+        {
+          "w": "an",
+          "start": 1078.71,
+          "end": 1079.54
+        },
+        {
+          "w": "enormous",
+          "start": 1079.62,
+          "end": 1080.45
+        },
+        {
+          "w": "amount",
+          "start": 1080.52,
+          "end": 1081.35
+        },
+        {
+          "w": "of",
+          "start": 1081.42,
+          "end": 1082.25
+        },
+        {
+          "w": "variance.",
+          "start": 1082.33,
+          "end": 1083.16
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "slide": 6,
+      "start": 1084.62,
+      "end": 1106.31,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "Next week we do the training side: how you actually train a base classifier so that smoothing doesn't destroy it. That is SmoothAdv and the consistency regulariser.",
+      "words": [
+        {
+          "w": "Next",
+          "start": 1084.62,
+          "end": 1085.35
+        },
+        {
+          "w": "week",
+          "start": 1085.42,
+          "end": 1086.16
+        },
+        {
+          "w": "we",
+          "start": 1086.22,
+          "end": 1086.96
+        },
+        {
+          "w": "do",
+          "start": 1087.03,
+          "end": 1087.76
+        },
+        {
+          "w": "the",
+          "start": 1087.83,
+          "end": 1088.57
+        },
+        {
+          "w": "training",
+          "start": 1088.63,
+          "end": 1089.37
+        },
+        {
+          "w": "side:",
+          "start": 1089.44,
+          "end": 1090.18
+        },
+        {
+          "w": "how",
+          "start": 1090.24,
+          "end": 1090.98
+        },
+        {
+          "w": "you",
+          "start": 1091.04,
+          "end": 1091.78
+        },
+        {
+          "w": "actually",
+          "start": 1091.85,
+          "end": 1092.59
+        },
+        {
+          "w": "train",
+          "start": 1092.65,
+          "end": 1093.39
+        },
+        {
+          "w": "a",
+          "start": 1093.45,
+          "end": 1094.19
+        },
+        {
+          "w": "base",
+          "start": 1094.26,
+          "end": 1095.0
+        },
+        {
+          "w": "classifier",
+          "start": 1095.06,
+          "end": 1095.8
+        },
+        {
+          "w": "so",
+          "start": 1095.86,
+          "end": 1096.6
+        },
+        {
+          "w": "that",
+          "start": 1096.67,
+          "end": 1097.41
+        },
+        {
+          "w": "smoothing",
+          "start": 1097.47,
+          "end": 1098.21
+        },
+        {
+          "w": "doesn't",
+          "start": 1098.27,
+          "end": 1099.01
+        },
+        {
+          "w": "destroy",
+          "start": 1099.08,
+          "end": 1099.82
+        },
+        {
+          "w": "it.",
+          "start": 1099.88,
+          "end": 1100.62
+        },
+        {
+          "w": "That",
+          "start": 1100.68,
+          "end": 1101.42
+        },
+        {
+          "w": "is",
+          "start": 1101.49,
+          "end": 1102.23
+        },
+        {
+          "w": "SmoothAdv",
+          "start": 1102.29,
+          "end": 1103.03
+        },
+        {
+          "w": "and",
+          "start": 1103.09,
+          "end": 1103.83
+        },
+        {
+          "w": "the",
+          "start": 1103.9,
+          "end": 1104.64
+        },
+        {
+          "w": "consistency",
+          "start": 1104.7,
+          "end": 1105.44
+        },
+        {
+          "w": "regulariser.",
+          "start": 1105.5,
+          "end": 1106.24
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "slide": 6,
+      "start": 1107.69,
+      "end": 1129.38,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "Read the Cohen paper before then. Sections three and four. You can skip the appendix.",
+      "words": [
+        {
+          "w": "Read",
+          "start": 1107.69,
+          "end": 1109.02
+        },
+        {
+          "w": "the",
+          "start": 1109.14,
+          "end": 1110.47
+        },
+        {
+          "w": "Cohen",
+          "start": 1110.58,
+          "end": 1111.92
+        },
+        {
+          "w": "paper",
+          "start": 1112.03,
+          "end": 1113.36
+        },
+        {
+          "w": "before",
+          "start": 1113.48,
+          "end": 1114.81
+        },
+        {
+          "w": "then.",
+          "start": 1114.92,
+          "end": 1116.25
+        },
+        {
+          "w": "Sections",
+          "start": 1116.37,
+          "end": 1117.7
+        },
+        {
+          "w": "three",
+          "start": 1117.82,
+          "end": 1119.15
+        },
+        {
+          "w": "and",
+          "start": 1119.26,
+          "end": 1120.59
+        },
+        {
+          "w": "four.",
+          "start": 1120.71,
+          "end": 1122.04
+        },
+        {
+          "w": "You",
+          "start": 1122.15,
+          "end": 1123.48
+        },
+        {
+          "w": "can",
+          "start": 1123.6,
+          "end": 1124.93
+        },
+        {
+          "w": "skip",
+          "start": 1125.05,
+          "end": 1126.38
+        },
+        {
+          "w": "the",
+          "start": 1126.49,
+          "end": 1127.82
+        },
+        {
+          "w": "appendix.",
+          "start": 1127.94,
+          "end": 1129.27
+        }
+      ]
+    },
+    {
+      "id": 61,
+      "slide": 6,
+      "start": 1130.77,
+      "end": 1152.46,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "Questions? Okay, one over there. The question is whether the certificate still means anything if the attacker knows sigma and can pick the input.",
+      "words": [
+        {
+          "w": "Questions?",
+          "start": 1130.77,
+          "end": 1131.6
+        },
+        {
+          "w": "Okay,",
+          "start": 1131.67,
+          "end": 1132.5
+        },
+        {
+          "w": "one",
+          "start": 1132.58,
+          "end": 1133.41
+        },
+        {
+          "w": "over",
+          "start": 1133.48,
+          "end": 1134.31
+        },
+        {
+          "w": "there.",
+          "start": 1134.38,
+          "end": 1135.22
+        },
+        {
+          "w": "The",
+          "start": 1135.29,
+          "end": 1136.12
+        },
+        {
+          "w": "question",
+          "start": 1136.19,
+          "end": 1137.02
+        },
+        {
+          "w": "is",
+          "start": 1137.1,
+          "end": 1137.93
+        },
+        {
+          "w": "whether",
+          "start": 1138.0,
+          "end": 1138.83
+        },
+        {
+          "w": "the",
+          "start": 1138.9,
+          "end": 1139.74
+        },
+        {
+          "w": "certificate",
+          "start": 1139.81,
+          "end": 1140.64
+        },
+        {
+          "w": "still",
+          "start": 1140.71,
+          "end": 1141.54
+        },
+        {
+          "w": "means",
+          "start": 1141.62,
+          "end": 1142.45
+        },
+        {
+          "w": "anything",
+          "start": 1142.52,
+          "end": 1143.35
+        },
+        {
+          "w": "if",
+          "start": 1143.42,
+          "end": 1144.25
+        },
+        {
+          "w": "the",
+          "start": 1144.33,
+          "end": 1145.16
+        },
+        {
+          "w": "attacker",
+          "start": 1145.23,
+          "end": 1146.06
+        },
+        {
+          "w": "knows",
+          "start": 1146.13,
+          "end": 1146.97
+        },
+        {
+          "w": "sigma",
+          "start": 1147.04,
+          "end": 1147.87
+        },
+        {
+          "w": "and",
+          "start": 1147.94,
+          "end": 1148.77
+        },
+        {
+          "w": "can",
+          "start": 1148.85,
+          "end": 1149.68
+        },
+        {
+          "w": "pick",
+          "start": 1149.75,
+          "end": 1150.58
+        },
+        {
+          "w": "the",
+          "start": 1150.65,
+          "end": 1151.49
+        },
+        {
+          "w": "input.",
+          "start": 1151.56,
+          "end": 1152.39
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "slide": 6,
+      "start": 1153.85,
+      "end": 1175.54,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "Yeah. That is a good question and honestly I don't know. I don't think anybody knows. Let's leave that one open, I'll ask around and come back to it.",
+      "words": [
+        {
+          "w": "Yeah.",
+          "start": 1153.85,
+          "end": 1154.53
+        },
+        {
+          "w": "That",
+          "start": 1154.59,
+          "end": 1155.28
+        },
+        {
+          "w": "is",
+          "start": 1155.34,
+          "end": 1156.03
+        },
+        {
+          "w": "a",
+          "start": 1156.09,
+          "end": 1156.78
+        },
+        {
+          "w": "good",
+          "start": 1156.84,
+          "end": 1157.53
+        },
+        {
+          "w": "question",
+          "start": 1157.59,
+          "end": 1158.27
+        },
+        {
+          "w": "and",
+          "start": 1158.33,
+          "end": 1159.02
+        },
+        {
+          "w": "honestly",
+          "start": 1159.08,
+          "end": 1159.77
+        },
+        {
+          "w": "I",
+          "start": 1159.83,
+          "end": 1160.52
+        },
+        {
+          "w": "don't",
+          "start": 1160.58,
+          "end": 1161.27
+        },
+        {
+          "w": "know.",
+          "start": 1161.33,
+          "end": 1162.01
+        },
+        {
+          "w": "I",
+          "start": 1162.07,
+          "end": 1162.76
+        },
+        {
+          "w": "don't",
+          "start": 1162.82,
+          "end": 1163.51
+        },
+        {
+          "w": "think",
+          "start": 1163.57,
+          "end": 1164.26
+        },
+        {
+          "w": "anybody",
+          "start": 1164.32,
+          "end": 1165.01
+        },
+        {
+          "w": "knows.",
+          "start": 1165.07,
+          "end": 1165.75
+        },
+        {
+          "w": "Let's",
+          "start": 1165.81,
+          "end": 1166.5
+        },
+        {
+          "w": "leave",
+          "start": 1166.56,
+          "end": 1167.25
+        },
+        {
+          "w": "that",
+          "start": 1167.31,
+          "end": 1168.0
+        },
+        {
+          "w": "one",
+          "start": 1168.06,
+          "end": 1168.75
+        },
+        {
+          "w": "open,",
+          "start": 1168.81,
+          "end": 1169.49
+        },
+        {
+          "w": "I'll",
+          "start": 1169.55,
+          "end": 1170.24
+        },
+        {
+          "w": "ask",
+          "start": 1170.3,
+          "end": 1170.99
+        },
+        {
+          "w": "around",
+          "start": 1171.05,
+          "end": 1171.74
+        },
+        {
+          "w": "and",
+          "start": 1171.8,
+          "end": 1172.49
+        },
+        {
+          "w": "come",
+          "start": 1172.55,
+          "end": 1173.23
+        },
+        {
+          "w": "back",
+          "start": 1173.29,
+          "end": 1173.98
+        },
+        {
+          "w": "to",
+          "start": 1174.04,
+          "end": 1174.73
+        },
+        {
+          "w": "it.",
+          "start": 1174.79,
+          "end": 1175.48
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "slide": 6,
+      "start": 1176.92,
+      "end": 1198.62,
+      "prompt": "certified defenses, certified radius, guarantee, accuracy",
+      "text": "Alright, see you next week.",
+      "words": [
+        {
+          "w": "Alright,",
+          "start": 1176.92,
+          "end": 1180.91
+        },
+        {
+          "w": "see",
+          "start": 1181.26,
+          "end": 1185.25
+        },
+        {
+          "w": "you",
+          "start": 1185.6,
+          "end": 1189.59
+        },
+        {
+          "w": "next",
+          "start": 1189.94,
+          "end": 1193.93
+        },
+        {
+          "w": "week.",
+          "start": 1194.28,
+          "end": 1198.27
+        }
+      ]
+    }
+  ]
+}

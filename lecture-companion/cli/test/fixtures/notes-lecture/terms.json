@@ -1,0 +1,661 @@
+{
+  "schema": "terms/1",
+  "lectureId": "lec-fixture",
+  "course": "TEST",
+  "generated": "2026-09-12T06:15:48.267Z",
+  "pages": [
+    {
+      "page": 1,
+      "title": "Certified Defenses",
+      "summary": "Title slide: names the subject of the lecture, defenses that come with a proof rather than an experiment.",
+      "terms": [
+        {
+          "id": "t-certified-defense",
+          "term": "certified defense",
+          "aliases": [
+            "certified defenses",
+            "Certified Defenses"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            0
+          ],
+          "definition": "A defense that comes with a proof that no perturbation inside a stated radius can change the model's prediction. The proof holds against every attack in that radius, not only the ones that were tried.",
+          "intuition": "It replaces the arms race of attack and patch with a guarantee you can state once and rely on.",
+          "inThisCourse": "The subject of this lecture; the deck builds it from randomized smoothing and states the trade-off on the summary slide.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [],
+      "asrBias": [
+        "certified defenses",
+        "certified defense",
+        "certification"
+      ]
+    },
+    {
+      "page": 2,
+      "title": "Randomized smoothing",
+      "summary": "Defines randomized smoothing as a recipe: noise at prediction time, a majority vote over the noisy copies, and a radius read off the vote margin.",
+      "terms": [
+        {
+          "id": "t-randomized-smoothing",
+          "term": "randomized smoothing",
+          "aliases": [
+            "smoothing"
+          ],
+          "kind": "method",
+          "lineIds": [
+            0,
+            1,
+            4,
+            5
+          ],
+          "definition": "A defense that answers with the majority vote of the classifier's predictions on Gaussian-noised copies of the input. The margin of that vote is converted into a certified radius.",
+          "intuition": "Voting over noise blurs the decision boundary, so a small perturbation cannot flip the answer.",
+          "inThisCourse": "Presented as three steps: add noise at prediction time, take a majority vote, turn the margin into a radius.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-gaussian-noise",
+          "term": "Gaussian noise",
+          "aliases": [
+            "Gaussian",
+            "noise"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            1,
+            2
+          ],
+          "definition": "Noise drawn from a normal distribution and added to the input before each prediction.",
+          "intuition": "It is the randomness the whole method is built on: the guarantee comes from the shape of the Gaussian, not from the classifier.",
+          "inThisCourse": "Added at prediction time, with its level fixed during training.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certification-time",
+          "term": "certification time",
+          "aliases": [
+            "prediction time",
+            "training time"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            2,
+            3
+          ],
+          "definition": "The moment the certificate is computed for an input, after training has finished.",
+          "intuition": "The slide insists the noise level is not a knob you may turn once you know the input, or the guarantee would be chosen after seeing the question.",
+          "inThisCourse": "Contrasted with training time: the noise level belongs to training, not to certification.",
+          "confidence": "medium"
+        },
+        {
+          "id": "t-majority-vote",
+          "term": "majority vote",
+          "aliases": [
+            "vote",
+            "noisy copies"
+          ],
+          "kind": "method",
+          "lineIds": [
+            4
+          ],
+          "definition": "The class predicted most often across the noisy copies of one input.",
+          "intuition": "Many noisy looks at the same input, answered by a show of hands, so one unlucky look cannot decide the answer.",
+          "inThisCourse": "Taken over the noisy copies produced by the Gaussian noise on the line above.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-vote-margin",
+          "term": "vote margin",
+          "aliases": [
+            "margin"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            5,
+            6
+          ],
+          "definition": "The gap between the winning class's share of the votes and the runner-up's.",
+          "intuition": "It measures how decisive the vote was, and a decisive vote takes more perturbation to overturn.",
+          "inThisCourse": "The quantity that becomes the radius: bigger margin, bigger certificate.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-radius",
+          "term": "certified radius",
+          "aliases": [
+            "radius",
+            "certificate"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            5,
+            6
+          ],
+          "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+          "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+          "inThisCourse": "Read off the vote margin here, and computed from the inverse Gaussian CDF on the next slide.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [
+        {
+          "lineIds": [
+            1,
+            2,
+            3
+          ],
+          "text": "• Add Gaussian noise at prediction time ◦ the noise level is chosen at training time ◦ not at certification time",
+          "explanation": "Every prediction is made on noisy copies of the input rather than on the input itself. How much noise is decided while the model is trained, and it stays fixed afterwards, so the guarantee cannot be tuned per input."
+        },
+        {
+          "lineIds": [
+            4
+          ],
+          "text": "• Take a majority vote over the noisy copies",
+          "explanation": "The answer is the class that wins most often across those noisy copies, not the classifier's answer on the clean input."
+        },
+        {
+          "lineIds": [
+            5,
+            6
+          ],
+          "text": "• The vote margin becomes a radius 1) bigger margin, bigger certificate",
+          "explanation": "The gap between the winner and the runner-up is converted into a distance in input space. The more decisively the copies agreed, the further an attacker has to push before the vote could flip."
+        }
+      ],
+      "asrBias": [
+        "randomized smoothing",
+        "Gaussian noise",
+        "majority vote",
+        "vote margin",
+        "certified radius",
+        "certification time",
+        "prediction time",
+        "training time",
+        "noisy copies",
+        "certificate"
+      ]
+    },
+    {
+      "page": 3,
+      "title": "The certificate",
+      "summary": "Gives the ingredients of the certificate: the noise scale, the perturbation budget it is measured against, and the inverse Gaussian CDF that turns a vote probability into a radius.",
+      "terms": [
+        {
+          "id": "t-sigma-squared",
+          "term": "sigma squared",
+          "aliases": [
+            "σ²",
+            "noise scale",
+            "sigma"
+          ],
+          "kind": "notation",
+          "lineIds": [
+            1
+          ],
+          "definition": "The variance of the Gaussian noise added to each input; its square root, sigma, is the noise scale.",
+          "intuition": "One knob for the whole method: more noise certifies a larger radius and predicts less accurately.",
+          "inThisCourse": "Printed σ² and called the noise scale; fixed at training time, per the previous slide.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-ell-infinity-norm",
+          "term": "ell infinity norm",
+          "aliases": [
+            "‖x′−x‖∞",
+            "L infinity",
+            "sup norm",
+            "infinity norm"
+          ],
+          "kind": "notation",
+          "lineIds": [
+            2
+          ],
+          "definition": "The largest coordinate-wise difference between the perturbed input x prime and the original input x.",
+          "intuition": "It is the strict reading of a small perturbation: no single pixel may move by more than the budget.",
+          "inThisCourse": "The threat model on this slide is stated in the ell infinity norm, bounded by epsilon.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-epsilon",
+          "term": "epsilon",
+          "aliases": [
+            "ε"
+          ],
+          "kind": "notation",
+          "lineIds": [
+            2
+          ],
+          "definition": "The perturbation budget: the largest ell infinity change an attacker is allowed to make to the input.",
+          "intuition": "It is the size of the box the attacker may move inside, and the number a certificate has to beat to be useful.",
+          "inThisCourse": "Written ε, on the right-hand side of the constraint.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-phi-inverse",
+          "term": "Phi inverse",
+          "aliases": [
+            "Φ⁻¹",
+            "inverse normal CDF",
+            "probit"
+          ],
+          "kind": "notation",
+          "lineIds": [
+            3
+          ],
+          "definition": "The inverse of the standard Gaussian cumulative distribution function, applied to the vote probability to obtain the radius.",
+          "intuition": "It is the exchange rate between a probability and a distance, and it is a Gaussian one because the noise is Gaussian.",
+          "inThisCourse": "Printed Φ⁻¹ and read as the source of the radius formula; the vote probability comes from the majority vote of the previous slide.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-radius",
+          "term": "certified radius",
+          "aliases": [
+            "radius"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            3
+          ],
+          "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+          "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+          "inThisCourse": "Computed here from Φ⁻¹ of the vote probability rather than from the margin directly.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [
+        {
+          "lineIds": [
+            1
+          ],
+          "text": "Noise scale σ² controls the trade-off.",
+          "explanation": "Sigma squared is the variance of the Gaussian noise. Raising it grows the certified radius and costs clean accuracy, which is the trade-off the slide names."
+        },
+        {
+          "lineIds": [
+            2
+          ],
+          "text": "‖x′−x‖∞ ≤ ε",
+          "explanation": "The attacked input x prime may differ from the original x by at most epsilon in every coordinate. That is the threat model the certificate is stated against."
+        },
+        {
+          "lineIds": [
+            3
+          ],
+          "text": "Radius uses Φ⁻¹ of the vote probability.",
+          "explanation": "Phi inverse is the inverse standard normal CDF. Feeding it the fraction of noisy copies that voted for the winning class turns that probability into the distance an attacker would have to travel."
+        }
+      ],
+      "asrBias": [
+        "sigma squared",
+        "sigma",
+        "noise scale",
+        "epsilon",
+        "ell infinity",
+        "L infinity norm",
+        "Phi inverse",
+        "inverse normal CDF",
+        "probit",
+        "vote probability",
+        "certified radius",
+        "trade-off"
+      ]
+    },
+    {
+      "page": 4,
+      "title": "Two views",
+      "summary": "Contrasts empirical robustness, measured by attacking the model, with certified robustness, proved for a radius.",
+      "terms": [
+        {
+          "id": "t-empirical-robustness",
+          "term": "empirical robustness",
+          "aliases": [
+            "Empirical"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            1,
+            3,
+            5,
+            7
+          ],
+          "definition": "Robustness measured by running attacks against the model and reporting what it survives.",
+          "intuition": "Cheap and optimistic: it says the attacks you tried failed, which a better attack can undo tomorrow.",
+          "inThisCourse": "The left column of this slide, set against the certified column.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-robustness",
+          "term": "certified robustness",
+          "aliases": [
+            "Certified"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "definition": "Robustness proved for a radius: no perturbation inside it can change the prediction.",
+          "intuition": "Expensive and pessimistic, but the number cannot be taken away by a smarter attack later.",
+          "inThisCourse": "The right column of this slide; what randomized smoothing delivers.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-radius",
+          "term": "certified radius",
+          "aliases": [
+            "radius"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            4,
+            6
+          ],
+          "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+          "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+          "inThisCourse": "Described here as the thing no attack can cross, at the cost of smaller reported numbers.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [
+        {
+          "lineIds": [
+            1,
+            3,
+            5,
+            7
+          ],
+          "text": "Empirical Attack the model and report what survives. Cheap to run, easy to break later.",
+          "explanation": "The empirical column evaluates a defense by attacking it and reporting the accuracy that remains. It is cheap, and its number is only as strong as the attacks that were tried."
+        },
+        {
+          "lineIds": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "text": "Certified Prove a radius no attack can cross. Expensive, smaller numbers, but honest.",
+          "explanation": "The certified column proves a radius instead of testing one. The computation costs more and the reported accuracy is lower, but no future attack can invalidate it."
+        }
+      ],
+      "asrBias": [
+        "empirical robustness",
+        "certified robustness",
+        "certified radius",
+        "empirical",
+        "certified",
+        "attack"
+      ]
+    },
+    {
+      "page": 5,
+      "title": "",
+      "summary": "A placeholder page: four ordering sentences with no lecture content.",
+      "terms": [],
+      "passages": [],
+      "asrBias": []
+    },
+    {
+      "page": 6,
+      "title": "Summary",
+      "summary": "Recaps the trade-off: the guarantee is bought with accuracy, which is why certified numbers look small.",
+      "terms": [
+        {
+          "id": "t-certified-defense",
+          "term": "certified defense",
+          "aliases": [
+            "certified defenses"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            1
+          ],
+          "definition": "A defense that comes with a proof that no perturbation inside a stated radius can change the model's prediction. The proof holds against every attack in that radius, not only the ones that were tried.",
+          "intuition": "It replaces the arms race of attack and patch with a guarantee you can state once and rely on.",
+          "inThisCourse": "Closed here on its cost: the guarantee is paid for in accuracy.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-radius",
+          "term": "certified radius",
+          "aliases": [
+            "radius"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            2
+          ],
+          "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+          "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+          "inThisCourse": "The scope of the guarantee: every attack inside the radius, none outside it.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [
+        {
+          "lineIds": [
+            1,
+            2,
+            3
+          ],
+          "text": "Certified defenses trade accuracy for a guarantee that holds against every attack inside the radius, so the numbers look small.",
+          "explanation": "A certified model gives up clean accuracy in exchange for a proof. The proof covers every perturbation inside the radius, which is why its reported accuracy is lower than an empirical one."
+        }
+      ],
+      "asrBias": [
+        "certified defenses",
+        "certified radius",
+        "guarantee",
+        "accuracy",
+        "trade"
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "id": "t-certified-defense",
+      "term": "certified defense",
+      "aliases": [
+        "certified defenses",
+        "Certified Defenses"
+      ],
+      "kind": "concept",
+      "definition": "A defense that comes with a proof that no perturbation inside a stated radius can change the model's prediction. The proof holds against every attack in that radius, not only the ones that were tried.",
+      "intuition": "It replaces the arms race of attack and patch with a guarantee you can state once and rely on.",
+      "inThisCourse": "The subject of this lecture; the deck builds it from randomized smoothing and states the trade-off on the summary slide.",
+      "pages": [
+        1,
+        6
+      ]
+    },
+    {
+      "id": "t-randomized-smoothing",
+      "term": "randomized smoothing",
+      "aliases": [
+        "smoothing"
+      ],
+      "kind": "method",
+      "definition": "A defense that answers with the majority vote of the classifier's predictions on Gaussian-noised copies of the input. The margin of that vote is converted into a certified radius.",
+      "intuition": "Voting over noise blurs the decision boundary, so a small perturbation cannot flip the answer.",
+      "inThisCourse": "Presented as three steps: add noise at prediction time, take a majority vote, turn the margin into a radius.",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "id": "t-gaussian-noise",
+      "term": "Gaussian noise",
+      "aliases": [
+        "Gaussian",
+        "noise"
+      ],
+      "kind": "concept",
+      "definition": "Noise drawn from a normal distribution and added to the input before each prediction.",
+      "intuition": "It is the randomness the whole method is built on: the guarantee comes from the shape of the Gaussian, not from the classifier.",
+      "inThisCourse": "Added at prediction time, with its level fixed during training.",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "id": "t-certification-time",
+      "term": "certification time",
+      "aliases": [
+        "prediction time",
+        "training time"
+      ],
+      "kind": "concept",
+      "definition": "The moment the certificate is computed for an input, after training has finished.",
+      "intuition": "The slide insists the noise level is not a knob you may turn once you know the input, or the guarantee would be chosen after seeing the question.",
+      "inThisCourse": "Contrasted with training time: the noise level belongs to training, not to certification.",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "id": "t-majority-vote",
+      "term": "majority vote",
+      "aliases": [
+        "vote",
+        "noisy copies"
+      ],
+      "kind": "method",
+      "definition": "The class predicted most often across the noisy copies of one input.",
+      "intuition": "Many noisy looks at the same input, answered by a show of hands, so one unlucky look cannot decide the answer.",
+      "inThisCourse": "Taken over the noisy copies produced by the Gaussian noise on the line above.",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "id": "t-vote-margin",
+      "term": "vote margin",
+      "aliases": [
+        "margin"
+      ],
+      "kind": "metric",
+      "definition": "The gap between the winning class's share of the votes and the runner-up's.",
+      "intuition": "It measures how decisive the vote was, and a decisive vote takes more perturbation to overturn.",
+      "inThisCourse": "The quantity that becomes the radius: bigger margin, bigger certificate.",
+      "pages": [
+        2
+      ]
+    },
+    {
+      "id": "t-certified-radius",
+      "term": "certified radius",
+      "aliases": [
+        "radius",
+        "certificate"
+      ],
+      "kind": "metric",
+      "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+      "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+      "inThisCourse": "Read off the vote margin here, and computed from the inverse Gaussian CDF on the next slide.",
+      "pages": [
+        2,
+        3,
+        4,
+        6
+      ]
+    },
+    {
+      "id": "t-sigma-squared",
+      "term": "sigma squared",
+      "aliases": [
+        "σ²",
+        "noise scale",
+        "sigma"
+      ],
+      "kind": "notation",
+      "definition": "The variance of the Gaussian noise added to each input; its square root, sigma, is the noise scale.",
+      "intuition": "One knob for the whole method: more noise certifies a larger radius and predicts less accurately.",
+      "inThisCourse": "Printed σ² and called the noise scale; fixed at training time, per the previous slide.",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "id": "t-ell-infinity-norm",
+      "term": "ell infinity norm",
+      "aliases": [
+        "‖x′−x‖∞",
+        "L infinity",
+        "sup norm",
+        "infinity norm"
+      ],
+      "kind": "notation",
+      "definition": "The largest coordinate-wise difference between the perturbed input x prime and the original input x.",
+      "intuition": "It is the strict reading of a small perturbation: no single pixel may move by more than the budget.",
+      "inThisCourse": "The threat model on this slide is stated in the ell infinity norm, bounded by epsilon.",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "id": "t-epsilon",
+      "term": "epsilon",
+      "aliases": [
+        "ε"
+      ],
+      "kind": "notation",
+      "definition": "The perturbation budget: the largest ell infinity change an attacker is allowed to make to the input.",
+      "intuition": "It is the size of the box the attacker may move inside, and the number a certificate has to beat to be useful.",
+      "inThisCourse": "Written ε, on the right-hand side of the constraint.",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "id": "t-phi-inverse",
+      "term": "Phi inverse",
+      "aliases": [
+        "Φ⁻¹",
+        "inverse normal CDF",
+        "probit"
+      ],
+      "kind": "notation",
+      "definition": "The inverse of the standard Gaussian cumulative distribution function, applied to the vote probability to obtain the radius.",
+      "intuition": "It is the exchange rate between a probability and a distance, and it is a Gaussian one because the noise is Gaussian.",
+      "inThisCourse": "Printed Φ⁻¹ and read as the source of the radius formula; the vote probability comes from the majority vote of the previous slide.",
+      "pages": [
+        3
+      ]
+    },
+    {
+      "id": "t-empirical-robustness",
+      "term": "empirical robustness",
+      "aliases": [
+        "Empirical"
+      ],
+      "kind": "concept",
+      "definition": "Robustness measured by running attacks against the model and reporting what it survives.",
+      "intuition": "Cheap and optimistic: it says the attacks you tried failed, which a better attack can undo tomorrow.",
+      "inThisCourse": "The left column of this slide, set against the certified column.",
+      "pages": [
+        4
+      ]
+    },
+    {
+      "id": "t-certified-robustness",
+      "term": "certified robustness",
+      "aliases": [
+        "Certified"
+      ],
+      "kind": "concept",
+      "definition": "Robustness proved for a radius: no perturbation inside it can change the prediction.",
+      "intuition": "Expensive and pessimistic, but the number cannot be taken away by a smarter attack later.",
+      "inThisCourse": "The right column of this slide; what randomized smoothing delivers.",
+      "pages": [
+        4
+      ]
+    }
+  ]
+}

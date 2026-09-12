@@ -1,0 +1,92 @@
+{
+  "pages": [
+    {
+      "page": 5,
+      "title": "",
+      "startS": null,
+      "endS": null,
+      "notes": []
+    },
+    {
+      "page": 6,
+      "title": "Summary",
+      "startS": 900,
+      "endS": 1200,
+      "notes": [
+        {
+          "kind": "generated",
+          "text": "The guarantee degrades with dimension: at fixed accuracy the certified radius shrinks roughly like one over root d in ell infinity, tolerable on CIFAR and embarrassing on ImageNet.",
+          "lineIds": [
+            1,
+            2
+          ],
+          "termIds": [
+            "t-certified-radius"
+          ],
+          "tStart": 923.08,
+          "tEnd": 967.85,
+          "quote": "The certified radius you can get at a fixed accuracy shrinks roughly like one over root d",
+          "tag": "caveat",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "Certified robustness on high-resolution images is a research area rather than a tool, so his answer on certifying a production model is no, for sample cost first and dimension second.",
+          "lineIds": [
+            1
+          ],
+          "termIds": [
+            "t-certified-defense"
+          ],
+          "tStart": 969.23,
+          "tEnd": 1014,
+          "quote": "It is a research area, it is not a tool you reach for.",
+          "tag": "caveat",
+          "confidence": "medium"
+        },
+        {
+          "kind": "generated",
+          "text": "Where it does earn its keep is small inputs with high stakes: tabular medical data and control signals, where d is small and being wrong is expensive.",
+          "lineIds": [
+            1
+          ],
+          "termIds": [
+            "t-certified-defense"
+          ],
+          "tStart": 1015.38,
+          "tEnd": 1037.08,
+          "quote": "small inputs with high stakes. Tabular medical data, control signals, anything where d is small",
+          "tag": "why-it-matters",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "The guarantee is per input, not a property of the model: two images of the same class can have wildly different radii, which certified accuracy at one radius hides.",
+          "lineIds": [
+            2
+          ],
+          "termIds": [
+            "t-certified-radius"
+          ],
+          "tStart": 1038.46,
+          "tEnd": 1083.23,
+          "quote": "It is not a property of the model, it is a property of the model at that point",
+          "tag": "caveat",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "Next week is the training side, SmoothAdv and the consistency regulariser; read sections three and four of the Cohen paper first and skip the appendix.",
+          "lineIds": [],
+          "termIds": [],
+          "tStart": 1084.62,
+          "tEnd": 1129.38,
+          "quote": "Next week we do the training side: how you actually train a base classifier so that smoothing doesn't destroy it",
+          "tag": "aside",
+          "confidence": "high"
+        }
+      ]
+    }
+  ],
+  "openQuestions": []
+}

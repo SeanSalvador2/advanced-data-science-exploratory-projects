@@ -1,0 +1,10 @@
+{
+  "schema": "recording/1",
+  "startedWall": "2026-09-15T14:00:00.000+00:00",
+  "stoppedWall": "2026-09-15T14:20:00.000+00:00",
+  "durationS": 1200.0,
+  "sampleRate": 16000,
+  "channels": 1,
+  "device": "fixture",
+  "file": "audio.wav"
+}

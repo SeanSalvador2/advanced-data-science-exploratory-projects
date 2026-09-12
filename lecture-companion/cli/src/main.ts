@@ -5,6 +5,14 @@ import { renderPages } from "./commands/render-pages.js";
 import { hashSpans } from "./commands/hash-spans.js";
 import { termsContext } from "./commands/terms-context.js";
 import { checkPartials, mergeTerms, summarizeCheck, summarizeMerge } from "./commands/merge-terms.js";
+import { notesContext } from "./commands/notes-context.js";
+import {
+  checkNotesPartials,
+  mergeNotes,
+  summarizeNotesCheck,
+  summarizeNotesMerge,
+} from "./commands/merge-notes.js";
+import { exportMarkdown, summarizeExport } from "./commands/export-md.js";
 import { bias, summarizeBias } from "./commands/bias.js";
 import { renderValidation, validateJsonFile } from "./commands/validate.js";
 import { renderStatus, status } from "./commands/status.js";
@@ -97,6 +105,18 @@ export function buildProgram(): Command {
       console.log(JSON.stringify(result.context, null, 2));
     });
 
+  program
+    .command("notes-context")
+    .argument("<dir>", "lecture folder")
+    .requiredOption("--pages <a-b>", "inclusive page range for one batch, e.g. 1-6")
+    .option("--json", "print JSON (the default, and the only format today)", false)
+    .description("print the text inputs /lecture-notes needs for one batch, as JSON")
+    .action(async (dir: string, o: Record<string, unknown>) => {
+      const result = await notesContext(dir, o["pages"] as string);
+      for (const w of result.warnings) console.error(`lecture: ${w}`);
+      console.log(JSON.stringify(result.context, null, 2));
+    });
+
   const merge = program
     .command("merge")
     .description("merge a skill's .lecture/*.partial batch files into one artefact");
@@ -120,6 +140,25 @@ export function buildProgram(): Command {
       console.log(summarizeMerge(result));
     });
 
+  merge
+    .command("notes")
+    .argument("<dir>", "lecture folder")
+    .option("--allow-missing", "accept pages that were shown but carry no partial", false)
+    .option("--clean", "delete the partial files after a successful merge", false)
+    .option("--check", "validate the partials written so far and write nothing", false)
+    .description("merge .lecture/notes.partial/*.json into notes.json")
+    .action(async (dir: string, o: Record<string, unknown>) => {
+      if (o["check"] === true) {
+        console.log(summarizeNotesCheck(await checkNotesPartials(dir)));
+        return;
+      }
+      const result = await mergeNotes(dir, {
+        allowMissing: o["allowMissing"] as boolean,
+        clean: o["clean"] as boolean,
+      });
+      console.log(summarizeNotesMerge(result));
+    });
+
   program
     .command("bias")
     .argument("<dir>", "lecture folder")
@@ -135,6 +174,21 @@ export function buildProgram(): Command {
         maxGlobal: o["maxGlobal"] as number,
       });
       console.log(summarizeBias(result));
+    });
+
+  program
+    .command("export-md")
+    .argument("<dir>", "lecture folder")
+    .option("--quotes", "include each generated note's transcript evidence", false)
+    .option("--out <path>", "write somewhere other than <dir>/<lectureId>.md")
+    .description("render notes.json and terms.json into the lecture's Markdown file")
+    .action(async (dir: string, o: Record<string, unknown>) => {
+      const result = await exportMarkdown(dir, {
+        quotes: o["quotes"] as boolean,
+        ...(o["out"] === undefined ? {} : { out: o["out"] as string }),
+      });
+      for (const w of result.warnings) console.error(`lecture: ${w}`);
+      console.log(summarizeExport(result));
     });
 
   program

@@ -1,0 +1,11 @@
+{"t": 0.0, "wall": "2026-09-15T14:00:00.000+00:00", "type": "start", "source": "recorder"}
+{"wall": "2026-09-15T14:00:02.000+00:00", "type": "slide", "slide": 1, "source": "app"}
+{"wall": "2026-09-15T14:02:10.000+00:00", "type": "slide", "slide": 2, "source": "app"}
+{"wall": "2026-09-15T14:03:40.000+00:00", "type": "note", "text": "slide says noise at prediction time but he keeps saying you also train with it - same sigma both places", "source": "app"}
+{"wall": "2026-09-15T14:05:30.000+00:00", "type": "slide", "slide": 3, "source": "app"}
+{"wall": "2026-09-15T14:06:20.000+00:00", "type": "note", "text": "why Phi inverse and not a tail bound?", "source": "app"}
+{"wall": "2026-09-15T14:09:00.000+00:00", "type": "slide", "slide": 4, "source": "app"}
+{"wall": "2026-09-15T14:10:15.000+00:00", "type": "note", "text": "does a certified radius survive fine tuning the base classifier?", "source": "app"}
+{"wall": "2026-09-15T14:12:00.000+00:00", "type": "slide", "slide": 3, "source": "app"}
+{"wall": "2026-09-15T14:15:00.000+00:00", "type": "slide", "slide": 6, "source": "app"}
+{"t": 1200.0, "wall": "2026-09-15T14:20:00.000+00:00", "type": "stop", "source": "recorder"}

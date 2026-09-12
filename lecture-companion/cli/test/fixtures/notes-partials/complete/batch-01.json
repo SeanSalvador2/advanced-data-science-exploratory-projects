@@ -1,0 +1,555 @@
+{
+  "pages": [
+    {
+      "page": 1,
+      "title": "Certified Defenses",
+      "startS": 2,
+      "endS": 130,
+      "notes": [
+        {
+          "kind": "generated",
+          "text": "Admin: the problem set due Friday now runs to Monday, there is no class a week from Thursday because he is at a workshop, and office hours move to Wednesday two to four.",
+          "lineIds": [],
+          "termIds": [],
+          "tStart": 14.8,
+          "tEnd": 103.63,
+          "quote": "the problem set that was due Friday is now due Monday",
+          "tag": "aside",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "Almost all of today comes from the Cohen, Rosenfeld and Kolter paper, which is on the reading list.",
+          "lineIds": [
+            0
+          ],
+          "termIds": [],
+          "tStart": 53.2,
+          "tEnd": 65.23,
+          "quote": "Almost everything today is from the Cohen, Rosenfeld and Kolter paper. It's on the reading list.",
+          "tag": "aside",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "He placed this lecture as the point where the course stops playing whack-a-mole with empirical attacks and starts proving things instead.",
+          "lineIds": [
+            0
+          ],
+          "termIds": [
+            "t-certified-defense"
+          ],
+          "tStart": 66,
+          "tEnd": 78.03,
+          "quote": "this is the lecture where we stop playing whack a mole",
+          "tag": "connection",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "title": "Randomized smoothing",
+      "startS": 130,
+      "endS": 330,
+      "notes": [
+        {
+          "kind": "generated",
+          "text": "You are not defending the classifier you trained but a blurred copy of it, and the blurring is what buys the guarantee: a tiny push cannot cross a smeared decision boundary.",
+          "lineIds": [
+            0,
+            1
+          ],
+          "termIds": [
+            "t-randomized-smoothing",
+            "t-gaussian-noise"
+          ],
+          "tStart": 163.33,
+          "tEnd": 195.67,
+          "quote": "You are defending a blurred version of it, and the blurring is what buys you the guarantee",
+          "tag": "intuition",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "He called randomized smoothing the same trick as label smoothing in a different costume: different literature, same instinct not to trust the sharp thing.",
+          "lineIds": [
+            0
+          ],
+          "termIds": [
+            "t-randomized-smoothing"
+          ],
+          "tStart": 196.67,
+          "tEnd": 212.33,
+          "quote": "the same trick as label smoothing wearing a completely different costume",
+          "tag": "aside",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "The noisy copies are a batch of about a hundred thousand per input, so prediction runs four orders of magnitude slower than a forward pass, which is why certified numbers are rare in papers.",
+          "lineIds": [
+            4
+          ],
+          "termIds": [
+            "t-majority-vote",
+            "t-gaussian-noise"
+          ],
+          "tStart": 213.33,
+          "tEnd": 245.67,
+          "quote": "prediction is about four orders of magnitude slower than a forward pass",
+          "tag": "caveat",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "The slide only fixes when the noise level is chosen; he added that the base classifier must itself be trained on noisy inputs at that same sigma, or smoothing a clean-trained model gives garbage.",
+          "lineIds": [
+            1,
+            2
+          ],
+          "termIds": [
+            "t-gaussian-noise",
+            "t-certification-time"
+          ],
+          "tStart": 246.67,
+          "tEnd": 279,
+          "quote": "you train with Gaussian augmentation at the same sigma you are going to certify at",
+          "tag": "why-it-matters",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "The margin becomes a radius only because the vote is a probability and probabilities under a Gaussian carry a geometry; the next slide makes that exchange rate explicit.",
+          "lineIds": [
+            5
+          ],
+          "termIds": [
+            "t-vote-margin",
+            "t-certified-radius"
+          ],
+          "tStart": 280,
+          "tEnd": 295.67,
+          "quote": "the vote is a probability, and probabilities under a Gaussian have a geometry",
+          "tag": "why-it-matters",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "Drawing more noise samples tightens the estimate of the vote probability but does not change it, so more samples cannot buy a bigger radius.",
+          "lineIds": [
+            5,
+            6
+          ],
+          "termIds": [
+            "t-vote-margin",
+            "t-certified-radius"
+          ],
+          "tStart": 296.67,
+          "tEnd": 312.33,
+          "quote": "More samples tighten your estimate of the probability, they don't change the probability",
+          "tag": "caveat",
+          "confidence": "high"
+        },
+        {
+          "kind": "student",
+          "text": "slide says noise at prediction time but he keeps saying you also train with it - same sigma both places",
+          "lineIds": [
+            1,
+            2
+          ],
+          "termIds": [
+            "t-gaussian-noise",
+            "t-certification-time"
+          ],
+          "tStart": 220,
+          "tEnd": null,
+          "tag": "student",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "title": "The certificate",
+      "startS": 330,
+      "endS": 900,
+      "notes": [
+        {
+          "kind": "generated",
+          "text": "The vote probability is the chance the base classifier returns the top class on one single noise draw, not the majority over many draws.",
+          "lineIds": [
+            3
+          ],
+          "termIds": [
+            "t-phi-inverse",
+            "t-certified-radius"
+          ],
+          "tStart": 349.09,
+          "tEnd": 386.13,
+          "quote": "It is the probability that the base classifier returns the top class when you draw one single noise sample",
+          "tag": "definition-spoken",
+          "confidence": "high"
+        },
+        {
+          "kind": "student",
+          "text": "why Phi inverse and not a tail bound?",
+          "lineIds": [
+            3
+          ],
+          "termIds": [
+            "t-phi-inverse"
+          ],
+          "tStart": 380,
+          "tEnd": 443.4,
+          "tag": "student",
+          "answer": "Neyman-Pearson makes the worst case a half space, and the distance from a Gaussian's centre to a half space of a given mass is exactly Phi inverse, so it is exact rather than a bound.",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "Phi inverse rather than a Hoeffding tail bound because Neyman-Pearson makes the worst case a half space, and the distance from a Gaussian's centre to a half space of given mass is exactly Phi inverse.",
+          "lineIds": [
+            3
+          ],
+          "termIds": [
+            "t-phi-inverse"
+          ],
+          "tStart": 387.27,
+          "tEnd": 443.4,
+          "quote": "the distance from the centre of a Gaussian to a half space of a given mass is exactly fee inverse of that mass",
+          "tag": "why-it-matters",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "A tail bound would be true but loose, and loose here means throwing away radius you had already earned.",
+          "lineIds": [
+            3
+          ],
+          "termIds": [
+            "t-phi-inverse",
+            "t-certified-radius"
+          ],
+          "tStart": 444.55,
+          "tEnd": 462.49,
+          "quote": "It would just be loose, and loose here means you throw away radius that you actually earned",
+          "tag": "caveat",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "Pushed far enough the trade-off ends in collapse: the base classifier can no longer see anything and the vote probability falls to chance.",
+          "lineIds": [
+            1
+          ],
+          "termIds": [
+            "t-sigma-squared",
+            "t-certified-radius"
+          ],
+          "tStart": 482.73,
+          "tEnd": 500.67,
+          "quote": "at some point the base classifier can't see anything at all and the vote probability collapses to chance",
+          "tag": "caveat",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "The paper sweeps sigma at 0.25, 0.5 and 1, and the 0.5 curve is the one everybody ends up plotting.",
+          "lineIds": [
+            1
+          ],
+          "termIds": [
+            "t-sigma-squared"
+          ],
+          "tStart": 501.82,
+          "tEnd": 519.76,
+          "quote": "they sweep sigma at point two five, point five and one, and the point five curve is the one everybody ends up plotting",
+          "tag": "example",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "The certificate is an ell two guarantee even though the slide states the threat model in the ell infinity norm, because Phi inverse of a Gaussian mass is a Euclidean distance.",
+          "lineIds": [
+            2,
+            3
+          ],
+          "termIds": [
+            "t-ell-infinity-norm",
+            "t-phi-inverse",
+            "t-epsilon"
+          ],
+          "tStart": 463.64,
+          "tEnd": 778.8,
+          "quote": "the certificate we just derived is an ell two certificate. Fee inverse of a Gaussian mass is a Euclidean distance",
+          "tag": "correction",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "You can convert, since an ell two ball of radius r contains an ell infinity ball of radius r over root d, but that root d is brutal once d is a real image.",
+          "lineIds": [
+            2
+          ],
+          "termIds": [
+            "t-ell-infinity-norm",
+            "t-certified-radius"
+          ],
+          "tStart": 780,
+          "tEnd": 798.8,
+          "quote": "An ell two ball of radius r contains an ell infinity ball of radius r over root d",
+          "tag": "caveat",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "When a paper quotes an ell infinity radius, check whether it converted or smoothed with a different distribution: uniform or Laplace noise gives an ell one or ell infinity certificate directly.",
+          "lineIds": [
+            2
+          ],
+          "termIds": [
+            "t-ell-infinity-norm"
+          ],
+          "tStart": 800,
+          "tEnd": 838.8,
+          "quote": "Different noise, different geometry, same Neyman Pearson skeleton underneath",
+          "tag": "caveat",
+          "confidence": "medium"
+        },
+        {
+          "kind": "generated",
+          "text": "He said the deck is wrong here: the noise scale is sigma, the standard deviation, not the variance sigma squared, and he will fix the slide before posting it.",
+          "lineIds": [
+            1
+          ],
+          "termIds": [
+            "t-sigma-squared"
+          ],
+          "tStart": 860,
+          "tEnd": 878.8,
+          "quote": "The noise scale is the standard deviation, not the variance. The deck is wrong there",
+          "tag": "correction",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "page": 4,
+      "title": "Two views",
+      "startS": 540,
+      "endS": 720,
+      "notes": [
+        {
+          "kind": "generated",
+          "text": "He tied the left column back to lecture two, where a published defense fell to a transfer attack in about fifteen minutes: empirical robustness is a claim about the attacks somebody happened to run.",
+          "lineIds": [
+            1,
+            3,
+            5,
+            7
+          ],
+          "termIds": [
+            "t-empirical-robustness"
+          ],
+          "tStart": 560,
+          "tEnd": 598.8,
+          "quote": "Remember lecture two, when we broke that published defense in about fifteen minutes with a transfer attack?",
+          "tag": "connection",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "Exam hint: shown a table of robust accuracies and asked what is wrong with it, the answer he wants is that the attack was fixed and the defense tuned against it.",
+          "lineIds": [
+            1,
+            3,
+            5,
+            7
+          ],
+          "termIds": [
+            "t-empirical-robustness"
+          ],
+          "tStart": 600,
+          "tEnd": 618.8,
+          "quote": "the attack was fixed and the defense was tuned against it",
+          "tag": "exam-hint",
+          "confidence": "high"
+        },
+        {
+          "kind": "student",
+          "text": "does a certified radius survive fine tuning the base classifier?",
+          "lineIds": [
+            2,
+            4,
+            6
+          ],
+          "termIds": [
+            "t-certified-radius",
+            "t-certified-robustness"
+          ],
+          "tStart": 615,
+          "tEnd": null,
+          "tag": "student",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "If a certified number ever beats an empirical number on the same model the evaluation is broken; certified numbers come out smaller every single time.",
+          "lineIds": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "termIds": [
+            "t-certified-robustness",
+            "t-empirical-robustness"
+          ],
+          "tStart": 620,
+          "tEnd": 638.8,
+          "quote": "If you ever see a certified number that beats an empirical number on the same model, something is broken in the evaluation",
+          "tag": "caveat",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "He reframed the small certified number as a floor you can stand on, against the empirical number as a ceiling that may not exist at all.",
+          "lineIds": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "termIds": [
+            "t-certified-robustness",
+            "t-empirical-robustness"
+          ],
+          "tStart": 640,
+          "tEnd": 658.8,
+          "quote": "A small honest number is a floor. The empirical number is a ceiling that may not even exist.",
+          "tag": "intuition",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "Certified accuracy only means something at a stated radius, so find the radius column first when you read a table; papers do publish certified accuracies without one.",
+          "lineIds": [
+            4,
+            6
+          ],
+          "termIds": [
+            "t-certified-radius",
+            "t-certified-robustness"
+          ],
+          "tStart": 660,
+          "tEnd": 698.8,
+          "quote": "A certified accuracy without a radius attached is meaningless, and you will see it in papers anyway",
+          "tag": "caveat",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "page": 5,
+      "title": "",
+      "startS": null,
+      "endS": null,
+      "notes": []
+    },
+    {
+      "page": 6,
+      "title": "Summary",
+      "startS": 900,
+      "endS": 1200,
+      "notes": [
+        {
+          "kind": "generated",
+          "text": "The guarantee degrades with dimension: at fixed accuracy the certified radius shrinks roughly like one over root d in ell infinity, tolerable on CIFAR and embarrassing on ImageNet.",
+          "lineIds": [
+            1,
+            2
+          ],
+          "termIds": [
+            "t-certified-radius"
+          ],
+          "tStart": 923.08,
+          "tEnd": 967.85,
+          "quote": "The certified radius you can get at a fixed accuracy shrinks roughly like one over root d",
+          "tag": "caveat",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "Certified robustness on high-resolution images is a research area rather than a tool, so his answer on certifying a production model is no, for sample cost first and dimension second.",
+          "lineIds": [
+            1
+          ],
+          "termIds": [
+            "t-certified-defense"
+          ],
+          "tStart": 969.23,
+          "tEnd": 1014,
+          "quote": "It is a research area, it is not a tool you reach for.",
+          "tag": "caveat",
+          "confidence": "medium"
+        },
+        {
+          "kind": "generated",
+          "text": "Where it does earn its keep is small inputs with high stakes: tabular medical data and control signals, where d is small and being wrong is expensive.",
+          "lineIds": [
+            1
+          ],
+          "termIds": [
+            "t-certified-defense"
+          ],
+          "tStart": 1015.38,
+          "tEnd": 1037.08,
+          "quote": "small inputs with high stakes. Tabular medical data, control signals, anything where d is small",
+          "tag": "why-it-matters",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "The guarantee is per input, not a property of the model: two images of the same class can have wildly different radii, which certified accuracy at one radius hides.",
+          "lineIds": [
+            2
+          ],
+          "termIds": [
+            "t-certified-radius"
+          ],
+          "tStart": 1038.46,
+          "tEnd": 1083.23,
+          "quote": "It is not a property of the model, it is a property of the model at that point",
+          "tag": "caveat",
+          "confidence": "high"
+        },
+        {
+          "kind": "generated",
+          "text": "Next week is the training side, SmoothAdv and the consistency regulariser; read sections three and four of the Cohen paper first and skip the appendix.",
+          "lineIds": [],
+          "termIds": [],
+          "tStart": 1084.62,
+          "tEnd": 1129.38,
+          "quote": "Next week we do the training side: how you actually train a base classifier so that smoothing doesn't destroy it",
+          "tag": "aside",
+          "confidence": "high"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "text": "does a certified radius survive fine tuning the base classifier?",
+      "page": 4,
+      "source": "student",
+      "tStart": 615
+    },
+    {
+      "text": "Does the certificate still mean anything if the attacker knows sigma and can pick the input?",
+      "page": 6,
+      "source": "professor",
+      "tStart": 1130.77
+    }
+  ]
+}

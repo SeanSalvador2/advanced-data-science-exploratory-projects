@@ -1,6 +1,6 @@
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
-import { BiasTermsSchema, TermIndexSchema, type LectureManifest } from "@lecture/core";
+import { BiasTermsSchema, LectureNotesSchema, TermIndexSchema, type LectureManifest } from "@lecture/core";
 import { at, FILES } from "../folder.js";
 import { exists } from "../util.js";
 import { readManifest } from "../folder.js";
@@ -58,6 +58,41 @@ async function biasDetail(file: string): Promise<string | undefined> {
   }
 }
 
+/**
+ * "6 pages, 11 notes on 4 pages, 9 generated / 2 student, 1 open question" for
+ * a readable notes.json. Never throws, like the other detail readers.
+ */
+async function notesDetail(file: string): Promise<string | undefined> {
+  try {
+    const parsed = LectureNotesSchema.safeParse(JSON.parse(await readFile(file, "utf8")));
+    if (!parsed.success) return "invalid LectureNotes";
+    const pages = parsed.data.pages;
+    const all = pages.flatMap((p) => p.notes);
+    const withNotes = pages.filter((p) => p.notes.length > 0).length;
+    const generated = all.filter((n) => n.kind === "generated").length;
+    const low = all.filter((n) => n.confidence === "low").length;
+    return (
+      `${pages.length} pages, ${all.length} notes on ${withNotes} page(s), ` +
+      `${generated} generated / ${all.length - generated} student, ` +
+      `${parsed.data.openQuestions.length} open question(s)` +
+      (low > 0 ? `, ${low} low confidence` : "")
+    );
+  } catch {
+    return "unreadable";
+  }
+}
+
+/** "412 lines, 18 KB" for the exported Markdown. */
+async function markdownDetail(file: string): Promise<string | undefined> {
+  try {
+    const text = await readFile(file, "utf8");
+    const sections = (text.match(/^## Slide \d+/gmu) ?? []).length;
+    return `${text.split("\n").length - 1} lines, ${sections} slide section(s)`;
+  } catch {
+    return "unreadable";
+  }
+}
+
 export async function status(dir: string): Promise<StatusReport> {
   let manifest: LectureManifest | null = null;
   try {
@@ -67,6 +102,9 @@ export async function status(dir: string): Promise<StatusReport> {
   }
 
   const pngs = await countPages(dir);
+  // The Markdown file is the only artefact whose name depends on the lecture,
+  // so it is only listed once `lecture.json` has been read.
+  const markdown = manifest === null ? null : `${manifest.lectureId}.md`;
   const simple: Array<[string, string]> = [
     [FILES.manifest, FILES.manifest],
     [FILES.deck, FILES.deck],
@@ -78,6 +116,7 @@ export async function status(dir: string): Promise<StatusReport> {
     [FILES.events, FILES.events],
     [FILES.transcript, FILES.transcript],
     [FILES.notes, FILES.notes],
+    ...(markdown === null ? [] : ([[markdown, markdown]] as Array<[string, string]>)),
     [FILES.heartbeat, FILES.heartbeat],
   ];
 
@@ -88,6 +127,8 @@ export async function status(dir: string): Promise<StatusReport> {
     let detail: string | undefined;
     if (present && rel === FILES.terms) detail = await termsDetail(file);
     if (present && rel === FILES.bias) detail = await biasDetail(file);
+    if (present && rel === FILES.notes) detail = await notesDetail(file);
+    if (present && markdown !== null && rel === markdown) detail = await markdownDetail(file);
     artifacts.push({ name, present, ...(detail === undefined ? {} : { detail }) });
   }
   artifacts.splice(3, 0, {
