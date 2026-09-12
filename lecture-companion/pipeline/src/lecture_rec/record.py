@@ -11,6 +11,13 @@ Design constraints, all of which the tests check:
 
 * Event times come from the AUDIO clock (frames captured / samplerate), never
   from wall clock, so a slide marker can never drift away from the audio.
+* Nothing recorded is ever opened for writing again. Started in a folder that
+  already holds `audio.wav`, the recorder records the NEXT TAKE beside it -
+  `audio.take2.wav` with `recording.take2.json` - which is what makes it safe
+  to restart after a crash twenty minutes into a lecture. Take N's events are
+  written on the LECTURE clock (take 1's `startedWall` is its zero), so the
+  recorder's `t` and the app's wall-clock events agree, and `transcribe`
+  stitches the takes onto that one clock.
 * Every event line is one `O_APPEND` write of under 4 KB, so the app appending
   to the same file cannot interleave half a line with ours.
 * `.lecture/heartbeat.json` is rewritten every 2 s through a temp file and
@@ -50,7 +57,9 @@ from .schemas import (
     RecordingMeta,
     append_event,
     fmt_mmss,
+    iso_delta_s,
     now_iso,
+    read_events,
     write_json,
 )
 
@@ -168,6 +177,16 @@ class Recorder:
         self._recent: "collections.deque[np.ndarray]" = collections.deque()
         self._recent_n = 0
         self._started_wall: Optional[str] = None
+        #: Which take this run records, and where it lands. Decided in `start()`,
+        #: because the folder can gain an `audio.wav` between construction and
+        #: the moment recording begins.
+        self.take = 1
+        self.audio_path = self.ld.audio
+        self.recording_path = self.ld.recording
+        #: Seconds from take 1's first audio frame to this take's first frame.
+        #: Zero on take 1; every event `t` this recorder writes is this plus the
+        #: audio clock, so every take's events share one lecture clock.
+        self.take_offset_s = 0.0
 
         self.current_slide = 1
         # silence detection state
@@ -183,6 +202,15 @@ class Recorder:
         """Seconds of audio captured so far. This is the only clock we trust."""
         with self._lock:
             return self._frames_captured / float(self.samplerate)
+
+    def lecture_t(self, audio_t: Optional[float] = None) -> float:
+        """This take's audio clock, moved onto the lecture clock.
+
+        Identical to `elapsed_s` on take 1, where the two clocks are the same
+        thing; on take N it is `startedWall_N - startedWall_1` later.
+        """
+        t = self.elapsed_s if audio_t is None else float(audio_t)
+        return self.take_offset_s + t
 
     # -- capture ------------------------------------------------------------ #
 
@@ -257,12 +285,15 @@ class Recorder:
         return math.sqrt(total / n) if n else 0.0
 
     def heartbeat(self) -> Heartbeat:
+        # `elapsedS` stays THIS take's audio clock - it is what the app shows as
+        # the recording time - and `take` says which take is being recorded.
         return Heartbeat(
             pid=os.getpid(),
             started_wall=self._started_wall or now_iso(),
             updated_wall=now_iso(),
             elapsed_s=self.elapsed_s,
             rms_recent=self.rms_recent(),
+            take=self.take,
         )
 
     def write_heartbeat(self) -> None:
@@ -300,14 +331,21 @@ class Recorder:
             self.ld.deck.write_bytes(src.read_bytes())
             self.out(f"deck -> {self.ld.deck}")
 
-        if self.ld.audio.exists():
-            raise SystemExit(
-                f"{self.ld.audio} already exists. Record into a fresh directory so "
-                "an existing recording can never be overwritten."
+        # Which take is this? Take 1 keeps the plain names; a folder that already
+        # holds audio gets the next take beside it. Nothing already recorded is
+        # ever opened for writing, so there is no flag that could overwrite a
+        # lecture - restarting after a crash is simply take 2.
+        self.take = self.ld.next_take()
+        self.audio_path = self.ld.audio_for_take(self.take)
+        self.recording_path = self.ld.recording_for_take(self.take)
+        if self.take > 1:
+            self.out(
+                f"{self.ld.audio} exists; recording take {self.take} to "
+                f"{self.audio_path.name}; the transcriber will stitch the takes"
             )
 
         self._file = sf.SoundFile(
-            str(self.ld.audio), mode="w", samplerate=self.samplerate,
+            str(self.audio_path), mode="w", samplerate=self.samplerate,
             channels=self.channels, subtype="PCM_16",
         )
         self._writer = threading.Thread(target=self._write_loop, daemon=True)
@@ -329,24 +367,24 @@ class Recorder:
         # but it is on a different clock base per host API, so it is not worth
         # the correction.
         self._started_wall = now_iso()
+        self.take_offset_s = self._compute_take_offset(self._started_wall)
 
         meta = RecordingMeta(
             started_wall=self._started_wall,
             sample_rate=self.samplerate,
             channels=self.channels,
-            file="audio.wav",
+            file=self.audio_path.name,
             device=str(self.device) if self.device else "default",
             duration_s=None,
+            take=self.take if self.take > 1 else None,
         )
-        write_json(self.ld.recording, meta.to_dict())
+        write_json(self.recording_path, meta.to_dict())
         self._meta = meta
 
-        append_event(self.ld.events,
-                     Event(t=0.0, wall=self._started_wall, type="start",
-                           source="recorder"))
+        self._append(Event(t=self.lecture_t(0.0), wall=self._started_wall,
+                           type="start", source="recorder"))
         if self.keys:
-            append_event(self.ld.events,
-                         Event(t=0.0, wall=now_iso(), type="slide",
+            self._append(Event(t=self.lecture_t(0.0), wall=now_iso(), type="slide",
                                slide=self.current_slide, source="recorder"))
 
         self.ld.dot_lecture.mkdir(parents=True, exist_ok=True)
@@ -356,10 +394,61 @@ class Recorder:
                                                   daemon=True)
         self._heartbeat_thread.start()
 
-        self.out(f"recording -> {self.ld.audio}")
+        self.out(f"recording -> {self.audio_path}")
+        if self.take > 1:
+            self.out(f"  take {self.take}, {fmt_mmss(self.take_offset_s)} into the "
+                     "lecture clock that take 1 started")
         self.out(self.mode_line())
         if self.keys:
             self.out(self.help_text())
+
+    def _compute_take_offset(self, started_wall: str) -> float:
+        """Seconds from take 1's first audio frame to this take's first frame.
+
+        Take 1's `recording.json` holds the origin. If it is missing (a folder
+        with audio but no metadata), the first `start` event's wall clock does
+        the same job. With neither, the offset has to be zero and the takes
+        would sit on top of each other, so say so loudly.
+        """
+        if self.take <= 1:
+            return 0.0
+
+        origin: Optional[str] = None
+        first = self.ld.load_recording_for_take(1)
+        if first is not None and first.started_wall:
+            origin = first.started_wall
+        else:
+            for ev in read_events(self.ld.events):
+                if ev.type == "start" and ev.wall:
+                    origin = ev.wall
+                    break
+
+        if origin is None:
+            self.out(_color(
+                f"  no take 1 startedWall in {self.ld.recording} and no start event: "
+                "take times cannot be offset; the takes will overlap on the "
+                "lecture clock.", YELLOW))
+            return 0.0
+
+        try:
+            offset = iso_delta_s(started_wall, origin)
+        except ValueError:
+            self.out(_color(f"  unreadable take 1 startedWall {origin!r}; "
+                            "recording take times from zero.", YELLOW))
+            return 0.0
+
+        if offset < 0.0:
+            self.out(_color(
+                f"  take 1 started {abs(offset):.1f}s in the FUTURE (system clock "
+                "changed?); recording take times from zero.", YELLOW))
+            return 0.0
+        return offset
+
+    def _append(self, ev: Event) -> None:
+        """Append one event, tagged with this take (absent on take 1)."""
+        if self.take > 1:
+            ev.take = self.take
+        append_event(self.ld.events, ev)
 
     def _start_caffeinate(self) -> None:
         if not self.use_caffeinate or platform.system() != "Darwin":
@@ -409,11 +498,11 @@ class Recorder:
         if self._file is not None:
             self._file.close()
         stopped_wall = now_iso()
-        append_event(self.ld.events,
-                     Event(t=t, wall=stopped_wall, type="stop", source="recorder"))
+        self._append(Event(t=self.lecture_t(t), wall=stopped_wall, type="stop",
+                           source="recorder"))
         self._meta.duration_s = t
         self._meta.stopped_wall = stopped_wall
-        write_json(self.ld.recording, self._meta.to_dict())
+        write_json(self.recording_path, self._meta.to_dict())
         # Clean stop: the heartbeat goes away, so the app shows "no recorder"
         # rather than a file that quietly stops being updated.
         self._remove_heartbeat()
@@ -422,7 +511,10 @@ class Recorder:
                 self._caffeinate.terminate()
             except Exception:                           # pragma: no cover
                 pass
-        self.out(f"stopped after {fmt_mmss(t)}  ->  {self.ld.audio}")
+        self.out(f"stopped after {fmt_mmss(t)}  ->  {self.audio_path}")
+        if self.take > 1:
+            self.out(f"  that was take {self.take}; `lecture-rec transcribe "
+                     f"{self.ld.root}` puts all {self.take} takes on one clock")
 
     # -- command protocol --------------------------------------------------- #
 
@@ -450,9 +542,8 @@ class Recorder:
             self._slide_event(t)
         elif line.lower().startswith("n ") or line.lower() == "n":
             text = line[2:].strip() if len(line) > 1 else ""
-            append_event(self.ld.events,
-                         Event(t=t, wall=now_iso(), type="note", text=text,
-                               source="recorder"))
+            self._append(Event(t=self.lecture_t(t), wall=now_iso(), type="note",
+                               text=text, source="recorder"))
             self.out(f"  note @ {fmt_mmss(t)}: {text}")
         elif line.lstrip("+").isdigit():
             self.current_slide = max(1, int(line.lstrip("+")))
@@ -466,8 +557,7 @@ class Recorder:
         return True
 
     def _slide_event(self, t: float) -> None:
-        append_event(self.ld.events,
-                     Event(t=t, wall=now_iso(), type="slide",
+        self._append(Event(t=self.lecture_t(t), wall=now_iso(), type="slide",
                            slide=self.current_slide, source="recorder"))
 
     def run(self, deck: Optional[str] = None) -> None:

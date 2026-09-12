@@ -136,6 +136,18 @@ def run_sample(
         )
     if not ld.audio.exists():
         raise SystemExit(f"no audio at {ld.audio}")
+    takes = ld.take_numbers()
+    if len(takes) > 1:
+        # Windows are cut out of one WAV at transcript times, and on a restarted
+        # lecture those times are on the lecture clock, which spans several
+        # files. Measuring quality is a before-the-term job on a folder recorded
+        # in one go, so refuse rather than cut the wrong audio.
+        raise SystemExit(
+            f"{ld.root} holds {len(takes)} takes "
+            f"({', '.join(ld.audio_for_take(n).name for n in takes)}). "
+            "`sample` cuts evaluation windows from a single-take recording; "
+            "measure on a folder that was recorded in one go."
+        )
 
     import soundfile as sf
 

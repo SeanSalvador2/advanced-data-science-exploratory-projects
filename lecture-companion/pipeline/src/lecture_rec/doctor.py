@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 from .record import RED, SILENCE_HELP, SILENCE_RMS, _color
-from .schemas import LectureDir
+from .schemas import LectureDir, fmt_mmss
 
 MIC_TEST_S = 3.0
 
@@ -70,6 +70,21 @@ def run_doctor(mic_seconds: float = MIC_TEST_S, dir_path: str = ".") -> int:
     ld = LectureDir(dir_path)
     print(f"  folder      {ld.root.resolve()}")
     print(f"  heartbeat   {ld.heartbeat.resolve()}  (rewritten every 2 s while recording)")
+    takes = ld.take_numbers()
+    if takes:
+        print(f"  takes       {len(takes)} already recorded here:")
+        for n in takes:
+            audio = ld.audio_for_take(n)
+            meta = ld.load_recording_for_take(n)
+            length = ("still open" if meta is None or meta.duration_s is None
+                      else fmt_mmss(meta.duration_s))
+            started = "" if meta is None else f"  started {meta.started_wall}"
+            print(f"    take {n}: {audio.name}  {length}{started}")
+        print(f"  recording here again would write take {ld.next_take()} "
+              f"({ld.audio_for_take(ld.next_take()).name}); nothing above is "
+              "ever overwritten.")
+    else:
+        print("  takes       none recorded here yet")
     try:
         ld.dot_lecture.mkdir(parents=True, exist_ok=True)
         probe = ld.dot_lecture / ".doctor-probe"

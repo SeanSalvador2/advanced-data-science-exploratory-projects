@@ -197,3 +197,132 @@ def test_resume_keeps_finished_pieces(lecture):
     run_transcribe(out, max_piece_s=10.0, resume=True)
     assert len(engine.prompts) == calls, "resume must not re-decode anything"
     assert len(read_json(LectureDir(out).transcript)["segments"]) == done
+
+
+# --------------------------------------------------------------------------- #
+# takes: a lecture whose recorder died and was started again
+# --------------------------------------------------------------------------- #
+
+TAKE1_S = 40.0
+GAP_S = 20.0
+TAKE2_S = 30.0
+TAKE2_OFFSET = TAKE1_S + GAP_S
+
+
+@pytest.fixture
+def two_take_lecture(tmp_path, monkeypatch):
+    """Take 1, a 20 s hole where nobody was recording, then take 2.
+
+    Slide events come from the app, which never stopped: their wall clocks run
+    straight across the gap, so they only land on the right audio if the
+    transcriber puts both takes on take 1's clock.
+    """
+    out = tmp_path / "lec"
+    out.mkdir()
+    rng = np.random.default_rng(0)
+
+    def noise(seconds: float) -> np.ndarray:
+        return (rng.standard_normal(int(seconds * SR)) * 0.1).astype(np.float32)
+
+    sf.write(str(out / "audio.wav"), noise(TAKE1_S), SR, subtype="PCM_16")
+    sf.write(str(out / "audio.take2.wav"), noise(TAKE2_S), SR, subtype="PCM_16")
+
+    events = [
+        {"t": 0.0, "wall": wall_at(0.0), "type": "start", "source": "recorder"},
+        {"wall": wall_at(0.0), "type": "slide", "slide": 1, "source": "app"},
+        {"wall": wall_at(20.0), "type": "slide", "slide": 2, "source": "app"},
+        {"t": TAKE1_S, "wall": wall_at(TAKE1_S), "type": "stop", "source": "recorder"},
+        {"wall": wall_at(65.0), "type": "slide", "slide": 3, "source": "app"},
+        {"t": TAKE2_OFFSET, "wall": wall_at(TAKE2_OFFSET), "type": "start",
+         "source": "recorder", "take": 2},
+        {"t": TAKE2_OFFSET + TAKE2_S, "wall": wall_at(TAKE2_OFFSET + TAKE2_S),
+         "type": "stop", "source": "recorder", "take": 2},
+    ]
+    (out / "events.jsonl").write_text(
+        "".join(json.dumps(e) + "\n" for e in events), encoding="utf-8")
+    (out / "recording.json").write_text(json.dumps({
+        "schema": "recording/1", "startedWall": START,
+        "stoppedWall": wall_at(TAKE1_S), "durationS": TAKE1_S,
+        "sampleRate": SR, "channels": 1, "device": "synthetic", "file": "audio.wav",
+    }, indent=2) + "\n", encoding="utf-8")
+    (out / "recording.take2.json").write_text(json.dumps({
+        "schema": "recording/1", "startedWall": wall_at(TAKE2_OFFSET),
+        "stoppedWall": wall_at(TAKE2_OFFSET + TAKE2_S), "durationS": TAKE2_S,
+        "sampleRate": SR, "channels": 1, "device": "synthetic",
+        "file": "audio.take2.wav", "take": 2,
+    }, indent=2) + "\n", encoding="utf-8")
+
+    engine = StubEngine()
+    monkeypatch.setattr("lecture_rec.transcribe.select_engine",
+                        lambda name, model: engine)
+    return out, engine
+
+
+def test_takes_land_on_one_clock_with_the_gap_left_silent(two_take_lecture):
+    out, _ = two_take_lecture
+    run_transcribe(out, max_piece_s=30.0)
+    segments = read_json(LectureDir(out).transcript)["segments"]
+
+    assert [(s["slide"], s["start"], s["end"], s.get("take")) for s in segments] == [
+        (1, 0.0, 20.0, None),            # take 1, the lecture clock itself
+        (2, 20.0, 40.0, None),
+        (2, 60.0, 65.0, 2),              # take 2, shifted by startedWall's delta
+        (3, 65.0, 90.0, 2),
+    ]
+    starts = [s["start"] for s in segments]
+    assert starts == sorted(starts) and len(set(starts)) == len(starts)
+    assert [s["id"] for s in segments] == [0, 1, 2, 3]
+    # Nothing covers the 20 s gap: it is time nobody recorded.
+    assert not any(s["start"] < 60.0 < s["end"] for s in segments)
+
+
+def test_take_2_word_times_are_shifted_onto_the_lecture_clock(two_take_lecture):
+    out, _ = two_take_lecture
+    run_transcribe(out, max_piece_s=30.0)
+    segments = read_json(LectureDir(out).transcript)["segments"]
+    for s in segments:
+        assert s["words"], "the stub engine returns word times for every piece"
+        assert s["words"][0]["start"] == pytest.approx(s["start"])
+        assert all(s["start"] - 1e-6 <= w["start"] <= s["end"] + 1e-6
+                   for w in s["words"])
+
+
+def test_the_transcriber_slices_each_piece_from_its_own_take(two_take_lecture):
+    """A piece at 60-65 s on the lecture clock is the FIRST 5 s of take 2."""
+    out, engine = two_take_lecture
+    seen: list[int] = []
+    original = engine.transcribe_piece
+
+    def spy(audio, sr, prompt):
+        seen.append(audio.size)
+        return original(audio, sr, prompt)
+
+    engine.transcribe_piece = spy                       # type: ignore[assignment]
+    run_transcribe(out, max_piece_s=30.0)
+    assert [n / SR for n in seen] == [20.0, 20.0, 5.0, 25.0]
+
+
+def test_both_recording_files_validate_against_the_typescript_contract(
+        two_take_lecture):
+    if shutil.which("node") is None:
+        pytest.skip("node is not installed; cannot cross-check the TS contract")
+    if not NODE_CLI.exists():
+        pytest.skip(f"{NODE_CLI} is not built; run `npm run build` in lecture-companion")
+    out, _ = two_take_lecture
+    run_transcribe(out, max_piece_s=30.0)
+    for name in ("recording.json", "recording.take2.json", "transcript.json"):
+        res = subprocess.run(["node", str(NODE_CLI), "validate", str(out / name)],
+                             capture_output=True, text=True)
+        assert res.returncode == 0, res.stdout + res.stderr
+        assert res.stdout.startswith("ok"), res.stdout
+
+
+def test_sample_refuses_a_multi_take_folder(two_take_lecture):
+    """Quality measurement cuts windows from one WAV; takes are several."""
+    from lecture_rec.evalwin import run_sample
+
+    out, _ = two_take_lecture
+    run_transcribe(out, max_piece_s=30.0, eval_mode=True)
+    with pytest.raises(SystemExit) as excinfo:
+        run_sample(out, n=2, window_s=10.0)
+    assert "takes" in str(excinfo.value)

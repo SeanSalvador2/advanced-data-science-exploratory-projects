@@ -1,9 +1,10 @@
 """End-to-end on the synthetic lecture, with a real (tiny) model.
 
-Two paths:
+Three paths:
   * the production path on an app-style folder - camelCase `recording.json`,
     slide events carrying a wall clock only - ending in `transcript.json`;
-  * the eval path on a Phase 0 folder, ending in `report.md`.
+  * the eval path on a Phase 0 folder, ending in `report.md`;
+  * the restarted-recorder path: two takes and a gap, one transcript, one clock.
 
 Marked slow because it downloads the `tiny.en` model (~75 MB) and the JFK clip
 the first time. Run everything else with `pytest -m "not slow"`.
@@ -20,7 +21,7 @@ from pathlib import Path
 import pytest
 
 from lecture_rec.evalwin import run_sample, run_score
-from lecture_rec.schemas import LectureDir, Transcript, read_json
+from lecture_rec.schemas import LectureDir, Transcript, parse_iso, read_json
 from lecture_rec.transcribe import run_transcribe
 
 REPO = Path(__file__).resolve().parents[1]
@@ -138,3 +139,59 @@ def test_resume_skips_finished_pieces(tmp_path):
                    conditions=["plain"], resume=True, eval_mode=True)
     after = read_json(ld.transcript_json("plain"))
     assert [s["text"] for s in before["segments"]] == [s["text"] for s in after["segments"]]
+
+
+@pytest.mark.slow
+def test_two_takes_land_on_one_clock(tmp_path):
+    """The recorder died mid-lecture and was started again in the same folder.
+
+    Take 1 is the first five repetitions, then 20 s nobody recorded, then take 2
+    in its own files. One transcript comes out, on take 1's clock, with the app's
+    slide events still on the audio they belong to.
+    """
+    out = tmp_path / "two"
+    subprocess.run([sys.executable, str(BUILDER), str(out), "--two-takes"],
+                   check=True, cwd=REPO)
+
+    ld = LectureDir(out)
+    assert ld.take_numbers() == [1, 2]
+    take1 = read_json(ld.recording)
+    take2 = read_json(ld.recording_for_take(2))
+    assert take2["file"] == "audio.take2.wav" and take2["take"] == 2
+    gap_s = 20.0
+    offset = parse_iso(take2["startedWall"]) - parse_iso(take1["startedWall"])
+    assert offset.total_seconds() == pytest.approx(take1["durationS"] + gap_s)
+    validate_with_node(ld.recording)
+    validate_with_node(ld.recording_for_take(2))
+
+    run_transcribe(out, engine_name="faster-whisper", model="tiny.en")
+
+    tr = Transcript.from_dict(read_json(ld.transcript))
+    lecture_s = offset.total_seconds() + take2["durationS"]
+
+    starts = [s.start for s in tr.segments]
+    assert starts == sorted(starts) and len(set(starts)) == len(starts)
+    assert [s.slide for s in tr.segments] == sorted(s.slide for s in tr.segments), \
+        "slide numbers follow the app's events across both takes"
+    assert {s.slide for s in tr.segments} == {1, 2, 3, 4}
+
+    take2_segments = [s for s in tr.segments if s.take == 2]
+    assert take2_segments, "take 2 must contribute segments"
+    assert all(s.start >= offset.total_seconds() - 1e-6 for s in take2_segments), \
+        "take 2's audio is shifted onto the lecture clock, not replayed at zero"
+    assert all(s.take is None for s in tr.segments if s not in take2_segments)
+
+    last = tr.segments[-1]
+    assert last.end > take1["durationS"] + gap_s, "the lecture outlasts take 1 + gap"
+    assert last.end == pytest.approx(lecture_s, abs=0.5)
+
+    for s in tr.segments:
+        assert s.end > s.start and "fellow" in s.text.lower()
+        assert s.words and s.words[0].start >= s.start - 1e-6
+        assert s.words[-1].end <= s.end + 1e-6
+
+    # Nothing was recorded in the gap, so no segment covers it.
+    gap_start = take1["durationS"]
+    assert not any(s.start < gap_start + gap_s / 2 < s.end for s in tr.segments)
+
+    validate_with_node(ld.transcript)

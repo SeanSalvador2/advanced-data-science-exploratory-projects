@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -96,23 +97,33 @@ def write_json(path: Path, payload: Any) -> None:
 class Event:
     """One line of `events.jsonl` (architecture.md section 4.4).
 
-    `t` is seconds on the audio clock. It is absent on events written by the
-    browser app, which knows only the wall clock; `transcribe` projects those
-    onto the audio clock before anything else looks at them.
+    `t` is seconds on the LECTURE clock: zero at the first frame of take 1, the
+    take a folder gets when nothing was recorded in it yet. It is absent on
+    events written by the browser app, which knows only the wall clock;
+    `transcribe` projects those onto the lecture clock before anything else
+    looks at them.
+
+    `take` is absent on take 1 (the overwhelmingly common case, and the shape
+    every folder recorded before takes existed has) and carries the take number
+    on a second or later take. The recorder adds its own take's offset to the
+    audio clock before writing `t`, so events from every take are already on
+    the one lecture clock.
     """
 
     wall: str                     # ISO-8601 local time with offset, always present
     type: EventType
-    t: Optional[float] = None     # seconds since audio frame 0 (the audio clock)
+    t: Optional[float] = None     # seconds since take 1 frame 0 (the lecture clock)
     slide: Optional[int] = None   # 1-based, present for type == "slide"
     text: Optional[str] = None    # present for type == "note"
     source: Optional[EventSource] = None
+    take: Optional[int] = None    # absent on take 1
 
     def to_dict(self) -> dict[str, Any]:
         return _drop_none(
             {"t": None if self.t is None else float(self.t),
              "wall": self.wall, "type": self.type,
-             "slide": self.slide, "text": self.text, "source": self.source}
+             "slide": self.slide, "text": self.text, "source": self.source,
+             "take": None if self.take in (None, 1) else int(self.take)}
         )
 
     @classmethod
@@ -124,6 +135,7 @@ class Event:
             slide=int(d["slide"]) if d.get("slide") is not None else None,
             text=d.get("text"),
             source=d.get("source"),
+            take=int(d["take"]) if d.get("take") is not None else None,
         )
 
 
@@ -135,7 +147,8 @@ def event_line(ev: Event) -> str:
         if not text:
             raise ValueError("event line too long and nothing left to truncate")
         ev = Event(wall=ev.wall, type=ev.type, t=ev.t, slide=ev.slide,
-                   text=text[: max(0, len(text) - 64)], source=ev.source)
+                   text=text[: max(0, len(text) - 64)], source=ev.source,
+                   take=ev.take)
         line = json.dumps(ev.to_dict(), ensure_ascii=False) + "\n"
     return line
 
@@ -190,6 +203,13 @@ class RecordingMeta:
     `packages/core` requires. `from_dict` also reads the Phase 0 snake_case
     spelling (`started_wall`, `samplerate`, `duration_s`) so lectures recorded
     recorded with the Phase 0 recorder still transcribe.
+
+    One file per take: take 1 is `recording.json` beside `audio.wav`, take N is
+    `recording.takeN.json` beside `audio.takeN.wav`. Every take has its OWN
+    `startedWall`; take 1's is the origin of the lecture clock, and take N's
+    offset on that clock is `startedWall_N - startedWall_1`. `take` is written
+    only from take 2 on, so a single-take folder is byte-for-byte what it
+    always was. `RecordingMetaSchema` ignores the extra key.
     """
 
     started_wall: str
@@ -199,6 +219,7 @@ class RecordingMeta:
     channels: int = 1
     device: Optional[str] = None
     file: str = "audio.wav"
+    take: Optional[int] = None            # absent on take 1
 
     def to_dict(self) -> dict[str, Any]:
         return _drop_none(
@@ -211,6 +232,7 @@ class RecordingMeta:
                 "channels": int(self.channels),
                 "device": self.device or None,
                 "file": self.file,
+                "take": None if self.take in (None, 1) else int(self.take),
             }
         )
 
@@ -231,6 +253,7 @@ class RecordingMeta:
             channels=int(pick("channels") or 1),
             device=pick("device"),
             file=pick("file") or "audio.wav",
+            take=None if d.get("take") is None else int(d["take"]),
         )
 
 
@@ -247,6 +270,13 @@ class Heartbeat:
 
     Rewritten every 2 s while recording and deleted on a clean stop, so the app
     can say "rec 3s", "stale" (nothing for 6 s) or "no recorder".
+
+    `startedWall` and `elapsedS` belong to the take being recorded right now -
+    `elapsedS` is what the app displays as the recording time - and `take` says
+    which take that is. `take` is absent on take 1, so the file the app has
+    always read is unchanged; `HeartbeatSchema` in `packages/core` ignores the
+    extra key on a later take (it does strip it, so the app would need the
+    field added there to show it).
     """
 
     pid: int
@@ -254,15 +284,19 @@ class Heartbeat:
     updated_wall: str
     elapsed_s: float
     rms_recent: float
+    take: Optional[int] = None            # absent on take 1
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        d = {
             "pid": int(self.pid),
             "startedWall": self.started_wall,
             "updatedWall": self.updated_wall,
             "elapsedS": float(self.elapsed_s),
             "rmsRecent": float(self.rms_recent),
         }
+        if self.take not in (None, 1):
+            d["take"] = int(self.take)
+        return d
 
     @classmethod
     def from_dict(cls, d: dict[str, Any]) -> "Heartbeat":
@@ -272,6 +306,7 @@ class Heartbeat:
             updated_wall=d["updatedWall"],
             elapsed_s=float(d["elapsedS"]),
             rms_recent=float(d["rmsRecent"]),
+            take=None if d.get("take") is None else int(d["take"]),
         )
 
 
@@ -354,14 +389,15 @@ class Word:
 class Segment:
     id: int
     slide: Optional[int]
-    start: float          # seconds since stream start
+    start: float          # seconds on the lecture clock (zero at take 1 frame 0)
     end: float
     prompt: str
     text: str
     words: list[Word] = field(default_factory=list)
+    take: Optional[int] = None    # absent on take 1; which take the audio came from
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        d = {
             "id": int(self.id),
             "slide": None if self.slide is None else int(self.slide),
             "start": float(self.start),
@@ -370,6 +406,9 @@ class Segment:
             "text": self.text,
             "words": [w.to_dict() for w in self.words],
         }
+        if self.take not in (None, 1):
+            d["take"] = int(self.take)
+        return d
 
     @classmethod
     def from_dict(cls, d: dict[str, Any]) -> "Segment":
@@ -381,6 +420,7 @@ class Segment:
             prompt=d.get("prompt", ""),
             text=d.get("text", ""),
             words=[Word.from_dict(w) for w in d.get("words", [])],
+            take=None if d.get("take") is None else int(d["take"]),
         )
 
 
@@ -462,8 +502,19 @@ class EvalWindowMeta:
 # --------------------------------------------------------------------------- #
 
 
+#: `audio.take7.wav` -> 7. Take 1 is plain `audio.wav`, so it never matches.
+TAKE_AUDIO_RE = re.compile(r"^audio\.take(\d+)\.wav$")
+
+
 class LectureDir:
-    """Every path inside one lecture directory, in one place."""
+    """Every path inside one lecture directory, in one place.
+
+    Takes: the first recording in a folder is take 1 and is called `audio.wav`
+    / `recording.json`, exactly as before takes existed. A recorder started
+    again in the same folder never touches those; it writes take 2 as
+    `audio.take2.wav` / `recording.take2.json`, take 3 as `audio.take3.wav`,
+    and so on. `transcribe` reads them all and puts them on one clock.
+    """
 
     def __init__(self, root: str | Path):
         self.root = Path(root)
@@ -486,6 +537,40 @@ class LectureDir:
     @property
     def recording(self) -> Path:
         return self.root / "recording.json"
+
+    def audio_for_take(self, take: int) -> Path:
+        """`audio.wav` for take 1, `audio.takeN.wav` after that."""
+        take = int(take)
+        return self.audio if take <= 1 else self.root / f"audio.take{take}.wav"
+
+    def recording_for_take(self, take: int) -> Path:
+        take = int(take)
+        return (self.recording if take <= 1
+                else self.root / f"recording.take{take}.json")
+
+    def take_numbers(self) -> list[int]:
+        """Every take with audio on disk, ascending. `[]` in an empty folder."""
+        takes: list[int] = [1] if self.audio.exists() else []
+        for path in self.root.glob("audio.take*.wav"):
+            m = TAKE_AUDIO_RE.match(path.name)
+            if m:
+                n = int(m.group(1))
+                if n >= 2:
+                    takes.append(n)
+        return sorted(set(takes))
+
+    def next_take(self) -> int:
+        """The take a recorder starting now would write. 1 in an empty folder.
+
+        One take above the highest that exists, so nothing recorded is ever
+        opened for writing again - there is no flag that overwrites audio.
+        """
+        takes = self.take_numbers()
+        return 1 if not takes else max(takes) + 1
+
+    def load_recording_for_take(self, take: int) -> Optional["RecordingMeta"]:
+        p = self.recording_for_take(take)
+        return RecordingMeta.from_dict(read_json(p)) if p.exists() else None
 
     @property
     def events(self) -> Path:

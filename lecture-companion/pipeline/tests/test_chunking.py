@@ -11,6 +11,7 @@ from lecture_rec.chunking import (
     Piece,
     SlideSpan,
     build_pieces,
+    clip_spans_to_take,
     events_to_spans,
     frame_rms,
     normalize_events,
@@ -277,3 +278,52 @@ def test_slice_audio_bounds():
     assert slice_audio(audio, SR, 1.0, 2.0).size == SR
     assert slice_audio(audio, SR, 9.5, 100.0).size == SR // 2
     assert slice_audio(audio, SR, 5.0, 5.0).size == 0
+
+
+# --------------------------------------------------------------------------- #
+# takes: spans on the lecture clock, audio in per-take files
+# --------------------------------------------------------------------------- #
+
+
+def test_clip_spans_to_take_keeps_only_what_that_take_recorded():
+    """Take 2 starts 80 s into the lecture and runs for 40 s."""
+    spans = [SlideSpan(1, 0.0, 50.0),        # all of it is take 1
+             SlideSpan(2, 50.0, 100.0),      # straddles the gap and take 2's start
+             SlideSpan(3, 100.0, 120.0)]     # all of it is take 2
+    got = clip_spans_to_take(spans, offset=80.0, duration_s=40.0)
+    assert [(s.slide, s.start, s.end) for s in got] == [(2, 0.0, 20.0),
+                                                        (3, 20.0, 40.0)]
+
+
+def test_clip_spans_to_take_is_a_no_op_for_a_single_take_lecture():
+    spans = events_to_spans(
+        [ev(0, "start"), ev(0, "slide", 1), ev(45, "slide", 2)], 90.0)
+    assert clip_spans_to_take(spans, 0.0, 90.0) == spans
+
+
+def test_clip_spans_to_take_drops_slivers_and_the_gap():
+    spans = [SlideSpan(1, 0.0, 80.0), SlideSpan(2, 80.0, 120.0)]
+    # Take 2 is the last 40 s; slide 1 only overlaps it by a hair.
+    got = clip_spans_to_take(spans, offset=79.99, duration_s=40.01)
+    assert [s.slide for s in got] == [2]
+
+
+def test_build_pieces_puts_a_takes_pieces_on_the_lecture_clock():
+    audio = make_audio(40.0)
+    rms = frame_rms(audio, SR)
+    spans = [SlideSpan(4, 0.0, 40.0)]
+    pieces = build_pieces(spans, rms, 28.0, take=2, offset=80.0, start_index=3)
+    assert [p.index for p in pieces] == [3, 4]
+    assert all(p.take == 2 and p.offset == 80.0 for p in pieces)
+    assert pieces[0].start == pytest.approx(80.0)
+    assert pieces[-1].end == pytest.approx(120.0)
+    # ...while the audio to slice still lives at the take's own times.
+    assert pieces[0].local_start == pytest.approx(0.0)
+    assert pieces[-1].local_end == pytest.approx(40.0)
+    assert sum(p.duration for p in pieces) == pytest.approx(40.0)
+
+
+def test_a_piece_of_take_one_is_its_own_local_time():
+    p = Piece(0, 1, 3.0, 9.0)
+    assert p.take == 1 and p.offset == 0.0
+    assert (p.local_start, p.local_end) == (3.0, 9.0)

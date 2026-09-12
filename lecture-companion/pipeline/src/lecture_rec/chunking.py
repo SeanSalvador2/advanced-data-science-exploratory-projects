@@ -1,13 +1,20 @@
 """Turn (events, audio) into the list of pieces that get fed to an ASR engine.
 
 Three jobs:
-  0. events.jsonl -> the audio clock. The app writes slide and note events with
-     a wall clock only; `normalize_events` projects them onto the audio clock
-     using `recording.startedWall` before anything else looks at them.
+  0. events.jsonl -> the lecture clock. The app writes slide and note events
+     with a wall clock only; `normalize_events` projects them onto the lecture
+     clock using take 1's `recording.startedWall` before anything else looks at
+     them.
   1. events.jsonl -> slide spans (which slide was up when).
   2. slide span   -> pieces of at most `max_piece_s` seconds, cut at the quietest
      moment in the last few seconds of the allowed window so we never slice a
      word in half.
+
+A restarted lecture has more than one take. Spans live on the lecture clock,
+which is take 1's audio clock; `clip_spans_to_take` cuts each span down to the
+part a given take actually recorded, and `build_pieces` shifts that take's
+pieces back onto the lecture clock. Audio in the gap between two takes does not
+exist, so no piece covers it.
 
 Pieces are computed once and reused for every condition, so the plain and the
 biased transcript are always comparable piece-for-piece.
@@ -197,14 +204,33 @@ def events_to_spans(events: Sequence[Event], duration_s: float) -> list[SlideSpa
 
 @dataclass
 class Piece:
+    """One slice of audio to hand an engine.
+
+    `start`/`end` are on the LECTURE clock (zero at take 1's first frame), which
+    is what the transcript reports. `take` and `offset` say where the audio
+    actually lives: in take `take`'s WAV, at `local_start`..`local_end`. On a
+    single-take lecture the offset is zero and the two are the same numbers.
+    """
+
     index: int
     slide: Optional[int]
     start: float
     end: float
+    take: int = 1
+    offset: float = 0.0
 
     @property
     def duration(self) -> float:
         return self.end - self.start
+
+    @property
+    def local_start(self) -> float:
+        """`start` in its own take's audio, which is what gets sliced."""
+        return self.start - self.offset
+
+    @property
+    def local_end(self) -> float:
+        return self.end - self.offset
 
 
 def _quietest_cut(
@@ -261,14 +287,48 @@ def build_pieces(
     max_piece_s: float,
     frame_s: float = FRAME_S,
     search_back_s: float = SEARCH_BACK_S,
+    take: int = 1,
+    offset: float = 0.0,
+    start_index: int = 0,
 ) -> list[Piece]:
-    """Flatten every slide span into globally-indexed pieces."""
+    """Flatten every slide span into globally-indexed pieces.
+
+    `spans` and `rms_frames` are in ONE take's own audio coordinates; `offset`
+    (zero for take 1) moves the resulting pieces onto the lecture clock, and
+    `start_index` continues the numbering of the takes already flattened.
+    """
     out: list[Piece] = []
     for span in spans:
         for s, e in split_span(
             span.start, span.end, rms_frames, max_piece_s, frame_s, search_back_s
         ):
-            out.append(Piece(index=len(out), slide=span.slide, start=s, end=e))
+            out.append(Piece(index=start_index + len(out), slide=span.slide,
+                             start=s + offset, end=e + offset,
+                             take=take, offset=offset))
+    return out
+
+
+def clip_spans_to_take(
+    spans: Sequence[SlideSpan],
+    offset: float,
+    duration_s: float,
+    min_span_s: float = MIN_SPAN_S,
+) -> list[SlideSpan]:
+    """The parts of lecture-clock `spans` that this take actually recorded.
+
+    Returned in the take's OWN coordinates (0 = its first frame), so they can be
+    cut against that take's RMS frames. A span that straddles a take boundary is
+    clipped to the audio that exists; the gap between two takes is simply not
+    covered by any take, which is exactly right - nothing was recorded there.
+    """
+    offset, duration_s = float(offset), float(duration_s)
+    lo, hi = offset, offset + duration_s
+    out: list[SlideSpan] = []
+    for span in spans:
+        start = max(float(span.start), lo)
+        end = min(float(span.end), hi)
+        if end - start > min_span_s:
+            out.append(SlideSpan(span.slide, start - offset, end - offset))
     return out
 
 

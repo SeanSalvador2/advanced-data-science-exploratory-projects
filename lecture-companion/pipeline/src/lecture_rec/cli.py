@@ -42,7 +42,16 @@ def build_parser() -> argparse.ArgumentParser:
     d.add_argument("--seconds", type=float, default=3.0,
                    help="length of the microphone level test (default 3)")
 
-    r = sub.add_parser("record", help="record a lecture beside the browser app")
+    r = sub.add_parser(
+        "record",
+        help="record a lecture beside the browser app",
+        description="Record into <dir>. If <dir> already holds audio.wav - the "
+                    "recorder died mid-lecture and you are starting it again - "
+                    "this records the next take beside it (audio.take2.wav with "
+                    "recording.take2.json) and `transcribe` puts every take on "
+                    "one clock. Nothing already recorded is ever overwritten, "
+                    "and there is no flag that would.",
+    )
     r.add_argument("dir", help="lecture directory (created if missing)")
     r.add_argument("--deck", help="slide PDF to copy in as deck.pdf")
     r.add_argument("--device", help="input device name or index (see `lecture-rec doctor`)")

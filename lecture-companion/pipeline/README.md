@@ -101,6 +101,40 @@ and the browser app, open on `<lecture-dir>`.
 The WAV is flushed every few seconds, so even a dead battery leaves you with a
 playable file of everything up to the last moment.
 
+### If the recorder dies mid-lecture
+
+Start it again in the same folder. It records a second take beside the first,
+and the transcriber places both on one clock:
+
+```bash
+uv run lecture-rec record <lecture-dir>      # again, same folder
+# audio.wav exists; recording take 2 to audio.take2.wav; the transcriber will
+# stitch the takes
+```
+
+Take 1 keeps the names it always had (`audio.wav`, `recording.json`); take 2
+lands beside it as `audio.take2.wav` with `recording.take2.json`, take 3 as
+`audio.take3.wav`, and so on. **Nothing already recorded is ever opened for
+writing, and no flag exists that would overwrite it** - to record a different
+lecture, use a different folder.
+
+Each take stamps its own `startedWall`, and take 1's is the zero of the
+*lecture clock*. Take N's audio is placed `startedWall_N - startedWall_1`
+seconds along that clock, so `transcribe <lecture-dir>` reads every take, writes
+the usual single `transcript.json`, and the minutes you spent restarting are
+simply silence in the middle with no segments. The app never has to know: it
+keeps writing wall-clock slide and note events to the same `events.jsonl`, and
+they land on the same one clock. The recorder's own events for take N carry
+that offset too, so both agree.
+
+The app's "rec 43:12" restarts from zero, because the heartbeat's `elapsedS` is
+the current take's recording time (its `take` field says which take that is).
+`lecture-rec doctor <lecture-dir>` lists the takes a folder already holds.
+
+One thing does not survive a restart: `lecture-rec sample` refuses a folder with
+more than one take, so the quality measurement at the end of this file wants a
+lecture that was recorded in one go.
+
 ### Recording without the app
 
 ```bash
@@ -147,10 +181,18 @@ What this program reads and writes inside one lecture folder:
   bias.json                   per-slide vocabulary          (read)
   audio.wav                   16 kHz mono PCM16             (written by record)
   recording.json              RecordingMeta                 (written by record)
+  audio.take2.wav             take 2, only if record was restarted here
+  recording.take2.json        its RecordingMeta, with its own startedWall
   .lecture/heartbeat.json     Heartbeat, every 2 s          (written by record)
   events.jsonl                start/stop from record, slide/note from the app
   transcript.json  .txt       Transcript                    (written by transcribe)
 ```
+
+Times in `events.jsonl` and `transcript.json` are on the lecture clock, which is
+take 1's audio clock. On the usual single-take lecture that is just "seconds
+into the recording", and every file is exactly what it was before takes existed:
+`take` appears only from take 2 on, on the events, the recording metadata, the
+heartbeat and the transcript's segments.
 
 Every JSON file carries a `schema` field and is checked by the Node CLI:
 `node ../cli/bin/lecture.mjs validate <lecture-dir>/transcript.json`.
@@ -184,6 +226,11 @@ it is everywhere, shorten the deck's per-page term lists.
 **`bias.json has no terms`.** The PDF is a scan with no text layer. Use
 `/lecture-bias-terms` in Claude Code instead — it can read the pages as images.
 
+**`record` says "audio.wav exists; recording take 2".** That is the feature, not
+an error: the folder already holds a recording, so this one goes beside it and
+`transcribe` stitches them. If you meant a different lecture, stop and use a
+different folder - nothing here overwrites audio.
+
 **Some events were dropped.** `transcribe` names them. An event with no `t` and
 no `recording.startedWall` to project its wall clock onto cannot be placed; an
 event more than 5 s past the end of the audio belongs to another recording.
@@ -196,6 +243,14 @@ becomes one segment and the global term list is used throughout.
 ```bash
 uv run python scripts/make_synthetic_lecture.py data/synthetic-app --app-events
 uv run lecture-rec transcribe data/synthetic-app --engine faster-whisper --model tiny.en
+```
+
+For the restarted-recorder shape - take 1, a 20-second hole, take 2 with its own
+`recording.take2.json`, and app slide events running across both:
+
+```bash
+uv run python scripts/make_synthetic_lecture.py data/two --two-takes
+uv run lecture-rec transcribe data/two --engine faster-whisper --model tiny.en
 ```
 
 Builds a fake lecture folder from a public-domain 11-second clip — recorder
@@ -242,7 +297,8 @@ Cuts three 5-minute windows from 20%, 50% and 80% through the lecture into
 words, missing words, mangled terms. Do not restyle punctuation or tidy the
 lecturer's grammar; that would inflate the error rate against a transcript that
 was actually fine. Budget **30–45 minutes for all three**. Re-running `sample`
-never overwrites a `reference.txt` you have edited.
+never overwrites a `reference.txt` you have edited. `sample` refuses a folder
+with more than one take: measure on a lecture that was recorded in one go.
 
 ```bash
 uv run lecture-rec score <lecture-dir>

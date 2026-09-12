@@ -461,14 +461,199 @@ def test_back_never_goes_below_slide_one(rig):
     assert slides == [1, 1, 1]
 
 
-def test_existing_audio_is_never_overwritten(tmp_path):
+# --------------------------------------------------------------------------- #
+# takes: starting again in a folder that already holds a recording
+# --------------------------------------------------------------------------- #
+
+
+def test_existing_audio_is_never_overwritten(rig, tmp_path):
+    """The point of takes: the first recording is never opened for writing."""
     ld = LectureDir(tmp_path / "lec")
     ld.root.mkdir(parents=True)
     ld.audio.write_bytes(b"precious")
-    rec = Recorder(ld.root, stream_factory=lambda *a: None, line_source=iter([]))
-    with pytest.raises(SystemExit):
-        rec.start()
-    assert ld.audio.read_bytes() == b"precious"
+
+    def script(holder, log):
+        holder["stream"].advance(3.0)
+        yield "q"
+
+    rec, holder, log = rig(script)
+    rec.run()
+
+    assert ld.audio.read_bytes() == b"precious", "take 1 is untouchable"
+    assert rec.take == 2
+    assert rec.audio_path == ld.root / "audio.take2.wav"
+    assert sf.info(str(rec.audio_path)).frames == 3 * SR
+
+
+def test_a_second_start_records_take_2_beside_take_1(rig, monkeypatch):
+    """The recorder died mid-lecture and was started again in the same folder.
+
+    The wall clock is frozen and moved by hand between the takes, so take 2's
+    offset on the lecture clock - and therefore every `t` it writes - is exact.
+    """
+    clock = {"now": "2026-01-01T09:00:00.000+00:00"}
+    monkeypatch.setattr("lecture_rec.record.now_iso", lambda: clock["now"])
+
+    def first(holder, log):
+        holder["stream"].advance(10.0)
+        yield "q"
+
+    rec1, _, log = rig(first)
+    rec1.run()
+
+    clock["now"] = "2026-01-01T09:20:00.000+00:00"      # 1200 s later
+
+    def second(holder, log):
+        holder["stream"].advance(5.0)
+        yield "q"
+
+    rec2, _, log = rig(second)
+    rec2.run()
+
+    ld = LectureDir(rec2.ld.root)
+    assert rec1.take == 1 and rec2.take == 2
+    assert rec2.take_offset_s == pytest.approx(1200.0)
+
+    # Take 1 is exactly what it always was.
+    assert sf.info(str(ld.audio)).frames == 10 * SR
+    take1 = read_json(ld.recording)
+    assert "take" not in take1
+    assert take1["file"] == "audio.wav"
+    assert take1["durationS"] == pytest.approx(10.0)
+
+    # Take 2 sits beside it, under its own names, with its own startedWall.
+    take2_audio = ld.audio_for_take(2)
+    assert take2_audio.name == "audio.take2.wav"
+    assert sf.info(str(take2_audio)).frames == 5 * SR
+    take2 = read_json(ld.recording_for_take(2))
+    assert ld.recording_for_take(2).name == "recording.take2.json"
+    assert take2["take"] == 2
+    assert take2["file"] == "audio.take2.wav"
+    assert take2["startedWall"] == "2026-01-01T09:20:00.000+00:00"
+    assert take2["durationS"] == pytest.approx(5.0)
+    assert ld.take_numbers() == [1, 2] and ld.next_take() == 3
+
+    # One clock: take 2's events carry the wall delta, not its own audio clock.
+    events = read_events(ld.events)
+    assert [(e.type, round(e.t, 3), e.take) for e in events] == [
+        ("start", 0.0, None),
+        ("stop", 10.0, None),
+        ("start", 1200.0, 2),
+        ("stop", 1205.0, 2),
+    ]
+    assert all(e.source == "recorder" for e in events)
+    assert any("audio.take2.wav" in line and "take 2" in line for line in log), \
+        "the recorder must say out loud that this is a second take"
+
+
+def test_take_2_keys_mode_marks_slides_on_the_lecture_clock(rig, monkeypatch):
+    clock = {"now": "2026-01-01T09:00:00.000+00:00"}
+    monkeypatch.setattr("lecture_rec.record.now_iso", lambda: clock["now"])
+
+    def first(holder, log):
+        holder["stream"].advance(30.0)
+        yield "q"
+
+    rec1, _, _ = rig(first, keys=True)
+    rec1.run()
+
+    clock["now"] = "2026-01-01T09:01:00.000+00:00"      # 60 s later
+    def second(holder, log):
+        holder["stream"].advance(4.0)
+        yield "9"                                        # slide 9 at 60 + 4 s
+        holder["stream"].advance(6.0)
+        yield "q"
+
+    rec2, _, _ = rig(second, keys=True)
+    rec2.run()
+
+    events = [e for e in read_events(rec2.ld.events) if e.take == 2]
+    assert [(e.type, round(e.t, 3), e.slide) for e in events] == [
+        ("start", 60.0, None),
+        ("slide", 60.0, 1),
+        ("slide", 64.0, 9),
+        ("stop", 70.0, None),
+    ]
+
+
+def test_take_2_heartbeat_reports_its_own_audio_clock_and_take_number(rig):
+    """`elapsedS` is what the app shows as recording time: this take's audio."""
+    def first(holder, log):
+        holder["stream"].advance(8.0)
+        yield "q"
+
+    rec1, _, _ = rig(first)
+    rec1.run()
+
+    seen: dict = {}
+
+    def second(holder, log):
+        rec = seen["rec"]
+        holder["stream"].advance(3.0, amplitude=0.2)
+        assert wait_until(lambda: read_json(rec.ld.heartbeat)["elapsedS"] >= 3.0)
+        seen["hb"] = read_json(rec.ld.heartbeat)
+        yield "q"
+
+    rec2, _, _ = rig(second, heartbeat_interval_s=0.02)
+    seen["rec"] = rec2
+    rec2.run()
+
+    hb = seen["hb"]
+    assert hb["take"] == 2
+    assert hb["elapsedS"] == pytest.approx(3.0, abs=0.5), "this take's audio, not 11 s"
+    assert hb["startedWall"] == read_json(rec2.ld.recording_for_take(2))["startedWall"]
+    assert Heartbeat.from_dict(hb).take == 2
+    assert not rec2.ld.heartbeat.exists()
+
+
+def test_take_2_recording_json_validates_against_the_typescript_contract(rig):
+    if shutil.which("node") is None:
+        pytest.skip("node is not installed; cannot cross-check the TS contract")
+    if not NODE_CLI.exists():
+        pytest.skip(f"{NODE_CLI} is not built; run `npm run build` in lecture-companion")
+
+    def script(holder, log):
+        holder["stream"].advance(2.0)
+        yield "q"
+
+    rec1, _, _ = rig(script)
+    rec1.run()
+    rec2, _, _ = rig(script)
+    rec2.run()
+
+    for path in (rec2.ld.recording, rec2.ld.recording_for_take(2)):
+        out = subprocess.run(
+            ["node", str(NODE_CLI), "validate", str(path)],
+            capture_output=True, text=True,
+        )
+        assert out.returncode == 0, out.stdout + out.stderr
+        assert "ok" in out.stdout and "recording/1" in out.stdout
+
+
+def test_take_2_without_a_take_1_recording_json_falls_back_to_the_start_event(
+        rig, monkeypatch, tmp_path):
+    """Audio but no metadata: the first `start` event is the same origin."""
+    clock = {"now": "2026-01-01T09:00:00.000+00:00"}
+    monkeypatch.setattr("lecture_rec.record.now_iso", lambda: clock["now"])
+
+    def first(holder, log):
+        holder["stream"].advance(5.0)
+        yield "q"
+
+    rec1, _, _ = rig(first)
+    rec1.run()
+    rec1.ld.recording.unlink()
+
+    clock["now"] = "2026-01-01T09:00:30.000+00:00"
+    def second(holder, log):
+        holder["stream"].advance(2.0)
+        yield "q"
+
+    rec2, _, _ = rig(second)
+    rec2.run()
+    assert rec2.take_offset_s == pytest.approx(30.0)
+    last = read_events(rec2.ld.events)[-1]
+    assert last.type == "stop" and last.t == pytest.approx(32.0) and last.take == 2
 
 
 def test_deck_is_copied_in(rig, tmp_path):

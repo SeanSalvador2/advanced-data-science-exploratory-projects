@@ -260,6 +260,48 @@ def test_lecture_dir_paths(tmp_path):
     assert ld.load_transcript("plain") is None
 
 
+def test_lecture_dir_take_paths_and_discovery(tmp_path):
+    ld = LectureDir(tmp_path / "lec01")
+    assert ld.audio_for_take(1).name == "audio.wav"
+    assert ld.recording_for_take(1).name == "recording.json"
+    assert ld.audio_for_take(2).name == "audio.take2.wav"
+    assert ld.recording_for_take(3).name == "recording.take3.json"
+
+    assert ld.take_numbers() == [] and ld.next_take() == 1
+    ld.root.mkdir(parents=True)
+    ld.audio.write_bytes(b"take 1")
+    assert ld.take_numbers() == [1] and ld.next_take() == 2
+    ld.audio_for_take(2).write_bytes(b"take 2")
+    assert ld.take_numbers() == [1, 2] and ld.next_take() == 3
+    (ld.root / "audio.takeX.wav").write_bytes(b"not a take")
+    (ld.root / "audio.take2.wav.tmp").write_bytes(b"not a take either")
+    assert ld.take_numbers() == [1, 2]
+
+
+def test_take_number_is_written_only_from_take_two_on():
+    """A single-take folder must be byte-for-byte what it always was."""
+    one = RecordingMeta(started_wall="2026-01-01T09:00:00.000+00:00").to_dict()
+    assert "take" not in one
+    two = RecordingMeta(started_wall="2026-01-01T09:20:00.000+00:00",
+                        file="audio.take2.wav", take=2).to_dict()
+    assert two["take"] == 2 and two["file"] == "audio.take2.wav"
+    assert RecordingMeta.from_dict(two).take == 2
+    assert RecordingMeta.from_dict(one).take is None
+
+    assert "take" not in Event(wall="w", type="start", t=0.0).to_dict()
+    ev = Event(wall="w", type="stop", t=1205.0, take=2)
+    assert ev.to_dict()["take"] == 2
+    assert Event.from_dict(ev.to_dict()) == ev
+
+    hb = {"pid": 1, "startedWall": "w", "updatedWall": "w", "elapsedS": 1.0,
+          "rmsRecent": 0.1}
+    assert Heartbeat.from_dict(hb).to_dict() == hb
+    assert Heartbeat.from_dict({**hb, "take": 2}).to_dict()["take"] == 2
+
+    assert "take" not in Segment(0, 1, 0.0, 1.0, "", "hi").to_dict()
+    assert Segment(0, 1, 0.0, 1.0, "", "hi", take=2).to_dict()["take"] == 2
+
+
 def test_write_json_is_atomic_and_leaves_no_tmp(tmp_path):
     p = tmp_path / "a" / "b.json"
     write_json(p, {"x": 1})
