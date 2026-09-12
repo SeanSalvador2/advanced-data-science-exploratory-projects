@@ -1,0 +1,23 @@
+.box {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-6) var(--s-7);
+}
+
+.slide {
+  position: relative;
+  /* The professor's page is a light plate; nothing here restyles it. */
+  background: #ffffff;
+  border-radius: var(--r-panel);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  /* Brightness reduction only, never inversion (ui-direction.md §A). */
+  filter: brightness(var(--dim)) contrast(1.03);
+}

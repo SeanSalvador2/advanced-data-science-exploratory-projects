@@ -1,0 +1,49 @@
+.screen {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: var(--s-7);
+  background: var(--surface);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-6);
+  max-width: 52ch;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--t-head);
+  line-height: var(--lh-head);
+  font-weight: 600;
+}
+
+.body {
+  margin: 0;
+  font-size: var(--t-row);
+  line-height: var(--lh-note);
+  color: var(--ink-muted);
+}
+
+.error {
+  margin: 0;
+  padding-left: var(--s-5);
+  border-left: 2px solid var(--stale);
+  text-align: left;
+  font-size: var(--t-row);
+  line-height: var(--lh-note);
+}
+
+.action {
+  padding: var(--s-4) var(--s-6);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-input);
+  background: var(--surface-raised);
+  font-size: var(--t-input);
+  line-height: var(--lh-input);
+  cursor: pointer;
+}

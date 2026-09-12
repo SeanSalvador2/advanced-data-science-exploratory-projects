@@ -1,0 +1,34 @@
+{
+  "name": "@lecture/app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run lint && vite build && node scripts/check-bundle.mjs",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "lint": "tsc -p tsconfig.json && tsc -p tsconfig.node.json",
+    "e2e": "playwright test",
+    "prelint": "npm run build --workspace @lecture/core",
+    "pretest": "npm run build --workspace @lecture/core"
+  },
+  "dependencies": {
+    "@lecture/core": "*",
+    "idb-keyval": "^6.2.2",
+    "pdfjs-dist": "6.3.289",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "jsdom": "^27.0.0",
+    "typescript": "^5.9.2",
+    "vite": "^6.3.6",
+    "vitest": "^3.2.4"
+  }
+}

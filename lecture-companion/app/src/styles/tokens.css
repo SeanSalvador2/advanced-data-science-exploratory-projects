@@ -1,0 +1,175 @@
+/*
+ * The token set from ui-direction.md §A. One global stylesheet; everything
+ * else is a CSS Module.
+ *
+ * The theme is chosen from a persisted setting and stamped on <html> as
+ * data-theme, never from prefers-color-scheme: the room decides, not the OS.
+ * Light is the base, dark is the override, and lecture mode defaults to dark.
+ */
+
+/*
+ * Self-hosted, subset woff2 faces land in public/fonts/ in task 8. Until then
+ * these rules resolve to nothing and the fallback stack renders; no font is
+ * ever fetched from a network (anti-pattern 8).
+ */
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("/fonts/atkinson-hyperlegible-next-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("/fonts/atkinson-hyperlegible-next-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("/fonts/atkinson-hyperlegible-next-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Mono";
+  src: url("/fonts/atkinson-hyperlegible-mono-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Palette — light (library and review default). */
+  --surface: #f1f3f5;
+  --surface-raised: #ffffff;
+  --rule: #d8dde2;
+  --ink: #1a1f26;
+  --ink-muted: #616b75;
+  --accent: #b0700f;
+  --mine: #17697c;
+  --stale: #a63c27;
+
+  /* The slide dimmer. Brightness reduction only, never inversion. */
+  --dim: 1;
+
+  /* Type. */
+  --font-ui: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Atkinson Hyperlegible Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --t-strip: 12px;
+  --lh-strip: 16px;
+  --t-caption: 13px;
+  --lh-caption: 18px;
+  --t-note: 15px;
+  --lh-note: 23px;
+  --t-meta: 12px;
+  --lh-meta: 16px;
+  --t-term: 14px;
+  --lh-term: 20px;
+  --t-body: 13px;
+  --lh-body: 19px;
+  --t-input: 16px;
+  --lh-input: 24px;
+  --t-phrase: 17px;
+  --lh-phrase: 24px;
+  --t-card: 14px;
+  --lh-card: 21px;
+  --t-row: 14px;
+  --lh-row: 20px;
+  --t-head: 20px;
+  --lh-head: 26px;
+
+  /* Spacing scale. */
+  --s-1: 2px;
+  --s-2: 4px;
+  --s-3: 6px;
+  --s-4: 8px;
+  --s-5: 12px;
+  --s-6: 16px;
+  --s-7: 24px;
+  --s-8: 32px;
+  --s-9: 48px;
+
+  /* Radius encodes role, not taste. */
+  --r-span: 2px;
+  --r-input: 4px;
+  --r-card: 8px;
+  --r-panel: 0;
+  --r-pip: 999px;
+
+  /* Motion. */
+  --t-tint: 90ms;
+  --t-collapse: 140ms;
+  --t-card-in: 180ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Fixed chrome. */
+  --strip-height: 28px;
+  --gutter: 16px;
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --surface: #13171c;
+  --surface-raised: #1c222a;
+  --rule: #2a323b;
+  --ink: #dde3e9;
+  --ink-muted: #8a939d;
+  --accent: #e9a23b;
+  --mine: #5fb3c4;
+  --stale: #d2705e;
+
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-tint: 90ms;
+    --t-collapse: 0ms;
+    --t-card-in: 90ms;
+    --ease: linear;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-property: opacity !important;
+    transition-duration: 90ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--t-row);
+  line-height: var(--lh-row);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}

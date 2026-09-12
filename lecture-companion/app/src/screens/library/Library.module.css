@@ -1,0 +1,123 @@
+.screen {
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--s-9) var(--s-7);
+  background: var(--surface);
+}
+
+.column {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.course + .course {
+  margin-top: var(--s-8);
+}
+
+.courseHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-6);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--rule);
+}
+
+.courseTitle {
+  margin: 0;
+  font-size: var(--t-head);
+  line-height: var(--lh-head);
+  font-weight: 600;
+}
+
+.courseCode {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 400;
+  color: var(--ink-muted);
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: var(--lh-meta);
+  color: var(--ink-muted);
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  width: 100%;
+  height: 44px;
+  padding: 0 var(--s-2);
+  border: 0;
+  border-radius: var(--r-panel);
+  background: none;
+  text-align: left;
+  font-size: var(--t-row);
+  line-height: var(--lh-row);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+/* No hover tint on every row (anti-pattern 7); focus is an outline, not a fill. */
+.row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.number {
+  flex: 0 0 2.5ch;
+  font-family: var(--font-mono);
+  color: var(--ink-muted);
+}
+
+.title {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.date,
+.slides {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  color: var(--ink-muted);
+}
+
+.slides {
+  width: 9ch;
+  text-align: right;
+}
+
+.note,
+.error {
+  max-width: 62ch;
+  font-size: var(--t-row);
+  line-height: var(--lh-note);
+  color: var(--ink-muted);
+}
+
+.error {
+  color: var(--ink);
+  border-left: 2px solid var(--stale);
+  padding-left: var(--s-5);
+}
+
+.hint {
+  margin-top: var(--s-7);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: var(--lh-meta);
+  color: var(--ink-muted);
+}

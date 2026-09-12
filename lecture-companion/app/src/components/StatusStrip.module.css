@@ -1,0 +1,35 @@
+.strip {
+  flex: 0 0 auto;
+  height: var(--strip-height);
+  display: flex;
+  align-items: center;
+  gap: var(--s-7);
+  padding: 0 var(--gutter);
+  border-top: 1px solid var(--rule);
+  border-radius: var(--r-panel);
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: var(--t-strip);
+  line-height: var(--lh-strip);
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ink {
+  color: var(--ink);
+}
+
+.muted {
+  color: var(--ink-muted);
+}
+
+.stale {
+  color: var(--stale);
+}
+
+.mode {
+  margin-left: auto;
+  color: var(--ink-muted);
+}

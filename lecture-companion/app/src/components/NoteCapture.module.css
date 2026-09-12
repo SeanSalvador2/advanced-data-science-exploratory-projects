@@ -1,0 +1,28 @@
+.wrap {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  /* A gap under it too, so the focus ring never crosses the strip rule. */
+  padding: var(--s-5) var(--gutter);
+}
+
+.input {
+  width: 640px;
+  max-width: 100%;
+  height: 40px;
+  padding: 0 var(--s-5);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--mine);
+  border-radius: var(--r-input);
+  background: var(--surface-raised);
+  color: var(--mine);
+  caret-color: var(--accent);
+  font-family: var(--font-ui);
+  font-size: var(--t-input);
+  line-height: var(--lh-input);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

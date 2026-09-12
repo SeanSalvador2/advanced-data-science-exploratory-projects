@@ -1,0 +1,21 @@
+.pips {
+  display: inline-flex;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+.filled,
+.hollow {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-pip);
+  display: inline-block;
+}
+
+.filled {
+  background: var(--ink-muted);
+}
+
+.hollow {
+  border: 1px solid var(--rule);
+}

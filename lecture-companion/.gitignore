@@ -6,3 +6,8 @@ __pycache__/
 node_modules/
 dist/
 *.tsbuildinfo
+
+# app (task 4)
+app/dist
+app/test-results
+app/playwright-report
