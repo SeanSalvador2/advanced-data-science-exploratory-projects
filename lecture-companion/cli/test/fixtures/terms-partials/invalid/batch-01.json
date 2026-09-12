@@ -1,0 +1,150 @@
+{
+  "pages": [
+    {
+      "page": 2,
+      "title": "Randomized smoothing",
+      "summary": "Defines randomized smoothing as a recipe: noise at prediction time, a majority vote over the noisy copies, and a radius read off the vote margin.",
+      "terms": [
+        {
+          "id": "t-randomized-smoothing",
+          "term": "randomized smoothing",
+          "aliases": [
+            "smoothing"
+          ],
+          "kind": "definition",
+          "lineIds": [
+            0,
+            1,
+            4,
+            5
+          ],
+          "definition": "A defense that answers with the majority vote of the classifier's predictions on Gaussian-noised copies of the input. The margin of that vote is converted into a certified radius.",
+          "intuition": "Voting over noise blurs the decision boundary, so a small perturbation cannot flip the answer.",
+          "inThisCourse": "Presented as three steps: add noise at prediction time, take a majority vote, turn the margin into a radius.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-gaussian-noise",
+          "term": "Gaussian noise",
+          "aliases": [
+            "Gaussian",
+            "noise"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            1,
+            2
+          ],
+          "definition": "Noise drawn from a normal distribution and added to the input before each prediction.",
+          "intuition": "It is the randomness the whole method is built on: the guarantee comes from the shape of the Gaussian, not from the classifier.",
+          "inThisCourse": "Added at prediction time, with its level fixed during training.",
+          "confidence": "fairly sure"
+        },
+        {
+          "id": "t-certification-time",
+          "term": "certification time",
+          "aliases": [
+            "prediction time",
+            "training time"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            2,
+            3
+          ],
+          "definition": "The moment the certificate is computed for an input, after training has finished.",
+          "intuition": "The slide insists the noise level is not a knob you may turn once you know the input, or the guarantee would be chosen after seeing the question.",
+          "inThisCourse": "Contrasted with training time: the noise level belongs to training, not to certification.",
+          "confidence": "medium"
+        },
+        {
+          "id": "t-majority-vote",
+          "term": "majority vote",
+          "aliases": [
+            "vote",
+            "noisy copies"
+          ],
+          "kind": "method",
+          "lineIds": [
+            4
+          ],
+          "definition": "The class predicted most often across the noisy copies of one input.",
+          "intuition": "Many noisy looks at the same input, answered by a show of hands, so one unlucky look cannot decide the answer.",
+          "inThisCourse": "Taken over the noisy copies produced by the Gaussian noise on the line above.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-vote-margin",
+          "term": "vote margin",
+          "aliases": [
+            "margin"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            5,
+            6
+          ],
+          "definition": "The gap between the winning class's share of the votes and the runner-up's.",
+          "intuition": "It measures how decisive the vote was, and a decisive vote takes more perturbation to overturn.",
+          "inThisCourse": "The quantity that becomes the radius: bigger margin, bigger certificate.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-radius",
+          "term": "certified radius",
+          "aliases": [
+            "radius",
+            "certificate"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            5,
+            6
+          ],
+          "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+          "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+          "inThisCourse": "Read off the vote margin here, and computed from the inverse Gaussian CDF on the next slide.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [
+        {
+          "lineIds": [
+            1,
+            2,
+            3
+          ],
+          "text": "• Add Gaussian noise at prediction time ◦ the noise level is chosen at training time ◦ not at certification time",
+          "explanation": "Every prediction is made on noisy copies of the input rather than on the input itself. How much noise is decided while the model is trained, and it stays fixed afterwards, so the guarantee cannot be tuned per input."
+        },
+        {
+          "lineIds": [
+            4
+          ],
+          "text": "• Take a majority vote over the noisy copies",
+          "explanation": "The answer is the class that wins most often across those noisy copies, not the classifier's answer on the clean input."
+        },
+        {
+          "lineIds": [
+            5,
+            6
+          ],
+          "text": "• The vote margin becomes a radius 1) bigger margin, bigger certificate",
+          "explanation": "The gap between the winner and the runner-up is converted into a distance in input space. The more decisively the copies agreed, the further an attacker has to push before the vote could flip."
+        }
+      ],
+      "asrBias": [
+        "randomized smoothing",
+        "Gaussian noise",
+        "majority vote",
+        "vote margin",
+        "certified radius",
+        "certification time",
+        "prediction time",
+        "training time",
+        "noisy copies",
+        "certificate"
+      ]
+    }
+  ]
+}

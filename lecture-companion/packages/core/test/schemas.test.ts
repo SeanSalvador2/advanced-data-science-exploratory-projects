@@ -22,6 +22,13 @@ const MINIMAL: Record<SchemaName, Record<string, unknown>> = {
     pdfjs: { version: PDFJS_VERSION, includeMarkedContent: false, disableNormalization: false },
     status: {},
   },
+  "bias/1": {
+    schema: "bias/1",
+    deck: "deck.pdf",
+    source: "derived",
+    pages: [{ page: 1, terms: ["Wasserstein"] }],
+    global: ["Wasserstein"],
+  },
   "spans/1": {
     schema: "spans/1",
     pdfjsVersion: PDFJS_VERSION,
@@ -64,7 +71,7 @@ const MINIMAL: Record<SchemaName, Record<string, unknown>> = {
 describe("SCHEMAS", () => {
   it("covers every contract that carries a schema string", () => {
     expect(SCHEMA_NAMES.sort()).toEqual(
-      ["lecture/1", "notes/1", "recording/1", "spans/1", "terms/1", "transcript/1"].sort(),
+      ["bias/1", "lecture/1", "notes/1", "recording/1", "spans/1", "terms/1", "transcript/1"].sort(),
     );
     expect(Object.keys(MINIMAL).sort()).toEqual([...SCHEMA_NAMES].sort());
   });

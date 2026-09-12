@@ -1,0 +1,156 @@
+{
+  "pages": [
+    {
+      "page": 4,
+      "title": "Two views",
+      "summary": "Contrasts empirical robustness, measured by attacking the model, with certified robustness, proved for a radius.",
+      "terms": [
+        {
+          "id": "t-empirical-robustness",
+          "term": "empirical robustness",
+          "aliases": [
+            "Empirical"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            1,
+            3,
+            5,
+            7
+          ],
+          "definition": "Robustness measured by running attacks against the model and reporting what it survives.",
+          "intuition": "Cheap and optimistic: it says the attacks you tried failed, which a better attack can undo tomorrow.",
+          "inThisCourse": "The left column of this slide, set against the certified column.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-robustness",
+          "term": "certified robustness",
+          "aliases": [
+            "Certified"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "definition": "Robustness proved for a radius: no perturbation inside it can change the prediction.",
+          "intuition": "Expensive and pessimistic, but the number cannot be taken away by a smarter attack later.",
+          "inThisCourse": "The right column of this slide; what randomized smoothing delivers.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-radius",
+          "term": "certified radius",
+          "aliases": [
+            "radius"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            4,
+            6
+          ],
+          "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+          "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+          "inThisCourse": "Described here as the thing no attack can cross, at the cost of smaller reported numbers.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [
+        {
+          "lineIds": [
+            1,
+            3,
+            5,
+            7
+          ],
+          "text": "Empirical Attack the model and report what survives. Cheap to run, easy to break later.",
+          "explanation": "The empirical column evaluates a defense by attacking it and reporting the accuracy that remains. It is cheap, and its number is only as strong as the attacks that were tried."
+        },
+        {
+          "lineIds": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "text": "Certified Prove a radius no attack can cross. Expensive, smaller numbers, but honest.",
+          "explanation": "The certified column proves a radius instead of testing one. The computation costs more and the reported accuracy is lower, but no future attack can invalidate it."
+        }
+      ],
+      "asrBias": [
+        "empirical robustness",
+        "certified robustness",
+        "certified radius",
+        "empirical",
+        "certified",
+        "attack"
+      ]
+    },
+    {
+      "page": 5,
+      "title": "",
+      "summary": "A placeholder page: four ordering sentences with no lecture content.",
+      "terms": [],
+      "passages": [],
+      "asrBias": []
+    },
+    {
+      "page": 6,
+      "title": "Summary",
+      "summary": "Recaps the trade-off: the guarantee is bought with accuracy, which is why certified numbers look small.",
+      "terms": [
+        {
+          "id": "t-certified-defense",
+          "term": "certified defense",
+          "aliases": [
+            "certified defenses"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            1
+          ],
+          "definition": "A defense that comes with a proof that no perturbation inside a stated radius can change the model's prediction. The proof holds against every attack in that radius, not only the ones that were tried.",
+          "intuition": "It replaces the arms race of attack and patch with a guarantee you can state once and rely on.",
+          "inThisCourse": "Closed here on its cost: the guarantee is paid for in accuracy.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-radius",
+          "term": "certified radius",
+          "aliases": [
+            "radius"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            2
+          ],
+          "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+          "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+          "inThisCourse": "The scope of the guarantee: every attack inside the radius, none outside it.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [
+        {
+          "lineIds": [
+            1,
+            2,
+            3
+          ],
+          "text": "Certified defenses trade accuracy for a guarantee that holds against every attack inside the radius, so the numbers look small.",
+          "explanation": "A certified model gives up clean accuracy in exchange for a proof. The proof covers every perturbation inside the radius, which is why its reported accuracy is lower than an empirical one."
+        }
+      ],
+      "asrBias": [
+        "certified defenses",
+        "certified radius",
+        "guarantee",
+        "accuracy",
+        "trade"
+      ]
+    }
+  ]
+}

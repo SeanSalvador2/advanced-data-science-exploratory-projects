@@ -1,0 +1,282 @@
+{
+  "pages": [
+    {
+      "page": 3,
+      "title": "The certificate",
+      "summary": "Gives the ingredients of the certificate: the noise scale, the perturbation budget it is measured against, and the inverse Gaussian CDF that turns a vote probability into a radius.",
+      "terms": [
+        {
+          "id": "t-sigma-squared",
+          "term": "sigma squared",
+          "aliases": [
+            "σ²",
+            "noise scale",
+            "sigma"
+          ],
+          "kind": "notation",
+          "lineIds": [
+            1
+          ],
+          "definition": "The variance of the Gaussian noise added to each input; its square root, sigma, is the noise scale.",
+          "intuition": "One knob for the whole method: more noise certifies a larger radius and predicts less accurately.",
+          "inThisCourse": "Printed σ² and called the noise scale; fixed at training time, per the previous slide.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-ell-infinity-norm",
+          "term": "ell infinity norm",
+          "aliases": [
+            "‖x′−x‖∞",
+            "L infinity",
+            "sup norm",
+            "infinity norm"
+          ],
+          "kind": "notation",
+          "lineIds": [
+            2
+          ],
+          "definition": "The largest coordinate-wise difference between the perturbed input x prime and the original input x.",
+          "intuition": "It is the strict reading of a small perturbation: no single pixel may move by more than the budget.",
+          "inThisCourse": "The threat model on this slide is stated in the ell infinity norm, bounded by epsilon.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-epsilon",
+          "term": "epsilon",
+          "aliases": [
+            "ε"
+          ],
+          "kind": "notation",
+          "lineIds": [
+            2
+          ],
+          "definition": "The perturbation budget: the largest ell infinity change an attacker is allowed to make to the input.",
+          "intuition": "It is the size of the box the attacker may move inside, and the number a certificate has to beat to be useful.",
+          "inThisCourse": "Written ε, on the right-hand side of the constraint.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-phi-inverse",
+          "term": "Phi inverse",
+          "aliases": [
+            "Φ⁻¹",
+            "inverse normal CDF",
+            "probit"
+          ],
+          "kind": "notation",
+          "lineIds": [
+            3
+          ],
+          "definition": "The inverse of the standard Gaussian cumulative distribution function, applied to the vote probability to obtain the radius.",
+          "intuition": "It is the exchange rate between a probability and a distance, and it is a Gaussian one because the noise is Gaussian.",
+          "inThisCourse": "Printed Φ⁻¹ and read as the source of the radius formula; the vote probability comes from the majority vote of the previous slide.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-radius",
+          "term": "certified radius",
+          "aliases": [
+            "radius"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            3
+          ],
+          "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+          "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+          "inThisCourse": "Computed here from Φ⁻¹ of the vote probability rather than from the margin directly.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [
+        {
+          "lineIds": [
+            1
+          ],
+          "text": "Noise scale σ² controls the trade-off.",
+          "explanation": "Sigma squared is the variance of the Gaussian noise. Raising it grows the certified radius and costs clean accuracy, which is the trade-off the slide names."
+        },
+        {
+          "lineIds": [
+            2
+          ],
+          "text": "‖x′−x‖∞ ≤ ε",
+          "explanation": "The attacked input x prime may differ from the original x by at most epsilon in every coordinate. That is the threat model the certificate is stated against."
+        },
+        {
+          "lineIds": [
+            3
+          ],
+          "text": "Radius uses Φ⁻¹ of the vote probability.",
+          "explanation": "Phi inverse is the inverse standard normal CDF. Feeding it the fraction of noisy copies that voted for the winning class turns that probability into the distance an attacker would have to travel."
+        }
+      ],
+      "asrBias": [
+        "sigma squared",
+        "sigma",
+        "noise scale",
+        "epsilon",
+        "ell infinity",
+        "L infinity norm",
+        "Phi inverse",
+        "inverse normal CDF",
+        "probit",
+        "vote probability",
+        "certified radius",
+        "trade-off"
+      ]
+    },
+    {
+      "page": 4,
+      "title": "Two views",
+      "summary": "Contrasts empirical robustness, measured by attacking the model, with certified robustness, proved for a radius.",
+      "terms": [
+        {
+          "id": "t-empirical-robustness",
+          "term": "empirical robustness",
+          "aliases": [
+            "Empirical"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            1,
+            3,
+            5,
+            7
+          ],
+          "definition": "Robustness measured by running attacks against the model and reporting what it survives.",
+          "intuition": "Cheap and optimistic: it says the attacks you tried failed, which a better attack can undo tomorrow.",
+          "inThisCourse": "The left column of this slide, set against the certified column.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-robustness",
+          "term": "certified robustness",
+          "aliases": [
+            "Certified"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "definition": "Robustness proved for a radius: no perturbation inside it can change the prediction.",
+          "intuition": "Expensive and pessimistic, but the number cannot be taken away by a smarter attack later.",
+          "inThisCourse": "The right column of this slide; what randomized smoothing delivers.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-radius",
+          "term": "certified radius",
+          "aliases": [
+            "radius"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            4,
+            6
+          ],
+          "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+          "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+          "inThisCourse": "Described here as the thing no attack can cross, at the cost of smaller reported numbers.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [
+        {
+          "lineIds": [
+            1,
+            3,
+            5,
+            7
+          ],
+          "text": "Empirical Attack the model and report what survives. Cheap to run, easy to break later.",
+          "explanation": "The empirical column evaluates a defense by attacking it and reporting the accuracy that remains. It is cheap, and its number is only as strong as the attacks that were tried."
+        },
+        {
+          "lineIds": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "text": "Certified Prove a radius no attack can cross. Expensive, smaller numbers, but honest.",
+          "explanation": "The certified column proves a radius instead of testing one. The computation costs more and the reported accuracy is lower, but no future attack can invalidate it."
+        }
+      ],
+      "asrBias": [
+        "empirical robustness",
+        "certified robustness",
+        "certified radius",
+        "empirical",
+        "certified",
+        "attack"
+      ]
+    },
+    {
+      "page": 5,
+      "title": "",
+      "summary": "A placeholder page: four ordering sentences with no lecture content.",
+      "terms": [],
+      "passages": [],
+      "asrBias": []
+    },
+    {
+      "page": 6,
+      "title": "Summary",
+      "summary": "Recaps the trade-off: the guarantee is bought with accuracy, which is why certified numbers look small.",
+      "terms": [
+        {
+          "id": "t-certified-defense",
+          "term": "certified defense",
+          "aliases": [
+            "certified defenses"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            1
+          ],
+          "definition": "A defense that comes with a proof that no perturbation inside a stated radius can change the model's prediction. The proof holds against every attack in that radius, not only the ones that were tried.",
+          "intuition": "It replaces the arms race of attack and patch with a guarantee you can state once and rely on.",
+          "inThisCourse": "Closed here on its cost: the guarantee is paid for in accuracy.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-radius",
+          "term": "certified radius",
+          "aliases": [
+            "radius"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            2
+          ],
+          "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+          "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+          "inThisCourse": "The scope of the guarantee: every attack inside the radius, none outside it.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [
+        {
+          "lineIds": [
+            1,
+            2,
+            3
+          ],
+          "text": "Certified defenses trade accuracy for a guarantee that holds against every attack inside the radius, so the numbers look small.",
+          "explanation": "A certified model gives up clean accuracy in exchange for a proof. The proof covers every perturbation inside the radius, which is why its reported accuracy is lower than an empirical one."
+        }
+      ],
+      "asrBias": [
+        "certified defenses",
+        "certified radius",
+        "guarantee",
+        "accuracy",
+        "trade"
+      ]
+    }
+  ]
+}

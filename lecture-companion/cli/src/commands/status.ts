@@ -1,6 +1,6 @@
-import { readdir } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
-import type { LectureManifest } from "@lecture/core";
+import { BiasTermsSchema, TermIndexSchema, type LectureManifest } from "@lecture/core";
 import { at, FILES } from "../folder.js";
 import { exists } from "../util.js";
 import { readManifest } from "../folder.js";
@@ -23,6 +23,38 @@ async function countPages(dir: string): Promise<number> {
     return names.filter((n) => /^p\d{3}\.png$/.test(n)).length;
   } catch {
     return 0;
+  }
+}
+
+/**
+ * "42 terms, 18 in glossary" for a readable terms.json, or a short complaint
+ * for one that will not parse. Never throws: `status` is what you run when
+ * something is wrong.
+ */
+async function termsDetail(file: string): Promise<string | undefined> {
+  try {
+    const parsed = TermIndexSchema.safeParse(JSON.parse(await readFile(file, "utf8")));
+    if (!parsed.success) return "invalid TermIndex";
+    const terms = parsed.data.pages.reduce((n, p) => n + p.terms.length, 0);
+    const empty = parsed.data.pages.filter((p) => p.terms.length === 0).length;
+    return (
+      `${parsed.data.pages.length} pages, ${terms} terms, ${parsed.data.glossary.length} in glossary` +
+      (empty > 0 ? `, ${empty} page(s) with none` : "")
+    );
+  } catch {
+    return "unreadable";
+  }
+}
+
+/** "source derived, 6 pages, 31 page terms, 23 global". */
+async function biasDetail(file: string): Promise<string | undefined> {
+  try {
+    const parsed = BiasTermsSchema.safeParse(JSON.parse(await readFile(file, "utf8")));
+    if (!parsed.success) return "invalid BiasTerms";
+    const terms = parsed.data.pages.reduce((n, p) => n + p.terms.length, 0);
+    return `source ${parsed.data.source}, ${parsed.data.pages.length} pages, ${terms} page terms, ${parsed.data.global.length} global`;
+  } catch {
+    return "unreadable";
   }
 }
 
@@ -51,7 +83,12 @@ export async function status(dir: string): Promise<StatusReport> {
 
   const artifacts: StatusLine[] = [];
   for (const [name, rel] of simple) {
-    artifacts.push({ name, present: await exists(at(dir, rel)) });
+    const file = at(dir, rel);
+    const present = await exists(file);
+    let detail: string | undefined;
+    if (present && rel === FILES.terms) detail = await termsDetail(file);
+    if (present && rel === FILES.bias) detail = await biasDetail(file);
+    artifacts.push({ name, present, ...(detail === undefined ? {} : { detail }) });
   }
   artifacts.splice(3, 0, {
     name: `${FILES.pages}/`,

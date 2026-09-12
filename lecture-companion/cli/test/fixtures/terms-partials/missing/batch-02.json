@@ -1,0 +1,59 @@
+{
+  "pages": [
+    {
+      "page": 6,
+      "title": "Summary",
+      "summary": "Recaps the trade-off: the guarantee is bought with accuracy, which is why certified numbers look small.",
+      "terms": [
+        {
+          "id": "t-certified-defense",
+          "term": "certified defense",
+          "aliases": [
+            "certified defenses"
+          ],
+          "kind": "concept",
+          "lineIds": [
+            1
+          ],
+          "definition": "A defense that comes with a proof that no perturbation inside a stated radius can change the model's prediction. The proof holds against every attack in that radius, not only the ones that were tried.",
+          "intuition": "It replaces the arms race of attack and patch with a guarantee you can state once and rely on.",
+          "inThisCourse": "Closed here on its cost: the guarantee is paid for in accuracy.",
+          "confidence": "high"
+        },
+        {
+          "id": "t-certified-radius",
+          "term": "certified radius",
+          "aliases": [
+            "radius"
+          ],
+          "kind": "metric",
+          "lineIds": [
+            2
+          ],
+          "definition": "The size of the region around an input inside which no perturbation can change the smoothed prediction.",
+          "intuition": "It is the number the whole method exists to produce: how far an attacker may move before the guarantee stops.",
+          "inThisCourse": "The scope of the guarantee: every attack inside the radius, none outside it.",
+          "confidence": "high"
+        }
+      ],
+      "passages": [
+        {
+          "lineIds": [
+            1,
+            2,
+            3
+          ],
+          "text": "Certified defenses trade accuracy for a guarantee that holds against every attack inside the radius, so the numbers look small.",
+          "explanation": "A certified model gives up clean accuracy in exchange for a proof. The proof covers every perturbation inside the radius, which is why its reported accuracy is lower than an empirical one."
+        }
+      ],
+      "asrBias": [
+        "certified defenses",
+        "certified radius",
+        "guarantee",
+        "accuracy",
+        "trade"
+      ]
+    }
+  ]
+}

@@ -159,7 +159,8 @@ class PageTerms:
 @dataclass
 class BiasTerms:
     deck: str = "deck.pdf"
-    source: Literal["heuristic", "claude"] = "heuristic"
+    # "derived" is what `lecture bias` writes when it re-shapes terms.json.
+    source: Literal["heuristic", "claude", "derived"] = "heuristic"
     pages: list[PageTerms] = field(default_factory=list)
     global_terms: list[str] = field(default_factory=list)   # serialized as "global"
 

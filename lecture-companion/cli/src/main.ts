@@ -3,6 +3,9 @@ import { prepare, summarize } from "./commands/prepare.js";
 import { extractSpans } from "./commands/extract-spans.js";
 import { renderPages } from "./commands/render-pages.js";
 import { hashSpans } from "./commands/hash-spans.js";
+import { termsContext } from "./commands/terms-context.js";
+import { checkPartials, mergeTerms, summarizeCheck, summarizeMerge } from "./commands/merge-terms.js";
+import { bias, summarizeBias } from "./commands/bias.js";
 import { renderValidation, validateJsonFile } from "./commands/validate.js";
 import { renderStatus, status } from "./commands/status.js";
 import { CliError } from "./util.js";
@@ -80,6 +83,58 @@ export function buildProgram(): Command {
     .action(async (dir: string, o: Record<string, unknown>) => {
       const r = await renderPages(dir, { scale: o["scale"] as number, force: o["force"] as boolean });
       console.log(`rendered ${r.written.length} pages at ${r.scale}x, skipped ${r.skipped.length}`);
+    });
+
+  program
+    .command("terms-context")
+    .argument("<dir>", "lecture folder")
+    .requiredOption("--pages <a-b>", "inclusive page range for one batch, e.g. 1-8")
+    .option("--json", "print JSON (the default, and the only format today)", false)
+    .description("print the text inputs /lecture-terms needs for one batch, as JSON")
+    .action(async (dir: string, o: Record<string, unknown>) => {
+      const result = await termsContext(dir, o["pages"] as string);
+      for (const w of result.warnings) console.error(`lecture: ${w}`);
+      console.log(JSON.stringify(result.context, null, 2));
+    });
+
+  const merge = program
+    .command("merge")
+    .description("merge a skill's .lecture/*.partial batch files into one artefact");
+
+  merge
+    .command("terms")
+    .argument("<dir>", "lecture folder")
+    .option("--allow-missing", "fill pages no batch covered with empty pages", false)
+    .option("--clean", "delete the partial files after a successful merge", false)
+    .option("--check", "validate the partials written so far and write nothing", false)
+    .description("merge .lecture/terms.partial/*.json into terms.json")
+    .action(async (dir: string, o: Record<string, unknown>) => {
+      if (o["check"] === true) {
+        console.log(summarizeCheck(await checkPartials(dir)));
+        return;
+      }
+      const result = await mergeTerms(dir, {
+        allowMissing: o["allowMissing"] as boolean,
+        clean: o["clean"] as boolean,
+      });
+      console.log(summarizeMerge(result));
+    });
+
+  program
+    .command("bias")
+    .argument("<dir>", "lecture folder")
+    .option("--max-page <n>", "spellings kept per page", asInt, 40)
+    .option("--max-global <n>", "spellings kept in the global list", asInt, 60)
+    .description(
+      "derive bias.json from terms.json: each page's asrBias, and a global list of " +
+        "the spellings the most pages asked for (spoken forms only, not aliases)",
+    )
+    .action(async (dir: string, o: Record<string, unknown>) => {
+      const result = await bias(dir, {
+        maxPage: o["maxPage"] as number,
+        maxGlobal: o["maxGlobal"] as number,
+      });
+      console.log(summarizeBias(result));
     });
 
   program

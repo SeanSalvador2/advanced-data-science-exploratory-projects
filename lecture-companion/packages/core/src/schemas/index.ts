@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { BiasTermsSchema, type BiasTerms } from "./bias.js";
 import { LectureManifestSchema, type LectureManifest } from "./lecture.js";
 import { SpanIndexSchema, type SpanIndex } from "./spans.js";
 import { TermIndexSchema, type TermIndex } from "./terms.js";
@@ -8,6 +9,7 @@ import { RecordingMetaSchema, HeartbeatSchema, type RecordingMeta } from "./reco
 import { LectureNotesSchema, type LectureNotes } from "./notes.js";
 
 export * from "./common.js";
+export * from "./bias.js";
 export * from "./lecture.js";
 export * from "./spans.js";
 export * from "./terms.js";
@@ -20,9 +22,13 @@ export * from "./notes.js";
  * Every file contract that carries a `schema` string, keyed by that string.
  * `Heartbeat` and `Event` are deliberately absent: neither record carries a
  * `schema` field (architecture.md §4.4, §4.5), so neither can be dispatched to.
+ * `bias/1` is here for the files `lecture bias` writes; a `bias.json` from the
+ * spike or from `/lecture-bias-terms` carries no `schema` string and has to be
+ * checked with `BiasTermsSchema` directly.
  */
 export const SCHEMAS = {
   "lecture/1": LectureManifestSchema,
+  "bias/1": BiasTermsSchema,
   "spans/1": SpanIndexSchema,
   "terms/1": TermIndexSchema,
   "recording/1": RecordingMetaSchema,
@@ -36,6 +42,7 @@ export const SCHEMA_NAMES = Object.keys(SCHEMAS) as SchemaName[];
 
 export type KnownDocument =
   | LectureManifest
+  | BiasTerms
   | SpanIndex
   | TermIndex
   | RecordingMeta

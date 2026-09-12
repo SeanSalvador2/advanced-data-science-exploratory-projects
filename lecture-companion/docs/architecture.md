@@ -200,8 +200,10 @@ type GlossaryEntry = Pick<Term, "id" | "term" | "aliases" | "kind" | "definition
 ```
 
 `lecture bias` derives `bias.json` deterministically: per page `asrBias`
-(fallback: terms' `term` and `aliases`), global = glossary terms ranked by
-page count, capped at 60. The existing `/lecture-bias-terms` skill stays as an
+(fallback: terms' `term` and `aliases`); global = the union of all pages'
+`asrBias` ranked by how many pages carry each spelling, capped at 60 (fallback,
+only when no page has `asrBias`: glossary term names, never aliases, since
+aliases are for lookup matching and would waste the prompt window). The existing `/lecture-bias-terms` skill stays as an
 alternative producer of the same file.
 
 ### 4.4 Event (`events.jsonl`) — unchanged from the spike, `t` now optional
