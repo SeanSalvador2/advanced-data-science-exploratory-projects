@@ -6,8 +6,8 @@ from collections import Counter
 
 import pytest
 
-from spike.schemas import MAX_GLOBAL_TERMS, MAX_PAGE_TERMS
-from spike.terms import (
+from lecture_rec.schemas import MAX_GLOBAL_TERMS, MAX_PAGE_TERMS
+from lecture_rec.terms import (
     candidates_from_text,
     extract_bias_terms,
     rank_terms,

@@ -3,20 +3,53 @@
 There is no microphone in CI, so the stream is injected. The fake stream pushes
 frames synchronously from the same thread that feeds commands, which makes the
 audio clock - and therefore every event timestamp - exactly predictable.
+
+Two modes are covered: the default one, where the browser app owns slide and
+note events and the recorder writes only `start`/`stop` plus the heartbeat,
+and `--keys`, which reproduces the Phase 0 keyboard protocol.
 """
 
 from __future__ import annotations
 
+import json
+import os
 import platform
+import shutil
+import subprocess
+import sys
+import threading
+import time
+from pathlib import Path
 
 import numpy as np
 import pytest
 import soundfile as sf
 
-from spike.record import FLUSH_INTERVAL_S, SILENCE_RMS, Recorder
-from spike.schemas import LectureDir, read_events, read_json
+from lecture_rec.record import FLUSH_INTERVAL_S, RMS_WINDOW_S, SILENCE_RMS, Recorder
+from lecture_rec.schemas import (
+    HEARTBEAT_INTERVAL_S,
+    Heartbeat,
+    LectureDir,
+    read_events,
+    read_json,
+    tmp_path_for,
+)
 
 SR = 16000
+NODE_CLI = Path(__file__).resolve().parents[2] / "cli" / "bin" / "lecture.mjs"
+
+
+def wait_until(pred, timeout: float = 10.0) -> bool:
+    """Poll `pred` until it is true (the heartbeat lives on its own thread)."""
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        try:
+            if pred():
+                return True
+        except (FileNotFoundError, KeyError, json.JSONDecodeError):
+            pass
+        time.sleep(0.01)
+    return False
 
 
 class FakeStream:
@@ -76,7 +109,43 @@ def rig(tmp_path):
     return make
 
 
-def test_scripted_recording_produces_correct_events_and_wav(rig):
+def test_default_mode_writes_only_start_and_stop(rig):
+    """The app owns slide and note events now; Enter here must write nothing."""
+    def script(holder, log):
+        holder["stream"].advance(10.0)
+        yield ""                             # Phase 0 habit: must be ignored
+        holder["stream"].advance(20.0)
+        yield "17"                           # so must this
+        holder["stream"].advance(18.0)
+        yield "q"                            # stop at 48 s
+
+    rec, holder, log = rig(script)
+    rec.run()
+
+    ld = LectureDir(rec.ld.root)
+    events = read_events(ld.events)
+    assert [(e.type, round(e.t, 3), e.source) for e in events] == [
+        ("start", 0.0, "recorder"),
+        ("stop", 48.0, "recorder"),
+    ]
+    assert all(e.wall for e in events)
+    assert any("mode: app" in line for line in log), "must say which mode it is in"
+
+    info = sf.info(str(ld.audio))
+    assert info.samplerate == SR and info.channels == 1
+    assert info.frames == 48 * SR and info.subtype == "PCM_16"
+
+    meta = read_json(ld.recording)
+    assert meta["schema"] == "recording/1"
+    assert meta["durationS"] == pytest.approx(48.0)
+    assert meta["sampleRate"] == SR and meta["channels"] == 1
+    assert meta["file"] == "audio.wav"
+    assert meta["startedWall"] == events[0].wall
+    assert meta["stoppedWall"] == events[-1].wall
+    assert holder["stream"].started and holder["stream"].stopped
+
+
+def test_keys_mode_reproduces_the_phase_0_event_stream(rig):
     def script(holder, log):
         holder["stream"].advance(10.0)       # 10 s on slide 1
         yield ""                             # -> slide 2
@@ -91,11 +160,10 @@ def test_scripted_recording_produces_correct_events_and_wav(rig):
         holder["stream"].advance(3.0)
         yield "q"                            # stop at 48 s
 
-    rec, holder, log = rig(script)
+    rec, holder, log = rig(script, keys=True)
     rec.run()
 
-    ld = LectureDir(rec.ld.root)
-    events = read_events(ld.events)
+    events = read_events(rec.ld.events)
     got = [(e.type, round(e.t, 3), e.slide, e.text) for e in events]
     assert got == [
         ("start", 0.0, None, None),
@@ -107,25 +175,126 @@ def test_scripted_recording_produces_correct_events_and_wav(rig):
         ("slide", 45.0, 17, None),
         ("stop", 48.0, None, None),
     ]
+    assert {e.source for e in events} == {"recorder"}
+    assert all(e.t is not None and e.wall for e in events)
+    assert any("mode: --keys" in line for line in log)
 
-    info = sf.info(str(ld.audio))
-    assert info.samplerate == SR
-    assert info.channels == 1
-    assert info.frames == 48 * SR
-    assert info.duration == pytest.approx(48.0)
-    assert info.subtype == "PCM_16"
 
-    meta = read_json(ld.recording)
-    assert meta["duration_s"] == pytest.approx(48.0)
-    assert meta["samplerate"] == SR and meta["channels"] == 1
-    assert meta["file"] == "audio.wav"
+def test_recording_json_validates_against_the_typescript_contract(rig):
+    """The Node CLI validates against packages/core, the source of truth."""
+    if shutil.which("node") is None:
+        pytest.skip("node is not installed; cannot cross-check the TS contract")
+    if not NODE_CLI.exists():
+        pytest.skip(f"{NODE_CLI} is not built; run `npm run build` in lecture-companion")
 
-    assert holder["stream"].started and holder["stream"].stopped
+    def script(holder, log):
+        holder["stream"].advance(2.0)
+        yield "q"
+
+    rec, holder, log = rig(script)
+    rec.run()
+
+    out = subprocess.run(
+        ["node", str(NODE_CLI), "validate", str(rec.ld.recording)],
+        capture_output=True, text=True,
+    )
+    assert out.returncode == 0, out.stdout + out.stderr
+    assert "ok" in out.stdout and "recording/1" in out.stdout
+
+
+def test_heartbeat_is_written_advances_and_is_removed_on_stop(rig):
+    seen: dict = {}
+
+    def script(holder, log):
+        rec = seen["rec"]
+        assert rec.ld.heartbeat.exists(), "the heartbeat exists from the first moment"
+        holder["stream"].advance(3.0, amplitude=0.2)
+        assert wait_until(lambda: read_json(rec.ld.heartbeat)["elapsedS"] >= 3.0)
+        seen["first"] = read_json(rec.ld.heartbeat)
+        holder["stream"].advance(5.0, amplitude=0.2)
+        assert wait_until(lambda: read_json(rec.ld.heartbeat)["elapsedS"] >= 8.0)
+        seen["second"] = read_json(rec.ld.heartbeat)
+        yield "q"
+
+    rec, holder, log = rig(script, heartbeat_interval_s=0.02)
+    seen["rec"] = rec
+    rec.run()
+
+    first, second = seen["first"], seen["second"]
+    for hb in (first, second):
+        assert set(hb) == {"pid", "startedWall", "updatedWall", "elapsedS", "rmsRecent"}
+        assert hb["pid"] == os.getpid()
+        assert hb["startedWall"] == read_json(rec.ld.recording)["startedWall"]
+        assert Heartbeat.from_dict(hb)               # shape holds
+    assert second["elapsedS"] > first["elapsedS"], "elapsedS must track the audio clock"
+    assert second["elapsedS"] == pytest.approx(8.0, abs=0.5)
+    assert second["updatedWall"] >= first["updatedWall"]
+    assert second["rmsRecent"] > 0.1, "a 0.2-amplitude tone is about 0.14 rms"
+
+    assert not rec.ld.heartbeat.exists(), "a clean stop removes the heartbeat"
+    assert rec.ld.dot_lecture.exists()
+    assert list(rec.ld.dot_lecture.iterdir()) == []
+
+
+def test_heartbeat_reports_recent_silence_not_the_whole_recording(rig):
+    def script(holder, log):
+        holder["stream"].advance(10.0, amplitude=0.3)     # loud, then quiet
+        holder["stream"].advance(RMS_WINDOW_S + 1.0, amplitude=0.0)
+        yield "q"
+
+    rec, holder, log = rig(script, heartbeat_interval_s=0.02)
+    rec.run()                                   # heartbeat is gone after stop
+    assert rec.rms_recent() == pytest.approx(0.0, abs=1e-6)
+
+
+def test_heartbeat_is_never_observably_partial(rig):
+    """A reader polling the heartbeat sees either the old file or the new one."""
+    bad: list[str] = []
+    stop = threading.Event()
+    seen: dict = {}
+
+    def reader(path):
+        while not stop.is_set():
+            try:
+                json.loads(path.read_text(encoding="utf-8"))
+            except FileNotFoundError:
+                pass                                  # before start / after stop
+            except json.JSONDecodeError as exc:
+                bad.append(f"{exc}")
+
+    def script(holder, log):
+        rec = seen["rec"]
+        th = threading.Thread(target=reader, args=(rec.ld.heartbeat,), daemon=True)
+        seen["thread"] = th
+        th.start()
+        for _ in range(20):
+            holder["stream"].advance(1.0, amplitude=0.2)
+            time.sleep(0.01)
+        yield "q"
+
+    rec, holder, log = rig(script, heartbeat_interval_s=0.001)
+    seen["rec"] = rec
+    try:
+        rec.run()
+    finally:
+        stop.set()
+        seen["thread"].join(timeout=5)
+
+    assert not bad, f"reader saw a partial heartbeat: {bad[:3]}"
+    # ...and the temp file it went through is gone, and was never the real name.
+    tmp = tmp_path_for(rec.ld.heartbeat)
+    assert tmp.name.startswith(".heartbeat.json.") and tmp.name.endswith(".tmp")
+    assert not tmp.exists()
+
+
+def test_heartbeat_interval_is_two_seconds():
+    assert HEARTBEAT_INTERVAL_S == 2.0
 
 
 def test_event_times_come_from_the_audio_clock_not_wall_clock(rig, monkeypatch):
     """Freeze wall time entirely: event `t` must still advance with the audio."""
-    monkeypatch.setattr("spike.record.now_iso", lambda: "2026-01-01T09:00:00+00:00")
+    monkeypatch.setattr("lecture_rec.record.now_iso",
+                        lambda: "2026-01-01T09:00:00.000+00:00")
 
     def script(holder, log):
         holder["stream"].advance(7.5)
@@ -133,10 +302,10 @@ def test_event_times_come_from_the_audio_clock_not_wall_clock(rig, monkeypatch):
         holder["stream"].advance(12.25)
         yield "q"
 
-    rec, holder, log = rig(script)
+    rec, holder, log = rig(script, keys=True)
     rec.run()
     events = read_events(rec.ld.events)
-    assert {e.wall for e in events} == {"2026-01-01T09:00:00+00:00"}
+    assert {e.wall for e in events} == {"2026-01-01T09:00:00.000+00:00"}
     assert [round(e.t, 3) for e in events] == [0.0, 0.0, 7.5, 19.75]
 
 
@@ -153,15 +322,16 @@ def test_ctrl_c_stops_cleanly_and_finalises_everything(rig):
     events = read_events(rec.ld.events)
     assert events[-1].type == "stop"
     assert events[-1].t == pytest.approx(10.0)
-    assert read_json(rec.ld.recording)["duration_s"] == pytest.approx(10.0)
+    assert read_json(rec.ld.recording)["durationS"] == pytest.approx(10.0)
     assert sf.info(str(rec.ld.audio)).duration == pytest.approx(10.0)
+    assert not rec.ld.heartbeat.exists()
     assert holder["stream"].closed
 
 
 def test_silence_triggers_a_loud_warning_that_repeats(rig):
     def script(holder, log):
         holder["stream"].advance(6.0, amplitude=0.0)     # first check at 5 s
-        yield "n still silent"
+        yield ""
         holder["stream"].advance(31.0, amplitude=0.0)    # repeat check at ~36 s
         yield "q"
 
@@ -259,11 +429,23 @@ def test_unknown_command_is_reported_and_ignored(rig):
         yield "wat"
         yield "q"
 
-    rec, holder, log = rig(script)
+    rec, holder, log = rig(script, keys=True)
     rec.run()
     assert any("unknown command" in line for line in log)
     slides = [e for e in read_events(rec.ld.events) if e.type == "slide"]
     assert [e.slide for e in slides] == [1]
+
+
+def test_default_mode_says_how_to_get_the_keyboard_protocol(rig):
+    def script(holder, log):
+        holder["stream"].advance(1.0)
+        yield "n this note belongs to the app"
+        yield "q"
+
+    rec, holder, log = rig(script)
+    rec.run()
+    assert any("--keys" in line for line in log)
+    assert [e.type for e in read_events(rec.ld.events)] == ["start", "stop"]
 
 
 def test_back_never_goes_below_slide_one(rig):
@@ -273,7 +455,7 @@ def test_back_never_goes_below_slide_one(rig):
         yield "b"
         yield "q"
 
-    rec, holder, log = rig(script)
+    rec, holder, log = rig(script, keys=True)
     rec.run()
     slides = [e.slide for e in read_events(rec.ld.events) if e.type == "slide"]
     assert slides == [1, 1, 1]

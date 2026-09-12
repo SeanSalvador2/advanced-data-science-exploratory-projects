@@ -19,7 +19,7 @@ VERDICT_MEANING = {
     RETEST: (
         "Usable but not comfortable. Move the mic closer (a $30 lavalier or sitting "
         "in the front row usually fixes it), re-record one lecture, and re-run the "
-        "spike before building anything on top."
+        "measurement before building anything on top."
     ),
     STOP: (
         "Too many words are wrong for downstream summarising or search to be "
@@ -34,7 +34,7 @@ HURTS = "biasing hurts; investigate prompt echo"
 
 
 def verdict(wer_pct: float, recall_pct: float) -> str:
-    """The three thresholds from the spike plan, evaluated worst-case first."""
+    """The three thresholds from the Phase 0 plan, evaluated worst-case first."""
     if math.isnan(wer_pct):
         return STOP
     if wer_pct > 30.0 or (not math.isnan(recall_pct) and recall_pct < 60.0):
@@ -73,7 +73,7 @@ def build_report(
     lines: list[str] = []
     a = lines.append
 
-    a(f"# Transcription spike report - {ld.root.name}")
+    a(f"# Transcription quality report - {ld.root.name}")
     a("")
     a(f"Generated {now_iso()}")
     for cond, tr in sorted(transcripts.items()):
@@ -85,7 +85,7 @@ def build_report(
         a(f"> **Warning:** reference.txt in window(s) {', '.join(map(str, unedited))} "
           "is still byte-identical to draft.txt. Those windows are scoring the "
           "transcript against itself, so their numbers are meaningless. Hand-correct "
-          "them while listening to clip.wav, then re-run `spike score`.")
+          "them while listening to clip.wav, then re-run `lecture-rec score`.")
         a("")
 
     # ---- per-window table -------------------------------------------------- #

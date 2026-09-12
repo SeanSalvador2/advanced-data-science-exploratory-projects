@@ -22,7 +22,7 @@ Your answers removed two features and changed the runtime model.
 
 ## 1. Phase 0 spike — built, tested, pushed
 
-`lecture-companion/spike/` is a Python CLI (`uv run spike ...`) with six commands:
+`lecture-companion/spike/` (since promoted to `pipeline/` as `lecture-rec`) is a Python CLI (`uv run spike ...`) with six commands:
 `doctor`, `record`, `terms`, `transcribe`, `sample`, `score`. It records the mic to a
 16 kHz WAV with slide-change markers (Enter = next slide), transcribes the lecture
 twice with the same audio pieces (plain, and biased with per-slide vocabulary from the

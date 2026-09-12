@@ -1,4 +1,4 @@
-"""`spike doctor` - answer "will lecture day work?" before lecture day."""
+"""`lecture-rec doctor` - answer "will lecture day work?" before lecture day."""
 
 from __future__ import annotations
 
@@ -6,8 +6,10 @@ import importlib.util
 import platform
 import shutil
 import sys
+from pathlib import Path
 
 from .record import RED, SILENCE_HELP, SILENCE_RMS, _color
+from .schemas import LectureDir
 
 MIC_TEST_S = 3.0
 
@@ -30,7 +32,7 @@ def _importable(mod: str) -> tuple[bool, str]:
         return False, f"present but fails to import: {exc}"
 
 
-def run_doctor(mic_seconds: float = MIC_TEST_S) -> int:
+def run_doctor(mic_seconds: float = MIC_TEST_S, dir_path: str = ".") -> int:
     problems = 0
 
     print("== platform ==")
@@ -60,8 +62,24 @@ def run_doctor(mic_seconds: float = MIC_TEST_S) -> int:
     print("== ffmpeg ==")
     print(f"  on PATH: {_ok(bool(ff))}{('  ' + ff) if ff else ''}")
     if not ff:
-        print("  spike itself does not need ffmpeg (WAV in, WAV out), but "
+        print("  lecture-rec itself does not need ffmpeg (WAV in, WAV out), but "
               "`brew install ffmpeg` is worth having for anything else.")
+    print()
+
+    print("== lecture folder ==")
+    ld = LectureDir(dir_path)
+    print(f"  folder      {ld.root.resolve()}")
+    print(f"  heartbeat   {ld.heartbeat.resolve()}  (rewritten every 2 s while recording)")
+    try:
+        ld.dot_lecture.mkdir(parents=True, exist_ok=True)
+        probe = ld.dot_lecture / ".doctor-probe"
+        probe.write_text("ok", encoding="utf-8")
+        probe.unlink()
+        print(f"  .lecture/ creatable and writable: {_ok(True)}")
+    except OSError as exc:
+        print(_color(f"  .lecture/ NOT writable: {exc}", RED))
+        print("  Without it the app cannot see that recording is running.")
+        problems += 1
     print()
 
     print("== audio input ==")

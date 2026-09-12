@@ -1,6 +1,6 @@
 """Heuristic vocabulary-bias extraction from a slide deck.
 
-`spike terms` writes bias.json (source "heuristic") and deck.txt. The
+`lecture-rec terms` writes bias.json (source "heuristic") and deck.txt. The
 `/lecture-bias-terms` Claude Code skill writes the same bias.json with source
 "claude" and usually does a better job; this module is the no-Claude fallback
 and the thing that guarantees a bias.json exists on lecture day.

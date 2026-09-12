@@ -57,7 +57,7 @@ lecture-companion/
   cli/                         `lecture` Node CLI on pdfjs-dist@6.3.289 legacy build
   app/                         Vite + React + TypeScript, Chrome only
   pipeline/                    Python `lecture-rec` (the spike, promoted) + eval commands
-  spike/                       kept until pipeline/ supersedes it, then removed
+  spike/                       promoted to pipeline/ in Phase 4 task 3
   docs/
 .claude/skills/
   lecture-bias-terms/          exists

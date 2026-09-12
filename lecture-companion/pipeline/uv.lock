@@ -1568,7 +1568,7 @@ wheels = [
 ]
 
 [[package]]
-name = "spike"
+name = "lecture-rec"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

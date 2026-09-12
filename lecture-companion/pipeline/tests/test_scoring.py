@@ -6,7 +6,7 @@ import math
 
 import pytest
 
-from spike.evalwin import (
+from lecture_rec.evalwin import (
     EvalWindowMeta,
     expected_terms,
     normalize_text,
@@ -17,7 +17,7 @@ from spike.evalwin import (
     term_present,
     window_fractions,
 )
-from spike.report import (
+from lecture_rec.report import (
     HELPS,
     HURTS,
     NO_EFFECT,
@@ -27,7 +27,7 @@ from spike.report import (
     bias_effect,
     verdict,
 )
-from spike.schemas import BiasTerms, PageTerms, Segment
+from lecture_rec.schemas import BiasTerms, PageTerms, Segment
 
 
 # --------------------------------------------------------------------------- #

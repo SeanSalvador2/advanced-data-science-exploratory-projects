@@ -3,12 +3,21 @@
 without a microphone, a real lecture, or ffmpeg.
 
     uv run python scripts/make_synthetic_lecture.py data/synthetic
+    uv run python scripts/make_synthetic_lecture.py data/synthetic-app --app-events
 
 Downloads the 11-second public-domain JFK clip that ships with whisper.cpp,
 repeats it 8 times with 1.5 s of silence between repeats, and writes the
-events / recording / bias files that `spike transcribe` expects. Also writes
-reference_full.txt with the known transcript, so you can sanity-check WER
-without hand-correcting anything.
+events / recording / bias files that `lecture-rec transcribe` expects. Also
+writes reference_full.txt with the known transcript, so you can sanity-check
+WER without hand-correcting anything.
+
+Two shapes of lecture folder:
+
+* default - what the Phase 0 recorder wrote: snake_case `recording.json`, and
+  every event carrying an audio-clock `t`.
+* `--app-events` - what the recorder and the browser app write together today:
+  camelCase `recording.json` with `schema`, `start`/`stop` from the recorder
+  with `t`, and slide events from the app with a wall clock only.
 """
 
 from __future__ import annotations
@@ -17,7 +26,7 @@ import argparse
 import json
 import sys
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import numpy as np
@@ -62,7 +71,7 @@ def fetch_jfk(cache: Path) -> Path:
         return cache
     cache.parent.mkdir(parents=True, exist_ok=True)
     print(f"fetching {JFK_URL}")
-    req = urllib.request.Request(JFK_URL, headers={"User-Agent": "spike/0.1"})
+    req = urllib.request.Request(JFK_URL, headers={"User-Agent": "lecture-rec/0.1"})
     with urllib.request.urlopen(req, timeout=120) as resp:      # noqa: S310
         data = resp.read()
     cache.write_bytes(data)
@@ -70,7 +79,7 @@ def fetch_jfk(cache: Path) -> Path:
     return cache
 
 
-def build(out: Path) -> None:
+def build(out: Path, app_events: bool = False) -> None:
     out.mkdir(parents=True, exist_ok=True)
     src = fetch_jfk(out.parent / ".cache" / "jfk.wav")
 
@@ -91,35 +100,69 @@ def build(out: Path) -> None:
     sf.write(str(out / "audio.wav"), audio, TARGET_SR, subtype="PCM_16")
     print(f"audio   {out / 'audio.wav'}  ({duration:.2f}s)")
 
-    wall = datetime.now().astimezone().isoformat(timespec="seconds")
-    events = [{"t": 0.0, "wall": wall, "type": "start"}]
-    for k in range(N_SLIDES):
-        t = min(k * SLIDE_EVERY_S, max(0.0, duration - 1.0))
-        events.append({"t": round(t, 3), "wall": wall, "type": "slide", "slide": k + 1})
-    events.append({"t": round(duration, 3), "wall": wall, "type": "stop"})
+    started = datetime.now().astimezone()
+
+    def wall_at(offset_s: float) -> str:
+        """The wall clock the app would have stamped `offset_s` into the audio."""
+        return (started + timedelta(seconds=offset_s)).isoformat(timespec="milliseconds")
+
+    slide_times = [min(k * SLIDE_EVERY_S, max(0.0, duration - 1.0))
+                   for k in range(N_SLIDES)]
+
+    if app_events:
+        # The recorder writes start and stop with both clocks; the app writes
+        # slide events with a wall clock only, and says so with `source`.
+        events = [{"t": 0.0, "wall": wall_at(0.0), "type": "start",
+                   "source": "recorder"}]
+        for k, t in enumerate(slide_times):
+            events.append({"wall": wall_at(t), "type": "slide", "slide": k + 1,
+                           "source": "app"})
+        events.append({"t": round(duration, 3), "wall": wall_at(duration),
+                       "type": "stop", "source": "recorder"})
+    else:
+        wall = started.isoformat(timespec="seconds")
+        events = [{"t": 0.0, "wall": wall, "type": "start"}]
+        for k, t in enumerate(slide_times):
+            events.append({"t": round(t, 3), "wall": wall, "type": "slide",
+                           "slide": k + 1})
+        events.append({"t": round(duration, 3), "wall": wall, "type": "stop"})
+
     with (out / "events.jsonl").open("w", encoding="utf-8") as fh:
         for ev in events:
             fh.write(json.dumps(ev) + "\n")
-    print(f"events  {out / 'events.jsonl'}  ({N_SLIDES} slides)")
+    print(f"events  {out / 'events.jsonl'}  ({N_SLIDES} slides, "
+          f"{'app-style, wall clock only' if app_events else 'recorder-style, with t'})")
 
+    if app_events:
+        recording = {
+            "schema": "recording/1",
+            "startedWall": wall_at(0.0),
+            "stoppedWall": wall_at(duration),
+            "durationS": round(duration, 3),
+            "sampleRate": TARGET_SR,
+            "channels": 1,
+            "device": "synthetic",
+            "file": "audio.wav",
+        }
+    else:
+        recording = {
+            "started_wall": started.isoformat(timespec="seconds"),
+            "samplerate": TARGET_SR,
+            "channels": 1,
+            "file": "audio.wav",
+            "device": "synthetic",
+            "duration_s": round(duration, 3),
+        }
     (out / "recording.json").write_text(
-        json.dumps(
-            {
-                "started_wall": wall,
-                "samplerate": TARGET_SR,
-                "channels": 1,
-                "file": "audio.wav",
-                "device": "synthetic",
-                "duration_s": round(duration, 3),
-            },
-            indent=2,
-        ) + "\n",
-        encoding="utf-8",
+        json.dumps(recording, indent=2) + "\n", encoding="utf-8",
     )
+    print(f"rec     {out / 'recording.json'}  "
+          f"({'camelCase + schema' if app_events else 'snake_case, Phase 0'})")
 
     (out / "bias.json").write_text(
         json.dumps(
             {
+                "schema": "bias/1",
                 "deck": "deck.pdf",
                 "source": "heuristic",
                 "pages": [{"page": p, "terms": t} for p, t in sorted(PAGE_TERMS.items())],
@@ -137,24 +180,28 @@ def build(out: Path) -> None:
     print(f"ref     {out / 'reference_full.txt'}")
     print()
     print("next:")
-    print(f"  uv run spike transcribe --dir {out} --engine faster-whisper --model tiny.en")
-    print(f"  uv run spike sample --dir {out} --n 2 --window-s 30")
+    print(f"  uv run lecture-rec transcribe {out} --engine faster-whisper --model tiny.en")
+    print("or, for the quality measurement:")
+    print(f"  uv run lecture-rec transcribe {out} --eval --engine faster-whisper "
+          "--model tiny.en")
+    print(f"  uv run lecture-rec sample {out} --n 2 --window-s 30")
     print(f"  uv run python scripts/make_synthetic_lecture.py {out} --seed-references")
-    print(f"  uv run spike score --dir {out}")
+    print(f"  uv run lecture-rec score {out}")
 
 
 def seed_references(out: Path) -> int:
     """Overwrite every eval/window-*/reference.txt with the KNOWN transcript.
 
     Because the synthetic audio is one sentence on a fixed grid, the true text
-    of any time window can be computed exactly. Run this after `spike sample`
-    and before `spike score` to get a real WER instead of scoring the
+    of any time window can be computed exactly. Run this after `lecture-rec
+    sample` and before `lecture-rec score` to get a real WER instead of scoring the
     transcript against a copy of itself.
     """
     meta_path = out / "recording.json"
     if not meta_path.exists():
         raise SystemExit(f"no {meta_path}; build the lecture first")
-    duration = float(json.loads(meta_path.read_text())["duration_s"])
+    meta = json.loads(meta_path.read_text())
+    duration = float(meta.get("durationS", meta.get("duration_s")))
     clip_s = (duration - (REPEATS - 1) * GAP_S) / REPEATS
     period = clip_s + GAP_S
 
@@ -175,7 +222,7 @@ def seed_references(out: Path) -> int:
         print(f"{wdir / 'reference.txt'}: {len(reps)} known repetition(s)")
         n += 1
     if not n:
-        raise SystemExit("no eval windows; run `spike sample` first")
+        raise SystemExit("no eval windows; run `lecture-rec sample` first")
     return n
 
 
@@ -183,14 +230,17 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("out", help="output lecture directory, e.g. data/synthetic")
+    ap.add_argument("--app-events", action="store_true",
+                    help="write the app-style folder: camelCase recording.json, "
+                         "slide events with a wall clock only")
     ap.add_argument("--seed-references", action="store_true",
                     help="fill eval/window-*/reference.txt with the known transcript "
-                         "(run after `spike sample`, instead of hand-correcting)")
+                         "(run after `lecture-rec sample`, instead of hand-correcting)")
     args = ap.parse_args()
     if args.seed_references:
         seed_references(Path(args.out))
         return 0
-    build(Path(args.out))
+    build(Path(args.out), app_events=args.app_events)
     return 0
 
 

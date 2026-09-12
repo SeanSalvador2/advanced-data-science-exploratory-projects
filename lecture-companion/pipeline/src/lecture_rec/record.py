@@ -1,9 +1,21 @@
 """The lecture-day recorder.
 
+It runs beside the browser app: the app appends `slide` and `note` events to
+the same `events.jsonl` with wall-clock times only, and reads
+`.lecture/heartbeat.json` to show that recording is really happening. The
+recorder itself writes only `start` and `stop`, unless `--keys` is given, in
+which case the Phase 0 keyboard protocol is back and it writes slide and note
+events too.
+
 Design constraints, all of which the tests check:
 
 * Event times come from the AUDIO clock (frames captured / samplerate), never
   from wall clock, so a slide marker can never drift away from the audio.
+* Every event line is one `O_APPEND` write of under 4 KB, so the app appending
+  to the same file cannot interleave half a line with ours.
+* `.lecture/heartbeat.json` is rewritten every 2 s through a temp file and
+  `os.replace`, so the app never reads a half-written heartbeat, and is deleted
+  on a clean stop, so a crashed recorder shows up as a stale file.
 * The WAV is flushed at least every 5 s, so a crash or a dead battery leaves a
   playable file with everything up to the last few seconds.
 * On macOS a `caffeinate -dims -w <pid>` child keeps the Mac awake for exactly
@@ -17,6 +29,7 @@ Design constraints, all of which the tests check:
 
 from __future__ import annotations
 
+import collections
 import math
 import os
 import platform
@@ -30,7 +43,9 @@ from typing import Callable, Iterable, Iterator, Optional
 import numpy as np
 
 from .schemas import (
+    HEARTBEAT_INTERVAL_S,
     Event,
+    Heartbeat,
     LectureDir,
     RecordingMeta,
     append_event,
@@ -43,6 +58,7 @@ SAMPLERATE = 16000
 CHANNELS = 1
 BLOCKSIZE = 1600                # 100 ms
 FLUSH_INTERVAL_S = 5.0          # <= 5 s, per the brief
+RMS_WINDOW_S = 2.0              # the heartbeat reports the RMS of this much audio
 FIRST_SILENCE_CHECK_S = 5.0
 SILENCE_REPEAT_S = 30.0
 SILENCE_RMS = 0.0015            # roughly -56 dBFS; real room noise is well above
@@ -55,10 +71,10 @@ SILENCE_HELP = (
     "SILENT INPUT: the microphone is delivering (near) zeros.\n"
     "  Most likely cause on macOS: microphone permission belongs to the TERMINAL\n"
     "  APP, not to python. Quit, open Terminal.app or iTerm directly, and run\n"
-    "  `spike record` from there. Terminals embedded in editors (VS Code, Cursor,\n"
+    "  `lecture-rec record` from there. Terminals embedded in editors (VS Code, Cursor,\n"
     "  JetBrains) very often record digital silence with no error at all.\n"
     "  Check System Settings > Privacy & Security > Microphone.\n"
-    "  Also check: right input device (`spike doctor`), input volume not at zero,\n"
+    "  Also check: right input device (`lecture-rec doctor`), input volume not at zero,\n"
     "  nothing else holding the mic (Zoom, Teams, Photo Booth).\n"
     "  Recording continues - if the lecture simply has not started, ignore this."
 )
@@ -122,6 +138,8 @@ class Recorder:
         flush_interval_s: float = FLUSH_INTERVAL_S,
         silence_rms: float = SILENCE_RMS,
         use_caffeinate: bool = True,
+        keys: bool = False,
+        heartbeat_interval_s: float = HEARTBEAT_INTERVAL_S,
         out: Callable[[str], None] = print,
     ):
         self.ld = LectureDir(dir_path)
@@ -133,6 +151,8 @@ class Recorder:
         self.flush_interval_s = float(flush_interval_s)
         self.silence_rms = float(silence_rms)
         self.use_caffeinate = use_caffeinate
+        self.keys = bool(keys)
+        self.heartbeat_interval_s = float(heartbeat_interval_s)
         self.out = out
 
         self._q: "queue.Queue[Optional[np.ndarray]]" = queue.Queue()
@@ -143,6 +163,11 @@ class Recorder:
         self._stream = None
         self._caffeinate: Optional[subprocess.Popen] = None
         self._stopped = False
+        self._heartbeat_thread: Optional[threading.Thread] = None
+        self._heartbeat_stop = threading.Event()
+        self._recent: "collections.deque[np.ndarray]" = collections.deque()
+        self._recent_n = 0
+        self._started_wall: Optional[str] = None
 
         self.current_slide = 1
         # silence detection state
@@ -170,6 +195,11 @@ class Recorder:
             self._frames_captured += n
             self._win_sumsq += float(np.dot(mono.astype(np.float64), mono.astype(np.float64)))
             self._win_n += n
+            self._recent.append(mono.astype(np.float32, copy=True))
+            self._recent_n += n
+            keep = int(RMS_WINDOW_S * self.samplerate)
+            while self._recent and (self._recent_n - self._recent[0].size) >= keep:
+                self._recent_n -= self._recent.popleft().size
         self._q.put(block)
         self._maybe_warn_silence()
 
@@ -210,13 +240,58 @@ class Recorder:
                 last_flush = _time.monotonic()
         self._file.flush()
 
+    # -- heartbeat ---------------------------------------------------------- #
+
+    def rms_recent(self) -> float:
+        """RMS of the last `RMS_WINDOW_S` seconds of captured audio."""
+        with self._lock:
+            blocks = list(self._recent)
+        if not blocks:
+            return 0.0
+        total = 0.0
+        n = 0
+        for b in blocks:
+            a = b.astype(np.float64)
+            total += float(np.dot(a, a))
+            n += a.size
+        return math.sqrt(total / n) if n else 0.0
+
+    def heartbeat(self) -> Heartbeat:
+        return Heartbeat(
+            pid=os.getpid(),
+            started_wall=self._started_wall or now_iso(),
+            updated_wall=now_iso(),
+            elapsed_s=self.elapsed_s,
+            rms_recent=self.rms_recent(),
+        )
+
+    def write_heartbeat(self) -> None:
+        """Atomic by construction: `write_json` writes a temp file in the same
+        directory and `os.replace`s it into place, so the app reads either the
+        previous heartbeat or this one, never a partial line."""
+        write_json(self.ld.heartbeat, self.heartbeat().to_dict())
+
+    def _heartbeat_loop(self) -> None:
+        while not self._heartbeat_stop.wait(self.heartbeat_interval_s):
+            try:
+                self.write_heartbeat()
+            except Exception as exc:                    # pragma: no cover
+                self.out(_color(f"  heartbeat write failed: {exc}", YELLOW))
+
+    def _remove_heartbeat(self) -> None:
+        try:
+            self.ld.heartbeat.unlink()
+        except FileNotFoundError:
+            pass
+        except OSError as exc:                          # pragma: no cover
+            self.out(_color(f"  could not remove {self.ld.heartbeat}: {exc}", YELLOW))
+
     # -- lifecycle ---------------------------------------------------------- #
 
     def start(self, deck: Optional[str] = None) -> None:
         import soundfile as sf
 
         self.ld.root.mkdir(parents=True, exist_ok=True)
-        (self.ld.root / "transcripts").mkdir(exist_ok=True)
 
         if deck:
             src = Path(deck)
@@ -227,8 +302,8 @@ class Recorder:
 
         if self.ld.audio.exists():
             raise SystemExit(
-                f"{self.ld.audio} already exists. Use a fresh --dir so an existing "
-                "recording can never be overwritten."
+                f"{self.ld.audio} already exists. Record into a fresh directory so "
+                "an existing recording can never be overwritten."
             )
 
         self._file = sf.SoundFile(
@@ -238,15 +313,6 @@ class Recorder:
         self._writer = threading.Thread(target=self._write_loop, daemon=True)
         self._writer.start()
 
-        meta = RecordingMeta(
-            started_wall=now_iso(), samplerate=self.samplerate,
-            channels=self.channels, file="audio.wav",
-            device=str(self.device) if self.device else "default",
-            duration_s=None,
-        )
-        write_json(self.ld.recording, meta.to_dict())
-        self._meta = meta
-
         self._start_caffeinate()
 
         self._stream = self.stream_factory(
@@ -254,12 +320,46 @@ class Recorder:
         )
         if hasattr(self._stream, "start"):
             self._stream.start()
+        # `startedWall` is the wall time of audio frame 0. We take it the moment
+        # `stream.start()` returns: PortAudio has the device running by then, so
+        # the residual offset between this timestamp and the first captured
+        # frame is the device's start latency - a few milliseconds, well under
+        # 100 ms, and far below the one-second granularity a slide marker needs.
+        # The callback's `time_info.inputBufferAdcTime` could shave that off,
+        # but it is on a different clock base per host API, so it is not worth
+        # the correction.
+        self._started_wall = now_iso()
 
-        append_event(self.ld.events, Event(t=0.0, wall=now_iso(), type="start"))
+        meta = RecordingMeta(
+            started_wall=self._started_wall,
+            sample_rate=self.samplerate,
+            channels=self.channels,
+            file="audio.wav",
+            device=str(self.device) if self.device else "default",
+            duration_s=None,
+        )
+        write_json(self.ld.recording, meta.to_dict())
+        self._meta = meta
+
         append_event(self.ld.events,
-                     Event(t=0.0, wall=now_iso(), type="slide", slide=self.current_slide))
-        self.out(f"recording -> {self.ld.audio}  (slide {self.current_slide})")
-        self.out(self.help_text())
+                     Event(t=0.0, wall=self._started_wall, type="start",
+                           source="recorder"))
+        if self.keys:
+            append_event(self.ld.events,
+                         Event(t=0.0, wall=now_iso(), type="slide",
+                               slide=self.current_slide, source="recorder"))
+
+        self.ld.dot_lecture.mkdir(parents=True, exist_ok=True)
+        self.write_heartbeat()
+        self._heartbeat_stop.clear()
+        self._heartbeat_thread = threading.Thread(target=self._heartbeat_loop,
+                                                  daemon=True)
+        self._heartbeat_thread.start()
+
+        self.out(f"recording -> {self.ld.audio}")
+        self.out(self.mode_line())
+        if self.keys:
+            self.out(self.help_text())
 
     def _start_caffeinate(self) -> None:
         if not self.use_caffeinate or platform.system() != "Darwin":
@@ -273,6 +373,14 @@ class Recorder:
         except Exception as exc:                        # pragma: no cover
             self.out(_color(f"  caffeinate failed ({exc}); disable sleep by hand",
                             YELLOW))
+
+    def mode_line(self) -> str:
+        """One line telling the user which of the two modes they are in."""
+        if self.keys:
+            return (f"  mode: --keys - slide markers come from THIS terminal "
+                    f"(starting on slide {self.current_slide}); the app is not needed")
+        return ("  mode: app - slide and note events come from the browser app; "
+                "here only q stops (Ctrl-C too)")
 
     @staticmethod
     def help_text() -> str:
@@ -292,14 +400,23 @@ class Recorder:
                 except Exception:                       # pragma: no cover
                     pass
         t = self.elapsed_s
+        self._heartbeat_stop.set()
+        if self._heartbeat_thread is not None:
+            self._heartbeat_thread.join(timeout=5)
         self._q.put(None)
         if self._writer is not None:
             self._writer.join(timeout=30)
         if self._file is not None:
             self._file.close()
-        append_event(self.ld.events, Event(t=t, wall=now_iso(), type="stop"))
+        stopped_wall = now_iso()
+        append_event(self.ld.events,
+                     Event(t=t, wall=stopped_wall, type="stop", source="recorder"))
         self._meta.duration_s = t
+        self._meta.stopped_wall = stopped_wall
         write_json(self.ld.recording, self._meta.to_dict())
+        # Clean stop: the heartbeat goes away, so the app shows "no recorder"
+        # rather than a file that quietly stops being updated.
+        self._remove_heartbeat()
         if self._caffeinate is not None:
             try:
                 self._caffeinate.terminate()
@@ -312,27 +429,34 @@ class Recorder:
     def handle_line(self, raw: str) -> bool:
         """Apply one command line. Returns False when the recording should stop."""
         line = raw.strip()
+
+        if line.lower() == "q":
+            return False
+        if not self.keys:
+            # App mode: the app owns slide and note events. Enter does nothing
+            # here on purpose - pressing it out of Phase 0 habit must not write
+            # a slide event the app knows nothing about.
+            if line:
+                self.out("  (app mode: only q stops. Use --keys to mark slides here.)")
+            return True
+
         t = self.elapsed_s
 
         if line == "":
             self.current_slide += 1
-            append_event(self.ld.events,
-                         Event(t=t, wall=now_iso(), type="slide", slide=self.current_slide))
-        elif line.lower() == "q":
-            return False
+            self._slide_event(t)
         elif line.lower() == "b":
             self.current_slide = max(1, self.current_slide - 1)
-            append_event(self.ld.events,
-                         Event(t=t, wall=now_iso(), type="slide", slide=self.current_slide))
+            self._slide_event(t)
         elif line.lower().startswith("n ") or line.lower() == "n":
             text = line[2:].strip() if len(line) > 1 else ""
             append_event(self.ld.events,
-                         Event(t=t, wall=now_iso(), type="note", text=text))
+                         Event(t=t, wall=now_iso(), type="note", text=text,
+                               source="recorder"))
             self.out(f"  note @ {fmt_mmss(t)}: {text}")
         elif line.lstrip("+").isdigit():
             self.current_slide = max(1, int(line.lstrip("+")))
-            append_event(self.ld.events,
-                         Event(t=t, wall=now_iso(), type="slide", slide=self.current_slide))
+            self._slide_event(t)
         else:
             self.out(f"  ? unknown command {line!r}")
             self.out(self.help_text())
@@ -340,6 +464,11 @@ class Recorder:
 
         self.out(f"  slide {self.current_slide}   {fmt_mmss(self.elapsed_s)}")
         return True
+
+    def _slide_event(self, t: float) -> None:
+        append_event(self.ld.events,
+                     Event(t=t, wall=now_iso(), type="slide",
+                           slide=self.current_slide, source="recorder"))
 
     def run(self, deck: Optional[str] = None) -> None:
         self.start(deck=deck)
@@ -359,5 +488,6 @@ def run_record(
     dir_path: str | Path,
     deck: Optional[str] = None,
     device: Optional[str] = None,
+    keys: bool = False,
 ) -> None:
-    Recorder(dir_path, device=device).run(deck=deck)
+    Recorder(dir_path, device=device, keys=keys).run(deck=deck)

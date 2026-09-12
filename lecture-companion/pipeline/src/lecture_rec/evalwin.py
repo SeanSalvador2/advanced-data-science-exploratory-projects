@@ -1,10 +1,10 @@
 """Evaluation windows: sample three 5-minute slices, then score them.
 
-`spike sample` writes eval/window-i/{clip.wav, draft.txt, reference.txt, meta.json}.
+`lecture-rec sample` writes eval/window-i/{clip.wav, draft.txt, reference.txt, meta.json}.
 The student listens to clip.wav and fixes reference.txt by hand; that hand-fixed
-text is the only ground truth in this whole spike.
+text is the only ground truth in this measurement.
 
-`spike score` measures every transcript condition against those references.
+`lecture-rec score` measures every transcript condition against those references.
 """
 
 from __future__ import annotations
@@ -131,7 +131,8 @@ def run_sample(
     transcript = ld.load_transcript(condition)
     if transcript is None:
         raise SystemExit(
-            f"no transcripts/{condition}.json - run `spike transcribe` first"
+            f"no transcripts/{condition}.json - run "
+            "`lecture-rec transcribe <dir> --eval` first"
         )
     if not ld.audio.exists():
         raise SystemExit(f"no audio at {ld.audio}")
@@ -181,7 +182,7 @@ def run_sample(
     if metas:
         print()
         print("Now: play each clip.wav and fix that window's reference.txt by hand.")
-        print("Fix only real errors; keep the line breaks. Then run `spike score`.")
+        print("Fix only real errors; keep the line breaks. Then run `lecture-rec score`.")
     return metas
 
 
@@ -323,13 +324,14 @@ def run_score(dir_path: str | Path) -> tuple[list[WindowScore], dict[str, Pooled
     ld = LectureDir(dir_path)
     windows = load_windows(ld)
     if not windows:
-        raise SystemExit(f"no eval windows in {ld.eval} - run `spike sample` first")
+        raise SystemExit(f"no eval windows in {ld.eval} - run `lecture-rec sample` first")
 
     bias = ld.load_bias()
     transcripts = {c: ld.load_transcript(c) for c in CONDITIONS}
     transcripts = {c: t for c, t in transcripts.items() if t is not None}
     if not transcripts:
-        raise SystemExit("no transcripts to score - run `spike transcribe` first")
+        raise SystemExit("no transcripts to score - run "
+                         "`lecture-rec transcribe <dir> --eval` first")
 
     scores: list[WindowScore] = []
     unedited: list[int] = []

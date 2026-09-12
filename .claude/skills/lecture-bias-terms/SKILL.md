@@ -5,23 +5,23 @@ description: "Produce a per-slide vocabulary bias list (bias.json) for lecture t
 
 # Lecture bias terms
 
-Write `<lecture-dir>/bias.json`: the vocabulary that `spike transcribe` feeds to
+Write `<lecture-dir>/bias.json`: the vocabulary that `lecture-rec transcribe` feeds to
 Whisper as an `initial_prompt`, so the technical words in a lecture come out
 spelled correctly instead of as phonetic mush.
 
-`<lecture-dir>` is the argument the user gave (e.g. `lecture-companion/spike/data/lec01`).
+`<lecture-dir>` is the argument the user gave (e.g. `lecture-companion/pipeline/data/lec01`).
 If they did not give one, ask.
 
 ## 1. Read the deck
 
-- Read `<lecture-dir>/deck.txt` first if it exists. `spike terms` writes it, it is
+- Read `<lecture-dir>/deck.txt` first if it exists. `lecture-rec terms` writes it, it is
   page-separated with `=== page N ===` markers, and it is much cheaper than the PDF.
 - Read `<lecture-dir>/deck.pdf` with the **Read** tool, **20 pages per call**
   (`pages: "1-20"`, then `"21-40"`, ...). Do this when there is no `deck.txt`, and
   also for any page whose extracted text looked empty or garbled — those pages are
   images, and only the PDF read will show you what is on them.
 - Keep going until you have seen every page. Page numbers in `bias.json` are
-  1-based and must match the PDF's page order exactly, because `spike` maps
+  1-based and must match the PDF's page order exactly, because `lecture-rec` maps
   slide-change markers to page numbers.
 
 ## 2. Choose the terms
@@ -47,7 +47,7 @@ Rules:
 - **Prefer the spelling the transcript should contain.** If the slide prints
   `KL-divergence` but the lecturer says "K L divergence", include both spellings.
 - Rank most important first: the terms whose misspelling would most damage the
-  transcript go at the top. `spike` truncates the prompt to ~60 words, so order
+  transcript go at the top. `lecture-rec` truncates the prompt to ~60 words, so order
   matters more than length.
 - Drop ordinary English. `introduction`, `summary`, `next slide`, `results` are
   worthless as bias terms and crowd out the real ones.
@@ -59,7 +59,7 @@ Rules:
 
 ## 3. Write bias.json
 
-Exact schema (this is the contract `spike/src/spike/schemas.py` reads):
+Exact schema (this is the contract `pipeline/src/lecture_rec/schemas.py` reads):
 
 ```json
 {
@@ -73,7 +73,7 @@ Exact schema (this is the contract `spike/src/spike/schemas.py` reads):
 ```
 
 - `source` **must** be `"claude"` (that is how the student can tell your list
-  apart from the `spike terms` heuristic fallback).
+  apart from the `lecture-rec terms` heuristic fallback).
 - Include an entry in `pages` for **every** page, in order, even if its `terms`
   list is empty (a title slide often is).
 
@@ -116,5 +116,5 @@ Tell the user: how many pages, how many terms per page (a short table), the
 look by eye). Then remind them the next step is:
 
 ```
-uv run spike transcribe --dir <lecture-dir>
+uv run lecture-rec transcribe <lecture-dir>
 ```

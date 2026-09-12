@@ -5,17 +5,19 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from spike.chunking import (
+from lecture_rec.chunking import (
+    EVENT_SLACK_S,
     FRAME_S,
     Piece,
     SlideSpan,
     build_pieces,
     events_to_spans,
     frame_rms,
+    normalize_events,
     slice_audio,
     split_span,
 )
-from spike.schemas import Event
+from lecture_rec.schemas import Event
 
 SR = 16000
 
@@ -84,6 +86,105 @@ def test_frame_rms_shape_and_values():
     assert rms.size == 100
     assert rms[:50].max() == 0.0
     assert rms[50:].min() == pytest.approx(0.5, abs=1e-5)
+
+
+# --------------------------------------------------------------------------- #
+# app events -> the audio clock
+# --------------------------------------------------------------------------- #
+
+START = "2026-01-01T09:00:00.000+00:00"
+
+
+def app_ev(wall, type_, slide=None, text=None):
+    """An event as the browser app writes it: a wall clock and no `t`."""
+    return Event(wall=wall, type=type_, slide=slide, text=text, source="app")
+
+
+def wall_at(offset_s: float) -> str:
+    from datetime import timedelta
+
+    from lecture_rec.schemas import parse_iso
+
+    return (parse_iso(START) + timedelta(seconds=offset_s)).isoformat(
+        timespec="milliseconds")
+
+
+def test_app_events_are_projected_onto_the_audio_clock():
+    events = [
+        Event(t=0.0, wall=START, type="start", source="recorder"),
+        app_ev(wall_at(12.5), "slide", 1),
+        app_ev(wall_at(70.25), "note", text="exam hint"),
+        app_ev(wall_at(90.0), "slide", 2),
+        Event(t=120.0, wall=wall_at(120.0), type="stop", source="recorder"),
+    ]
+    out = normalize_events(events, START, 120.0)
+    assert [round(e.t, 3) for e in out] == [0.0, 12.5, 70.25, 90.0, 120.0]
+    assert [e.type for e in out] == ["start", "slide", "note", "slide", "stop"]
+    # A supplied `t` is authoritative and is never recomputed.
+    assert out[0].t == 0.0 and out[-1].t == 120.0
+
+
+def test_a_supplied_t_wins_over_the_wall_clock():
+    events = [Event(t=5.0, wall=wall_at(999.0), type="slide", slide=3,
+                    source="recorder")]
+    assert normalize_events(events, START, 60.0)[0].t == 5.0
+
+
+def test_events_outside_the_audio_are_dropped_and_named():
+    warnings: list[str] = []
+    events = [
+        Event(t=0.0, wall=START, type="start", source="recorder"),
+        app_ev(wall_at(-30.0), "slide", 1),                 # before frame 0
+        app_ev(wall_at(10.0), "slide", 2),                  # fine
+        app_ev(wall_at(60.0 + EVENT_SLACK_S + 1.0), "slide", 3),   # after the end
+    ]
+    out = normalize_events(events, START, 60.0, warn=warnings.append)
+    assert [e.slide for e in out if e.type == "slide"] == [2]
+    assert len(warnings) == 1
+    assert "slide 1" in warnings[0] and "slide 3" in warnings[0]
+    assert "dropped 2 event(s)" in warnings[0]
+
+
+def test_an_event_just_inside_the_slack_survives():
+    events = [app_ev(wall_at(60.0 + EVENT_SLACK_S - 0.5), "slide", 9)]
+    assert [e.slide for e in normalize_events(events, START, 60.0)] == [9]
+
+
+def test_events_are_sorted_by_audio_time():
+    """The app and the recorder append independently, so the file need not be
+    in time order; the slide spans depend on it being sorted."""
+    events = [
+        app_ev(wall_at(90.0), "slide", 3),
+        Event(t=0.0, wall=START, type="start", source="recorder"),
+        app_ev(wall_at(30.0), "slide", 2),
+        app_ev(wall_at(5.0), "slide", 1),
+    ]
+    out = normalize_events(events, START, 120.0)
+    assert [e.slide for e in out if e.type == "slide"] == [1, 2, 3]
+    spans = events_to_spans(out, 120.0)
+    assert [s.slide for s in spans] == [None, 1, 2, 3]
+
+
+def test_without_recording_meta_the_start_event_is_the_origin():
+    events = [
+        Event(t=0.0, wall=START, type="start", source="recorder"),
+        app_ev(wall_at(42.0), "slide", 1),
+    ]
+    out = normalize_events(events, None, 120.0)
+    assert [round(e.t, 3) for e in out] == [0.0, 42.0]
+
+
+def test_undatable_events_are_dropped_with_a_warning():
+    warnings: list[str] = []
+    events = [app_ev(wall_at(10.0), "slide", 4)]     # no `t`, no origin anywhere
+    out = normalize_events(events, None, 120.0, warn=warnings.append)
+    assert out == []
+    assert "no usable time" in warnings[0] and "slide 4" in warnings[0]
+
+
+def test_recorder_only_events_pass_through_unchanged():
+    events = [ev(0, "start"), ev(30, "slide", 2), ev(100, "stop")]
+    assert normalize_events(events, None, 100.0) == events
 
 
 # --------------------------------------------------------------------------- #

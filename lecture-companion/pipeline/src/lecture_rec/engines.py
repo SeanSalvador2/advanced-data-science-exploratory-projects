@@ -4,7 +4,7 @@ except the first-run model download, and nothing here needs an API key.
     engine = select_engine("auto")            # mlx-whisper on Apple Silicon
     res = engine.transcribe_piece(audio, 16000, prompt)
 
-Every heavy import is lazy so `import spike.engines` stays cheap (and works on
+Every heavy import is lazy so `import lecture_rec.engines` stays cheap (and works on
 a machine where only one of the backends is installed).
 """
 

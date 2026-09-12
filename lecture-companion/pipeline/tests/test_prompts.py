@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import pytest
 
-from spike.chunking import Piece
-from spike.schemas import BiasTerms, PageTerms
-from spike.terms import build_prompt
-from spike.transcribe import PROMPT_MAX_WORDS, prompt_for_piece, strip_prompt_echo
+from lecture_rec.chunking import Piece
+from lecture_rec.schemas import BiasTerms, PageTerms
+from lecture_rec.terms import build_prompt
+from lecture_rec.transcribe import PROMPT_MAX_WORDS, prompt_for_piece, strip_prompt_echo
 
 
 # --------------------------------------------------------------------------- #

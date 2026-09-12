@@ -1,6 +1,9 @@
 """Turn (events, audio) into the list of pieces that get fed to an ASR engine.
 
-Two jobs:
+Three jobs:
+  0. events.jsonl -> the audio clock. The app writes slide and note events with
+     a wall clock only; `normalize_events` projects them onto the audio clock
+     using `recording.startedWall` before anything else looks at them.
   1. events.jsonl -> slide spans (which slide was up when).
   2. slide span   -> pieces of at most `max_piece_s` seconds, cut at the quietest
      moment in the last few seconds of the allowed window so we never slice a
@@ -18,11 +21,17 @@ from typing import Optional, Sequence
 
 import numpy as np
 
-from .schemas import Event
+from typing import Callable
+
+from .schemas import Event, iso_delta_s
 
 FRAME_S = 0.02          # 20 ms RMS frames
 SEARCH_BACK_S = 6.0     # look this far back from the target for a quiet cut
 MIN_SPAN_S = 0.05       # spans shorter than this are noise (double slide press)
+#: How far past the end of the audio an event may still land before it is
+#: treated as belonging to another recording. Clock skew between the app and
+#: the recorder is milliseconds; 5 s is pure slack.
+EVENT_SLACK_S = 5.0
 
 
 # --------------------------------------------------------------------------- #
@@ -62,6 +71,74 @@ def rms(audio: np.ndarray) -> float:
 
 
 # --------------------------------------------------------------------------- #
+# events -> the audio clock
+# --------------------------------------------------------------------------- #
+
+
+def _describe(ev: Event) -> str:
+    what = ev.type if ev.slide is None else f"{ev.type} {ev.slide}"
+    return f"{what} @ {ev.wall}"
+
+
+def normalize_events(
+    events: Sequence[Event],
+    started_wall: Optional[str],
+    duration_s: float,
+    warn: Callable[[str], None] = print,
+) -> list[Event]:
+    """Give every event a time on the audio clock, drop the impossible ones.
+
+    * `t` is kept when the writer supplied one (the recorder always does).
+    * Otherwise `t = wall - started_wall`, which is how an app event written
+      with a wall clock alone lands on the audio clock. Without a
+      `recording.startedWall` the first `start` event's wall time is used, and
+      if there is not one of those either the event has to be dropped.
+    * Events before the audio starts or more than `EVENT_SLACK_S` past its end
+      belong to some other recording; they are dropped and named.
+    * The result is sorted by `t`, so slide events are in slide-change order
+      however the two writers interleaved them in the file.
+    """
+    origin = started_wall
+    if origin is None:
+        for ev in events:
+            if ev.type == "start" and ev.wall:
+                origin = ev.wall
+                break
+
+    out: list[Event] = []
+    undated: list[Event] = []
+    outside: list[Event] = []
+    for ev in events:
+        if ev.t is None:
+            if origin is None or not ev.wall:
+                undated.append(ev)
+                continue
+            try:
+                t = iso_delta_s(ev.wall, origin)
+            except ValueError:
+                undated.append(ev)
+                continue
+            ev = Event(wall=ev.wall, type=ev.type, t=t, slide=ev.slide,
+                       text=ev.text, source=ev.source)
+        if ev.t < 0.0 or ev.t > duration_s + EVENT_SLACK_S:
+            outside.append(ev)
+            continue
+        out.append(ev)
+
+    if undated:
+        warn("dropped " + str(len(undated)) + " event(s) with no usable time "
+             "(no `t`, and no recording.startedWall to project `wall` onto): "
+             + ", ".join(_describe(e) for e in undated))
+    if outside:
+        warn("dropped " + str(len(outside)) + " event(s) outside the audio "
+             f"(0 to {duration_s:.1f}s + {EVENT_SLACK_S:g}s): "
+             + ", ".join(f"{_describe(e)} -> t={e.t:.1f}s" for e in outside))
+
+    out.sort(key=lambda e: float(e.t))
+    return out
+
+
+# --------------------------------------------------------------------------- #
 # events -> slide spans
 # --------------------------------------------------------------------------- #
 
@@ -85,12 +162,13 @@ def events_to_spans(events: Sequence[Event], duration_s: float) -> list[SlideSpa
     """
     duration_s = float(duration_s)
     slides = sorted(
-        [e for e in events if e.type == "slide" and e.slide is not None],
+        [e for e in events
+         if e.type == "slide" and e.slide is not None and e.t is not None],
         key=lambda e: e.t,
     )
     stop = duration_s
     for e in events:
-        if e.type == "stop":
+        if e.type == "stop" and e.t is not None:
             stop = min(duration_s, float(e.t)) if duration_s > 0 else float(e.t)
     end_of_audio = duration_s if duration_s > 0 else stop
 
