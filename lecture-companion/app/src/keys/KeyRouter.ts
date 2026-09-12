@@ -40,7 +40,12 @@ export type KeyAction =
   | { type: "focusPrev" }
   | { type: "activate" }
   | { type: "rescan" }
-  | { type: "toggleTheme" };
+  | { type: "toggleTheme" }
+  | { type: "nextNotedPage" }
+  | { type: "prevNotedPage" }
+  | { type: "toggleGlossary" }
+  | { type: "openObsidian" }
+  | { type: "reexport" };
 
 /** Just enough of `KeyboardEvent` to be constructed in a unit test. */
 export interface KeyEventLike {
@@ -147,6 +152,11 @@ export class KeyRouter {
     }
     if (ev.code === "KeyT") {
       return swallow({ type: "toggleTheme" });
+    }
+    // Option+E is review's export affordance. The app never writes Markdown,
+    // so it only says which command to run (architecture.md §9).
+    if (ev.code === "KeyE" && this.#scope === "review") {
+      return swallow({ type: "reexport" });
     }
     return NOTHING;
   }
@@ -264,7 +274,10 @@ export class KeyRouter {
         this.#digits = ev.key;
         return swallow({ type: "digitsChanged", digits: this.#digits });
       }
-      if (ev.key === "n") {
+      // `n` is lecture only: review has no recorder clock to stamp a note
+      // against, and a mode the student cannot leave a note from is worse than
+      // no `n` at all.
+      if (ev.key === "n" && scope === "lecture") {
         this.#mode = "noteInput";
         return swallow({ type: "openNote" });
       }
@@ -277,6 +290,18 @@ export class KeyRouter {
     if (scope === "lecture") {
       if (ev.key === "-") return swallow({ type: "dim", delta: -1 });
       if (ev.key === "=") return swallow({ type: "dim", delta: +1 });
+    }
+
+    if (scope === "review") {
+      // The rail's roving focus. `j` and `k` stop at the ends: falling off the
+      // last note must not turn the page (architecture.md §9).
+      if (ev.key === "j") return swallow({ type: "focusNext" });
+      if (ev.key === "k") return swallow({ type: "focusPrev" });
+      if (ev.key === "Enter") return swallow({ type: "activate" });
+      if (ev.key === "g") return swallow({ type: "toggleGlossary" });
+      if (ev.key === "o") return swallow({ type: "openObsidian" });
+      if (ev.key === "]") return swallow({ type: "nextNotedPage" });
+      if (ev.key === "[") return swallow({ type: "prevNotedPage" });
     }
 
     if (scope === "library") {

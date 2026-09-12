@@ -79,9 +79,11 @@ async function handle(ctx: Ctx, req: IncomingMessage, res: ServerResponse): Prom
         dir: st.isDirectory(),
         size: st.size,
         lastModified: Math.floor(st.mtimeMs),
+        // The path on disk, which is what review mode's `o` hands Obsidian.
+        abs,
       });
     } catch {
-      json(res, { exists: false, dir: false, size: 0, lastModified: 0 });
+      json(res, { exists: false, dir: false, size: 0, lastModified: 0, abs });
     }
     return;
   }

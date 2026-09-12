@@ -18,6 +18,8 @@ interface StatResponse {
   dir: boolean;
   size: number;
   lastModified: number;
+  /** The resolved path on disk; the dev bridge is the only adapter that has one. */
+  abs?: string;
 }
 
 interface ListResponse {
@@ -102,6 +104,16 @@ export class DevLectureFolder implements LectureFolder {
       stopped = true;
       clearInterval(timer);
     };
+  }
+
+  /**
+   * The dev bridge serves a real directory, so it can answer this and review
+   * mode's `o` can hand Obsidian a path (architecture.md §9).
+   */
+  async absolutePath(name: string): Promise<string | null> {
+    const rel = joinPath(this.#base, name);
+    const st = await getJson<StatResponse>("stat", rel).catch(() => null);
+    return st?.abs ?? null;
   }
 
   async subfolder(path: string): Promise<LectureFolder | null> {

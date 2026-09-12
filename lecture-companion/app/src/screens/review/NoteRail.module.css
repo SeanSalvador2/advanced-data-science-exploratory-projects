@@ -1,0 +1,155 @@
+/*
+ * ui-direction.md §C: the rail is 580 px with a 526 px measure, left aligned
+ * and ragged right. The 12 px gutter is reserved whether or not a note has a
+ * provenance rule, so generated and student notes share a text edge.
+ */
+
+.rail {
+  flex: 0 0 580px;
+  width: 580px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-left: 1px solid var(--rule);
+  background: var(--surface);
+}
+
+.scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--s-6) 0 var(--s-7) var(--s-7);
+}
+
+.measure {
+  width: 526px;
+  max-width: 100%;
+}
+
+.label {
+  margin: 0 0 var(--s-5);
+  font-size: var(--t-caption);
+  line-height: var(--lh-caption);
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+.empty {
+  margin: 0;
+  font-size: var(--t-note);
+  line-height: var(--lh-note);
+  color: var(--ink-muted);
+}
+
+.note {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  padding-block: var(--s-4);
+}
+
+.note + .note {
+  border-top: 1px solid var(--rule);
+}
+
+.note:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.note:focus:not(:focus-visible) {
+  /* j/k focus the row programmatically; it is still keyboard focus. */
+  outline: 2px solid var(--accent);
+}
+
+/*
+ * The provenance rule. Student ink is cyan and always shown; a generated note
+ * keeps the gutter empty until the slide line it cites is hovered, and then
+ * the amber rule is what says "this one".
+ */
+.gutter {
+  width: 2px;
+  align-self: stretch;
+  border-radius: 1px;
+  background: transparent;
+  transition: background-color var(--t-tint) linear;
+}
+
+.note[data-kind="student"] .gutter {
+  background: var(--mine);
+}
+
+.note[data-linked="yes"] .gutter {
+  background: var(--accent);
+}
+
+.note[data-kind="student"][data-linked="yes"] .gutter {
+  background: var(--mine);
+}
+
+.body {
+  min-width: 0;
+}
+
+.text {
+  margin: 0;
+  font-size: var(--t-note);
+  line-height: var(--lh-note);
+  color: var(--ink);
+}
+
+.note[data-kind="student"] .text {
+  font-style: italic;
+}
+
+.meta {
+  display: flex;
+  gap: var(--s-5);
+  margin: var(--s-1) 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: var(--lh-meta);
+  letter-spacing: 0.01em;
+  color: var(--ink-muted);
+}
+
+.answer {
+  margin-top: var(--s-3);
+  padding-left: var(--s-5);
+}
+
+.answerLabel {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: var(--lh-meta);
+  color: var(--ink-muted);
+}
+
+.answerText {
+  margin: var(--s-1) 0 0;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink);
+}
+
+.quote {
+  margin: var(--s-3) 0 0;
+  padding-left: var(--s-5);
+  border-left: 2px solid var(--rule);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-muted);
+}
+
+.questions {
+  margin-top: var(--s-7);
+  border-top: 1px solid var(--rule);
+}
+
+.sectionTitle {
+  margin: var(--s-5) 0 var(--s-4);
+  font-size: var(--t-caption);
+  line-height: var(--lh-caption);
+  font-weight: 500;
+  color: var(--ink);
+}

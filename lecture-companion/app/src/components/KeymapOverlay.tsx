@@ -7,7 +7,7 @@ export interface KeymapEntry {
   action: string;
 }
 
-/** Everything bound today. Task 7 adds review, task 8 the palette. */
+/** Everything bound today. Task 8 adds the palette. */
 export const KEYMAP: Array<{ group: string; entries: KeymapEntry[] }> = [
   {
     group: "Slides",
@@ -34,6 +34,17 @@ export const KEYMAP: Array<{ group: string; entries: KeymapEntry[] }> = [
       { keys: "t and Shift+T", action: "Step through this slide's known terms" },
       { keys: "Enter", action: "Open the card for the term under the cursor" },
       { keys: "Esc", action: "Close the card, then clear the term cursor" },
+    ],
+  },
+  {
+    group: "Review",
+    entries: [
+      { keys: "j and k", action: "Move between the notes on this slide" },
+      { keys: "Enter", action: "Show a note's quote, or a question's answer" },
+      { keys: "g", action: "Open and close the glossary" },
+      { keys: "] and [", action: "Next and previous slide that has notes" },
+      { keys: "o", action: "Open this lecture's Markdown in Obsidian" },
+      { keys: "Option+E", action: "How to re-export the Markdown" },
     ],
   },
   {

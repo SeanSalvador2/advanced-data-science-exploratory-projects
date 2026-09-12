@@ -18,8 +18,19 @@ export const LATEX = "lec-latex";
 /** A copy of the fixture with no `terms.json`, built by `lookup.spec.ts`. */
 export const NOINDEX = "lec-noindex";
 
-export function lectureDir(lectureId: string): string {
-  return path.join(VAULT, COURSE, lectureId);
+/** The recorded, transcribed and noted lecture review mode is tested against. */
+export const REVIEW_COURSE = "TDL";
+export const REVIEW_LECTURE = "2026-09-15-lec05";
+
+/**
+ * A course folder for decks a test builds for itself. The name starts with a
+ * dot, so the Library skips it and no test that counts lecture rows depends on
+ * whether another test file has run yet.
+ */
+export const SCRATCH_COURSE = ".scratch";
+
+export function lectureDir(lectureId: string, course = COURSE): string {
+  return path.join(VAULT, course, lectureId);
 }
 
 export const SCREENSHOTS = path.join(APP_DIR, "e2e", "screenshots");

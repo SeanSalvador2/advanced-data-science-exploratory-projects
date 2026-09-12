@@ -11,7 +11,7 @@ import {
 import { KeyActionsContext, KeyModeContext, type KeyHandler } from "./keys/useKeys.ts";
 import { Library } from "./screens/library/Library.tsx";
 import { Lecture } from "./screens/lecture/Lecture.tsx";
-import { ReviewPlaceholder } from "./screens/review/ReviewPlaceholder.tsx";
+import { Review } from "./screens/review/Review.tsx";
 import { VaultGate } from "./screens/VaultGate.tsx";
 import {
   applyTheme,
@@ -135,7 +135,14 @@ export function App(): React.JSX.Element {
   } else if (route.kind === "library") {
     screen = <Library root={vault.root} />;
   } else if (route.kind === "review") {
-    screen = <ReviewPlaceholder course={route.course} lectureId={route.lectureId} />;
+    screen = (
+      <Review
+        key={`${route.course}/${route.lectureId}`}
+        root={vault.root}
+        course={route.course}
+        lectureId={route.lectureId}
+      />
+    );
   } else {
     screen = (
       <Lecture

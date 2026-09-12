@@ -1,10 +1,12 @@
 # `@lecture/app`
 
-The Chrome page you look at during a lecture. Tasks 4 and 5 of the Phase 4
-sequence: the shell, the storage adapter, the Library, Lecture mode (slide
-render, navigation, note capture, buffered events, recorder heartbeat) and
-highlight-to-explain (selection mapping, the lookup card, the term cursor, the
-anchor layer). Review mode is task 7, fonts and the command palette are task 8.
+The Chrome page you look at during a lecture, and the one you read it back in
+afterwards. Tasks 4, 5 and 7 of the Phase 4 sequence: the shell, the storage
+adapter, the Library, Lecture mode (slide render, navigation, note capture,
+buffered events, recorder heartbeat), highlight-to-explain (selection mapping,
+the lookup card, the term cursor, the anchor layer) and Review mode (the note
+rail, reciprocal highlighting, the glossary). Fonts and the command palette are
+task 8.
 
 Stack: Vite 6, React 19, TypeScript strict, CSS Modules over one global
 `tokens.css`. Runtime dependencies are React, `pdfjs-dist` pinned to 6.3.289,
@@ -54,9 +56,13 @@ npm test --workspace @lecture/app      # vitest: FSM, event buffer, scan, span i
 cd app && npx playwright test          # Chromium, against the dev adapter
 ```
 
-The browser tests build their own vault under `app/test-results/vault` from the
-two prepared fixture lectures, running `lecture prepare` first if `/tmp/lec-*`
-is not there. Screenshots land in `app/e2e/screenshots/`.
+The browser tests build their own vault under `app/test-results/vault`: course
+`TEST` holds the two prepared fixture lectures, and course `TDL` holds
+`2026-09-15-lec05`, the recorded, transcribed and noted lecture review mode is
+tested against (`lecture prepare` on the html fixture deck, the five artefacts
+from `cli/test/fixtures/notes-lecture/`, then `lecture export-md`). Each is
+built once and cached under `/tmp/lec-*`. Screenshots land in
+`app/e2e/screenshots/`.
 
 The root `package.json` carries `"overrides": { "vite": "^6.4.3" }` so that
 vitest's own dependency cannot pull a second, newer Vite into the tree; the
@@ -70,16 +76,21 @@ and `playwright install` must not run there.
 
 | Key | Where | What it does |
 |---|---|---|
-| Right, Space, PageDown | lecture | Next slide |
-| Left, Shift+Space, PageUp | lecture | Previous slide |
-| 0–9 then Enter | lecture | Jump to that slide; Backspace edits, Esc clears |
+| Right, Space, PageDown | lecture, review | Next slide |
+| Left, Shift+Space, PageUp | lecture, review | Previous slide |
+| 0–9 then Enter | lecture, review | Jump to that slide; Backspace edits, Esc clears |
 | `n` | lecture | Open the note field; Enter commits, Esc cancels |
-| `e` | lecture | Explain the selection, or the term the cursor is on |
-| `t` / `Shift+T` | lecture | Step the cursor forwards or backwards through this slide's terms |
+| `e` | lecture, review | Explain the selection, or the term the cursor is on |
+| `t` / `Shift+T` | lecture, review | Step the cursor forwards or backwards through this slide's terms |
 | Enter | lecture, card open | Open the card for the term the cursor is on |
 | Esc | lecture, card open | Close the card; a second Esc clears the term cursor |
 | `-` / `=` | lecture | Dim and brighten the slide canvas |
-| `j` / `k` | library | Move the cursor; rows are focusable, so Tab works too |
+| `j` / `k` | review, library | Move the cursor; rows and notes are focusable, so Tab works too |
+| Enter | review | Show a note's quote, or a question's answer; explain a focused glossary entry |
+| `g` | review | Open and close the glossary |
+| `]` / `[` | review | Next and previous slide that has notes |
+| `o` | review | Open this lecture's Markdown in Obsidian |
+| Option+E | review | Says which command re-exports the Markdown |
 | Enter | library | Open the lecture (Review if it already has notes) |
 | `r` | library | Rescan the folder |
 | Option+1 / 2 / 3 | anywhere | Lecture, review, library |
@@ -115,13 +126,54 @@ highlighted line with a leader line — no scrim, the slide stays lit.
   `no term index for this lecture` rather than opening an empty card.
 
 The anchor layer draws one box per *visual line*, never per span, so a
-highlight has no seams; it multiplies onto the professor's page in both themes.
-Sampling a dark deck's luminance to switch that to `screen` blending, and the
-resting underline for lines that carry notes, are task 7.
+highlight has no seams, and it multiplies onto the professor's page in both
+themes. On the first page of a lecture that review mode draws, the canvas's
+mean luminance is sampled into a 32 px offscreen canvas; below 0.5 the deck is
+dark, the stage is stamped `data-deck="dark"`, and the layer switches to
+`screen` blending with the on-dark fills. The answer is cached per lecture for
+the life of the tab.
+
+## Review mode
+
+`#/review/<course>/<lecture>`, which is also what Enter opens in the Library
+once a lecture has `notes.json`. A 36 px header — course, lecture number,
+title, an **Open in Obsidian** button when the adapter knows a path, and the
+page counter with any transient line beside it — then the slide on the left and
+a fixed 580 px rail on the right whose text measure is 526 px.
+
+- The rail is one line per note in `notes.json` order, which is the order the
+  lecture happened in. Provenance is the visual class: a 2 px `--mine` rule in
+  a 12 px gutter and italics for what the student typed, nothing for what the
+  model wrote, and both share a text edge. The meta line is the timestamp on
+  the audio clock, the tag for a generated note, and the word `confidence
+  medium` or `confidence low` when the model hedged — never a coloured pill.
+- Enter shows a generated note's transcript quote as a blockquote, or collapses
+  a student question's answer. A page with no notes says so plainly.
+- The open questions are listed once, after the notes of the last page that has
+  any.
+- Reciprocity is one hovered/focused pair (ui-direction.md §E). Every line a
+  note cites rests under a 1 px underline; hovering or focusing a note tints
+  its lines, and moving the pointer over one of those lines tints the gutter
+  rule of every note that cites it. The focused note's lines go active. Hover
+  on the slide is one `pointermove` on the stage tested against the line boxes,
+  because the anchor layer takes no pointer events. Where two notes share a
+  line there is still one box: the strongest state wins, so the focused note
+  keeps the line it shares with a hovered one.
+- `g` opens the glossary at the foot of the rail — the page's terms, never more
+  than 40 % of the rail, remembered in localStorage. Enter on an entry opens
+  the same lookup card `e` would.
+- `]` and `[` jump to the next and previous page that has notes, and stop at
+  the ends. `j` and `k` do the same in the rail: the last note is the last
+  note, and falling off it never turns the page.
+- The app never writes Markdown. `o` hands `<lectureId>.md` to Obsidian with
+  `obsidian://open?path=`, which needs a real path — the dev adapter has one,
+  the File System Access API does not and says so — and Option+E prints the
+  command that re-renders it.
 
 ## Stubbed, and what is missing
 
-- Review mode is a placeholder that offers the way back to lecture mode.
+- `n` is bound in lecture mode only: review has no recorder clock to stamp a
+  note against.
 - The Atkinson Hyperlegible faces are declared in `tokens.css` but the woff2
   files arrive in task 8; until then the fallback stack renders.
 - pdf.js is loaded without `cMapUrl` or `standardFontDataUrl`, so a deck that
@@ -155,6 +207,9 @@ src/
   lookup/position.ts       placement: the 12 px offset, the flip, the clamps
   lookup/TermCursor.ts     the `t` cursor's step and its strip readout
   anchors/AnchorLayer.tsx  per-line highlight boxes over the canvas
+  notes/pageIndex.ts       notes by page, refs by line, anchor state, hit test
+  notes/luminance.ts       the dark-deck sample and its per-lecture cache
+  notes/load.ts            one lecture folder, read for review
   events/EventBuffer.ts    queue and flush policy for events.jsonl
   events/time.ts           nowIso, mmss
   pdf/pdfjs.ts             worker setup, loadDocument, the fixed text options
@@ -168,7 +223,10 @@ src/
   state/                   routes, persisted settings, vault lifecycle
   lib/library.ts           scanning the vault
   lib/heartbeat.ts         the recorder's state, as words
-  screens/                 library, lecture, review placeholder, vault gate
+  screens/                 library, lecture, review, vault gate
+  screens/review/Review.tsx        layout, keys, reciprocity, the dark sample
+  screens/review/NoteRail.tsx      the note lines and the open questions
+  screens/review/GlossaryPanel.tsx the collapsible glossary
   styles/tokens.css        the token set from ui-direction.md §A
   styles/text-layer.css    pdf.js text-layer geometry, adapted
 ```

@@ -5,7 +5,7 @@ import { expect, type Page } from "@playwright/test";
 
 import type { Event, SpanIndex } from "@lecture/core";
 
-import { appUrl, COURSE, lectureDir } from "./paths.ts";
+import { appUrl, COURSE, lectureDir, REVIEW_COURSE, REVIEW_LECTURE } from "./paths.ts";
 
 /** Wipe the writable state of a lecture folder, so a test starts from prepared. */
 export async function resetLecture(lectureId: string): Promise<void> {
@@ -57,6 +57,12 @@ export async function openLibrary(page: Page): Promise<void> {
 
 export async function openLecture(page: Page, lectureId: string): Promise<void> {
   await page.goto(appUrl(`/lecture/${COURSE}/${lectureId}`));
+  await waitForSlide(page, 1);
+}
+
+/** Review mode on the recorded, noted lecture, on the page it starts at. */
+export async function openReview(page: Page): Promise<void> {
+  await page.goto(appUrl(`/review/${REVIEW_COURSE}/${REVIEW_LECTURE}`));
   await waitForSlide(page, 1);
 }
 

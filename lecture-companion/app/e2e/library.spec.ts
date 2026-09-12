@@ -13,7 +13,9 @@ test("1. the library lists both prepared lectures under course TEST with their p
 }) => {
   await openLibrary(page);
 
-  const rows = page.getByTestId("lecture-row");
+  // Scoped to TEST on purpose: the vault also holds course TDL's recorded and
+  // noted lecture, which review mode is tested against.
+  const rows = page.locator('[data-testid="lecture-row"][data-course="TEST"]');
   await expect(rows).toHaveCount(2);
   await expect(page.getByRole("heading", { name: "TEST" })).toBeVisible();
   await expect(page.getByText("2 lectures")).toBeVisible();

@@ -25,6 +25,15 @@ export interface LectureFolder {
   watch(name: string, cb: () => void): () => void;
   /** The child directory, or null when it is missing or is a file. */
   subfolder(path: string): Promise<LectureFolder | null>;
+  /**
+   * Where a file in this folder is on disk, when the adapter can know it.
+   *
+   * Optional on purpose: the File System Access API hands out handles and
+   * never a path, so `FsaLectureFolder` does not implement this and review
+   * mode says plainly that the browser cannot see the vault path rather than
+   * building an `obsidian://` link out of a guess.
+   */
+  absolutePath?(name: string): Promise<string | null>;
 }
 
 /** Split a relative path into segments, rejecting escapes. */

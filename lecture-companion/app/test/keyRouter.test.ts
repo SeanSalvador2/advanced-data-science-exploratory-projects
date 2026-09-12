@@ -227,3 +227,47 @@ describe("KeyRouter — library scope", () => {
     expect(r.digits).toBe("");
   });
 });
+
+describe("KeyRouter — idle in review", () => {
+  it("moves the roving focus with j and k and activates with Enter", () => {
+    const r = router("review");
+    expect(r.handle(key({ key: "j" })).actions).toEqual([{ type: "focusNext" }]);
+    expect(r.handle(key({ key: "k" })).actions).toEqual([{ type: "focusPrev" }]);
+    expect(r.handle(key({ key: "Enter" })).actions).toEqual([{ type: "activate" }]);
+  });
+
+  it("toggles the glossary, jumps to noted pages and opens Obsidian", () => {
+    const r = router("review");
+    expect(r.handle(key({ key: "g" })).actions).toEqual([{ type: "toggleGlossary" }]);
+    expect(r.handle(key({ key: "]" })).actions).toEqual([{ type: "nextNotedPage" }]);
+    expect(r.handle(key({ key: "[" })).actions).toEqual([{ type: "prevNotedPage" }]);
+    expect(r.handle(key({ key: "o" })).actions).toEqual([{ type: "openObsidian" }]);
+  });
+
+  it("still moves slides and looks terms up", () => {
+    const r = router("review");
+    expect(r.handle(key({ key: "ArrowRight" })).actions).toEqual([{ type: "nextSlide" }]);
+    expect(r.handle(key({ key: "e" })).actions).toEqual([{ type: "explainSelection" }]);
+  });
+
+  it("has no note input: review has no recorder clock to stamp one against", () => {
+    const r = router("review");
+    expect(r.handle(key({ key: "n" })).actions).toEqual([]);
+    expect(r.mode).toBe("idle");
+  });
+
+  it("gives Option+E to review only", () => {
+    expect(router("review").handle(key({ key: "e", code: "KeyE", altKey: true })).actions).toEqual([
+      { type: "reexport" },
+    ]);
+    expect(router("lecture").handle(key({ key: "e", code: "KeyE", altKey: true })).actions).toEqual([]);
+  });
+
+  it("leaves the review keys out of lecture and library", () => {
+    for (const scope of ["lecture", "library"] as const) {
+      const r = router(scope);
+      expect(r.handle(key({ key: "]" })).actions).toEqual([]);
+      expect(r.handle(key({ key: "g" })).actions).toEqual([]);
+    }
+  });
+});

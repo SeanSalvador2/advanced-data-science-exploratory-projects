@@ -1,9 +1,12 @@
 /*
- * ui-direction.md §E. The substrate is the professor's light PDF, so the fill
- * multiplies onto it in both themes rather than painting over it.
+ * ui-direction.md §E. The substrate is normally the professor's light PDF, so
+ * the fill multiplies onto it in both themes rather than painting over it. A
+ * deck printed on black is the exception: review mode samples the page's mean
+ * luminance once per lecture and stamps `data-deck="dark"` on the stage, which
+ * flips this layer to `screen` and to the on-dark fills below.
  *
- * TODO (task 7): sample the mean canvas luminance on first render and switch a
- * dark deck to `screen` blending with the on-dark fill tokens.
+ * The fills are literal rgba rather than tokens because they are ink on the
+ * professor's page, not chrome: they must not move when the UI theme does.
  */
 
 .layer {
@@ -21,12 +24,21 @@
   padding: 1px 2px;
   border-radius: var(--r-span);
   mix-blend-mode: multiply;
-  background: rgba(233, 162, 59, 0.2);
+  background: transparent;
   transition: background-color var(--t-tint) linear, box-shadow var(--t-tint) linear;
 }
 
-:root[data-theme="dark"] .anchor {
-  background: rgba(233, 162, 59, 0.28);
+/*
+ * Resting: the line carries a note, and that is all it says. No fill ever sits
+ * on a slide nobody is pointing at (anti-pattern 3).
+ */
+.anchor[data-state="resting"] {
+  background: transparent;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink-muted) 35%, transparent);
+}
+
+.anchor[data-state="hover"] {
+  background: rgba(233, 162, 59, 0.2);
 }
 
 .anchor[data-state="active"] {
@@ -34,8 +46,59 @@
   box-shadow: inset 0 -1px 0 var(--accent);
 }
 
+/* Student ink keeps its own hue, and bumps by the same amount on active. */
+.anchor[data-mine="yes"][data-state="hover"] {
+  background: rgba(95, 179, 196, 0.22);
+}
+
+.anchor[data-mine="yes"][data-state="active"] {
+  background: rgba(95, 179, 196, 0.4);
+  box-shadow: inset 0 -1px 0 var(--mine);
+}
+
+:root[data-theme="dark"] .anchor[data-state="hover"] {
+  background: rgba(233, 162, 59, 0.28);
+}
+
 :root[data-theme="dark"] .anchor[data-state="active"] {
   background: rgba(233, 162, 59, 0.46);
+}
+
+:root[data-theme="dark"] .anchor[data-mine="yes"][data-state="hover"] {
+  background: rgba(95, 179, 196, 0.3);
+}
+
+:root[data-theme="dark"] .anchor[data-mine="yes"][data-state="active"] {
+  background: rgba(95, 179, 196, 0.48);
+}
+
+/*
+ * A dark deck. Multiply would vanish into the page, so the mark screens onto
+ * it instead, at slightly higher alpha of the same hues since a screened fill
+ * over ink reads weaker than a multiplied one over paper.
+ */
+[data-deck="dark"] .anchor {
+  mix-blend-mode: screen;
+}
+
+[data-deck="dark"] .anchor[data-state="resting"] {
+  border-bottom-color: color-mix(in srgb, var(--ink-muted) 55%, transparent);
+}
+
+[data-deck="dark"] .anchor[data-state="hover"] {
+  background: rgba(233, 162, 59, 0.3);
+}
+
+[data-deck="dark"] .anchor[data-state="active"] {
+  background: rgba(233, 162, 59, 0.48);
+}
+
+[data-deck="dark"] .anchor[data-mine="yes"][data-state="hover"] {
+  background: rgba(95, 179, 196, 0.32);
+}
+
+[data-deck="dark"] .anchor[data-mine="yes"][data-state="active"] {
+  background: rgba(95, 179, 196, 0.5);
 }
 
 /* One reference, many lines: the first box rounds its top, the last its
