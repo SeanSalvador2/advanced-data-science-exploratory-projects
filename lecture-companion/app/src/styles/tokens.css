@@ -8,35 +8,36 @@
  */
 
 /*
- * Self-hosted, subset woff2 faces land in public/fonts/ in task 8. Until then
- * these rules resolve to nothing and the fallback stack renders; no font is
- * ever fetched from a network (anti-pattern 8).
+ * Self-hosted woff2, served from this app's own origin. Nothing here is ever
+ * fetched from a network: a Google Fonts link or a CDN on the lecture path is
+ * anti-pattern 8, and `e2e/fonts.spec.ts` asserts that every request the page
+ * makes stays on the origin.
+ *
+ * All three are variable faces with a wght axis of 200-800, so one file covers
+ * 400, 500 and 600 with no synthetic bolding. Provenance, licences and the
+ * character coverage are in public/fonts/README.md.
  */
 @font-face {
   font-family: "Atkinson Hyperlegible Next";
-  src: url("/fonts/atkinson-hyperlegible-next-400.woff2") format("woff2");
-  font-weight: 400;
+  src: url("/fonts/atkinson-hyperlegible-next/atkinson-hyperlegible-next-var.woff2")
+    format("woff2");
+  font-weight: 200 800;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Atkinson Hyperlegible Next";
-  src: url("/fonts/atkinson-hyperlegible-next-500.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Atkinson Hyperlegible Next";
-  src: url("/fonts/atkinson-hyperlegible-next-600.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
+  src: url("/fonts/atkinson-hyperlegible-next/atkinson-hyperlegible-next-italic-var.woff2")
+    format("woff2");
+  font-weight: 200 800;
+  font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Atkinson Hyperlegible Mono";
-  src: url("/fonts/atkinson-hyperlegible-mono-400.woff2") format("woff2");
-  font-weight: 400;
+  src: url("/fonts/atkinson-hyperlegible-mono/atkinson-hyperlegible-mono-var.woff2")
+    format("woff2");
+  font-weight: 200 800;
   font-style: normal;
   font-display: swap;
 }

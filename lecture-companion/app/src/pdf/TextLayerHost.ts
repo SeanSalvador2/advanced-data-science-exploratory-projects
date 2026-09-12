@@ -5,7 +5,7 @@ import { resolveNode, type DivIndex, type SpanPosition } from "./resolve.ts";
 
 /**
  * A transparent, selectable pdf.js text layer positioned over the canvas, plus
- * the span-id map that lookup (task 5) and review (task 7) need.
+ * the span-id map that highlight-to-explain and review mode read.
  *
  * The map is built from `textLayer.textDivs`, never from the container's DOM
  * children: `textDivs[i]` is the i-th string-bearing text item including the
@@ -73,7 +73,7 @@ export class TextLayerHost implements DivIndex {
     this.container.remove();
   }
 
-  /** See `resolveNode`; task 5 builds selection mapping on top of this. */
+  /** See `resolveNode`; `SelectionWatcher` maps a selection through this. */
   resolveNode(node: Node | null, offset: number): SpanPosition | null {
     return resolveNode(this, node, offset);
   }

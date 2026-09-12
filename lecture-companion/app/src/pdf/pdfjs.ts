@@ -26,6 +26,23 @@ export const TEXT_CONTENT_OPTIONS = {
   disableNormalization: false,
 } as const;
 
+/**
+ * pdf.js's own asset folders, served from this origin by the plugin in
+ * `vite.config.ts` — `node_modules/pdfjs-dist/{cmaps,standard_fonts}` under
+ * `vite dev`, `dist/pdfjs/` after a build.
+ *
+ * Without these two a deck that names Helvetica or Times without embedding it,
+ * or that uses a CID encoding, renders with whatever the browser substitutes
+ * and pdf.js logs that it could not load its font data. `cMapPacked` says the
+ * `.bcmap` files are the compressed form, which is what the package ships.
+ *
+ * Absolute URLs built off `BASE_URL`, because pdf.js resolves them from the
+ * worker, not from the document.
+ */
+const ASSET_BASE = new URL(`${import.meta.env.BASE_URL}pdfjs/`, location.href).href;
+export const CMAP_URL = `${ASSET_BASE}cmaps/`;
+export const STANDARD_FONT_DATA_URL = `${ASSET_BASE}standard_fonts/`;
+
 let workerReady = false;
 
 /**
@@ -59,7 +76,17 @@ export async function loadDocument(bytes: ArrayBuffer): Promise<PDFDocumentProxy
   ensureWorker();
   // pdf.js transfers and detaches the buffer it is handed, so give it a copy;
   // the caller may want to keep the original (a re-open, a hash check).
-  const task = getDocument({ data: new Uint8Array(bytes.slice(0)) });
+  const task = getDocument({
+    data: new Uint8Array(bytes.slice(0)),
+    cMapUrl: CMAP_URL,
+    cMapPacked: true,
+    standardFontDataUrl: STANDARD_FONT_DATA_URL,
+    // Otherwise pdf.js hands a non-embedded Helvetica to the operating system
+    // and never looks at the folder above: `useSystemFonts` defaults to true in
+    // a browser, which is the substitution this setting exists to stop. The
+    // student's deck should look the same on their Mac as it does in a test.
+    useSystemFonts: false,
+  });
   return task.promise;
 }
 

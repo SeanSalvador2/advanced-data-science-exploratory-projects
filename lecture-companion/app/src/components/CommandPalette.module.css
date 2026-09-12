@@ -1,0 +1,115 @@
+/*
+ * 520 px wide, top-anchored 96 px down, on the raised surface inside a 1 px
+ * rule at the card radius (ui-direction.md §A). `margin` rather than a fixed
+ * position: a modal `<dialog>` is laid out in the viewport already.
+ */
+.dialog {
+  width: 520px;
+  max-width: calc(100vw - var(--s-8));
+  margin: 96px auto 0;
+  padding: 0;
+  flex-direction: column;
+  max-height: calc(100vh - 96px - var(--s-9));
+  border: 1px solid var(--rule);
+  border-radius: var(--r-card);
+  background: var(--surface-raised);
+  color: var(--ink);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.45);
+  overflow: hidden;
+}
+
+/*
+ * Only when it is open. `display` on the bare selector would beat the user
+ * agent's `dialog:not([open]) { display: none }` and leave a closed palette on
+ * the screen for ever.
+ */
+.dialog[open] {
+  display: flex;
+}
+
+.dialog:focus,
+.dialog:focus-visible {
+  outline: none;
+}
+
+/* No scrim. The slide stays the only lit object (anti-pattern 1). */
+.dialog::backdrop {
+  background: transparent;
+}
+
+.input {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 44px;
+  padding: 0 var(--s-6);
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  caret-color: var(--accent);
+  font-family: var(--font-ui);
+  font-size: var(--t-input);
+  line-height: var(--lh-input);
+}
+
+.input::placeholder {
+  color: var(--ink-muted);
+}
+
+/* The dialog's own rule is the boundary; a ring inside it would double up. */
+.input:focus,
+.input:focus-visible {
+  outline: none;
+}
+
+.list {
+  flex: 1 1 auto;
+  margin: 0;
+  padding: var(--s-2) 0;
+  list-style: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-5);
+  padding: var(--s-3) var(--s-6);
+  cursor: default;
+}
+
+/*
+ * One highlighted row, moved by the arrows or the pointer. A left rule in the
+ * accent rather than a hover transition on every row (anti-pattern 7), and a
+ * background that is a tint of the accent, not a focus-by-background-swap
+ * (anti-pattern 10): the real focus stays in the input the whole time.
+ */
+.row[data-active="true"] {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.title {
+  flex: 1 1 auto;
+  font-size: var(--t-row);
+  line-height: var(--lh-row);
+}
+
+.keys {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  line-height: var(--lh-meta);
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.empty {
+  margin: 0;
+  padding: var(--s-5) var(--s-6);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--ink-muted);
+}

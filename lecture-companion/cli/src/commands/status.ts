@@ -140,6 +140,32 @@ export async function status(dir: string): Promise<StatusReport> {
   return { dir, manifest, artifacts };
 }
 
+/**
+ * The one command to run next, chosen as the first step whose artefact is not
+ * on disk. The order is the order of the week: prepare the folder, index its
+ * terms, derive the bias list, record, transcribe, write the notes, export.
+ *
+ * Presence of the file, not the manifest stamp, because three separate
+ * programs write this folder and a hand-run step often leaves the file without
+ * the stamp — the same reason the app's library pips read both.
+ */
+export function nextStep(report: StatusReport): string {
+  const has = (name: string): boolean =>
+    report.artifacts.some((a) => a.name === name && a.present);
+  const dir = report.dir;
+
+  if (report.manifest === null || !has(FILES.spans)) {
+    return `next: lecture prepare ${dir} --deck <deck.pdf> --course <code>`;
+  }
+  if (!has(FILES.terms)) return `next: /lecture-terms ${dir}  (in Claude Code)`;
+  if (!has(FILES.bias)) return `next: lecture bias ${dir}`;
+  if (!has(FILES.audio)) return `next: lecture-rec record ${dir}  (on lecture day)`;
+  if (!has(FILES.transcript)) return `next: lecture-rec transcribe ${dir}`;
+  if (!has(FILES.notes)) return `next: /lecture-notes ${dir}  (in Claude Code)`;
+  if (!has(`${report.manifest.lectureId}.md`)) return `next: lecture export-md ${dir}`;
+  return "done: open the review in the app";
+}
+
 export function renderStatus(report: StatusReport): string {
   const out: string[] = [report.dir];
   for (const a of report.artifacts) {
@@ -149,6 +175,7 @@ export function renderStatus(report: StatusReport): string {
   const m = report.manifest;
   if (m === null) {
     out.push("  status: no readable lecture.json");
+    out.push(`  ${nextStep(report)}`);
     return out.join("\n");
   }
   out.push(`  ${m.lectureId}  course ${m.course}  ${m.date}  ${m.deck.pages} pages`);
@@ -156,5 +183,6 @@ export function renderStatus(report: StatusReport): string {
   for (const step of steps) {
     out.push(`  ${step.padEnd(13)} ${m.status[step] ?? "-"}`);
   }
+  out.push(`  ${nextStep(report)}`);
   return out.join("\n");
 }

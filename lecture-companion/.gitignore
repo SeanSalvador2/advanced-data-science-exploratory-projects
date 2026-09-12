@@ -11,3 +11,6 @@ dist/
 app/dist
 app/test-results
 app/playwright-report
+
+# scripts/dry-run.sh builds a throwaway vault here
+.dry-run/

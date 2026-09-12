@@ -10,8 +10,14 @@
  * Key facts from phase-2-research.md §4 that constrain this: bare arrows,
  * PageUp/PageDown, Space, Enter, Esc, bare letters and Option+letter are all
  * delivered by Chrome on macOS; Cmd+L/D/F/P/S/R and Cmd+digits are delivered
- * but must not be stolen. Nothing here binds a Cmd combination, and a Cmd or
- * Ctrl chord returns untouched before any other rule runs.
+ * but must not be stolen.
+ *
+ * Cmd+K is the one Cmd combination bound anywhere, and it opens the command
+ * palette (ui-direction.md §D). Ctrl+K opens it too, so the same binding works
+ * off a Mac and can be driven by Playwright on Linux, and Option+K is the
+ * fallback the architect asked for in case Chrome on macOS turns out to claim
+ * Cmd+K. Every other Cmd or Ctrl chord returns untouched before any other rule
+ * runs.
  */
 
 export type KeyMode = "idle" | "numberEntry" | "noteInput" | "cardOpen" | "palette";
@@ -36,6 +42,8 @@ export type KeyAction =
   | { type: "closeCard" }
   | { type: "openKeymap" }
   | { type: "closeKeymap" }
+  | { type: "openPalette" }
+  | { type: "closePalette" }
   | { type: "focusNext" }
   | { type: "focusPrev" }
   | { type: "activate" }
@@ -86,6 +94,13 @@ export class KeyRouter {
   #mode: KeyMode;
   #scope: KeyScope;
   #digits = "";
+  /**
+   * Two surfaces share the `palette` mode: the keymap overlay and the command
+   * palette. Both swallow bare letters identically, so the FSM does not need to
+   * tell them apart — but Esc has to close the one that is actually open, so
+   * the router remembers which opened it.
+   */
+  #paletteSurface: "keymap" | "palette" = "keymap";
 
   constructor(options: KeyRouterOptions = {}) {
     this.#mode = options.mode ?? "idle";
@@ -119,8 +134,12 @@ export class KeyRouter {
   }
 
   handle(ev: KeyEventLike): KeyResult {
-    // Never touch a browser or OS chord. This is the whole of the Cmd policy:
-    // no Cmd binding exists in this task, and Cmd+Arrow exists nowhere at all.
+    // The one Cmd binding in the app. `code`, not `key`: Cmd+K on a non-US
+    // layout can arrive as something other than "k".
+    if ((ev.metaKey || ev.ctrlKey) && !ev.altKey && ev.code === "KeyK") {
+      return this.#openPalette();
+    }
+    // Never touch any other browser or OS chord. Cmd+Arrow exists nowhere.
     if (ev.metaKey || ev.ctrlKey) return NOTHING;
 
     // Option combos are global, and `code` is what to read: on macOS Option+1
@@ -153,12 +172,36 @@ export class KeyRouter {
     if (ev.code === "KeyT") {
       return swallow({ type: "toggleTheme" });
     }
+    // The stated fallback for Cmd+K, bound whatever the platform turns out to
+    // do with Cmd (ui-direction.md §D, architect's note).
+    if (ev.code === "KeyK") {
+      return this.#openPalette();
+    }
     // Option+E is review's export affordance. The app never writes Markdown,
     // so it only says which command to run (architecture.md §9).
     if (ev.code === "KeyE" && this.#scope === "review") {
       return swallow({ type: "reexport" });
     }
     return NOTHING;
+  }
+
+  /**
+   * Open the command palette from wherever we are. Whatever the current mode
+   * was holding is dropped first — in particular an open lookup card, because
+   * the palette must never be drawn over the slide line the card is anchored
+   * to (ui-direction.md §C, anti-pattern 1).
+   */
+  #openPalette(): KeyResult {
+    // A second Cmd+K on an open palette puts it away again.
+    if (this.#mode === "palette" && this.#paletteSurface === "palette") {
+      this.#mode = "idle";
+      return swallow({ type: "closePalette" });
+    }
+    const leaving = this.#leaveCurrentMode();
+    this.#mode = "palette";
+    this.#paletteSurface = "palette";
+    this.#digits = "";
+    return swallow(...leaving, { type: "openPalette" });
   }
 
   /** Actions that undo whatever transient state the current mode holds. */
@@ -169,12 +212,16 @@ export class KeyRouter {
       case "cardOpen":
         return [{ type: "closeCard" }];
       case "palette":
-        return [{ type: "closeKeymap" }];
+        return [this.#closePaletteAction()];
       case "numberEntry":
         return this.#digits === "" ? [] : [{ type: "digitsChanged", digits: "" }];
       case "idle":
         return [];
     }
+  }
+
+  #closePaletteAction(): KeyAction {
+    return this.#paletteSurface === "palette" ? { type: "closePalette" } : { type: "closeKeymap" };
   }
 
   /**
@@ -223,10 +270,17 @@ export class KeyRouter {
     return NOTHING;
   }
 
+  /**
+   * The palette-mode surfaces own the keyboard, exactly as `noteInput` does.
+   * Only Esc is taken; the arrows and Enter are left to the focused input so
+   * the command palette can move and run its own list, and every printable key
+   * — `?` included — is typed rather than acted on.
+   */
   #handlePalette(ev: KeyEventLike): KeyResult {
-    if (ev.key === "Escape" || ev.key === "?") {
+    if (ev.key === "Escape") {
+      const close = this.#closePaletteAction();
       this.#mode = "idle";
-      return swallow({ type: "closeKeymap" });
+      return swallow(close);
     }
     // Swallowed in the sense that matters: no bare letter fires behind it.
     return NOTHING;
@@ -260,6 +314,7 @@ export class KeyRouter {
 
     if (ev.key === "?") {
       this.#mode = "palette";
+      this.#paletteSurface = "keymap";
       return swallow({ type: "openKeymap" });
     }
 

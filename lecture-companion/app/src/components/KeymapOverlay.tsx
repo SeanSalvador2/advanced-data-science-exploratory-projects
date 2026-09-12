@@ -7,7 +7,12 @@ export interface KeymapEntry {
   action: string;
 }
 
-/** Everything bound today. Task 8 adds the palette. */
+/**
+ * Every binding in the app, grouped the way ui-direction.md §D groups them by
+ * context: the slide, the note field, the lookup card, review, the library, the
+ * command palette, and the handful that work anywhere. Sentence case, and
+ * nothing listed that is not actually bound.
+ */
 export const KEYMAP: Array<{ group: string; entries: KeymapEntry[] }> = [
   {
     group: "Slides",
@@ -16,6 +21,7 @@ export const KEYMAP: Array<{ group: string; entries: KeymapEntry[] }> = [
       { keys: "Left, Shift+Space, PageUp", action: "Previous slide" },
       { keys: "0–9 then Enter", action: "Jump to that slide" },
       { keys: "Backspace", action: "Edit the slide number you are typing" },
+      { keys: "Esc", action: "Forget the slide number you are typing" },
       { keys: "- and =", action: "Dim and brighten the slide" },
     ],
   },
@@ -24,7 +30,7 @@ export const KEYMAP: Array<{ group: string; entries: KeymapEntry[] }> = [
     entries: [
       { keys: "n", action: "Type a note" },
       { keys: "Enter", action: "Commit the note" },
-      { keys: "Esc", action: "Back out one level" },
+      { keys: "Esc", action: "Cancel the note" },
     ],
   },
   {
@@ -51,8 +57,19 @@ export const KEYMAP: Array<{ group: string; entries: KeymapEntry[] }> = [
     group: "Library",
     entries: [
       { keys: "j and k", action: "Move between lectures" },
+      { keys: "Up and Down", action: "Move between lectures" },
       { keys: "Enter", action: "Open the lecture" },
       { keys: "r", action: "Rescan the folder" },
+    ],
+  },
+  {
+    group: "Command palette",
+    entries: [
+      { keys: "Cmd+K, Ctrl+K", action: "Open the command palette" },
+      { keys: "Option+K", action: "Open it too, if the browser claims Cmd+K" },
+      { keys: "Up and Down", action: "Move through the commands" },
+      { keys: "Enter", action: "Run the highlighted command" },
+      { keys: "Esc", action: "Close the palette" },
     ],
   },
   {
@@ -61,11 +78,8 @@ export const KEYMAP: Array<{ group: string; entries: KeymapEntry[] }> = [
       { keys: "Option+1, 2, 3", action: "Lecture, review, library" },
       { keys: "Option+T", action: "Switch between the dark and light theme" },
       { keys: "?", action: "This list" },
+      { keys: "Esc", action: "Back out one level" },
     ],
-  },
-  {
-    group: "Not built yet",
-    entries: [{ keys: "Cmd+K", action: "Command palette (task 8)" }],
   },
 ];
 
@@ -75,8 +89,10 @@ export interface KeymapOverlayProps {
 }
 
 /**
- * A plain list in a `<dialog>`. It is never open during a lecture unless asked
- * for, and it is the only place the theme toggle is documented for now.
+ * A plain list in a `<dialog>`, on `?`. It is never open during a lecture
+ * unless asked for, and it has no scrim for the same reason the palette has
+ * none. The command palette is the other way to find these: it lists the same
+ * actions with the same words, and shows the key beside each one.
  */
 export function KeymapOverlay({ open, onClose }: KeymapOverlayProps): React.JSX.Element {
   const ref = useRef<HTMLDialogElement>(null);

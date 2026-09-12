@@ -1,12 +1,11 @@
 # `@lecture/app`
 
 The Chrome page you look at during a lecture, and the one you read it back in
-afterwards. Tasks 4, 5 and 7 of the Phase 4 sequence: the shell, the storage
-adapter, the Library, Lecture mode (slide render, navigation, note capture,
-buffered events, recorder heartbeat), highlight-to-explain (selection mapping,
-the lookup card, the term cursor, the anchor layer) and Review mode (the note
-rail, reciprocal highlighting, the glossary). Fonts and the command palette are
-task 8.
+afterwards: the shell, the storage adapter, the Library, Lecture mode (slide
+render, navigation, note capture, buffered events, recorder heartbeat),
+highlight-to-explain (selection mapping, the lookup card, the term cursor, the
+anchor layer), Review mode (the note rail, reciprocal highlighting, the
+glossary), the self-hosted type, the command palette and the keymap overlay.
 
 Stack: Vite 6, React 19, TypeScript strict, CSS Modules over one global
 `tokens.css`. Runtime dependencies are React, `pdfjs-dist` pinned to 6.3.289,
@@ -61,8 +60,11 @@ The browser tests build their own vault under `app/test-results/vault`: course
 `2026-09-15-lec05`, the recorded, transcribed and noted lecture review mode is
 tested against (`lecture prepare` on the html fixture deck, the five artefacts
 from `cli/test/fixtures/notes-lecture/`, then `lecture export-md`). Each is
-built once and cached under `/tmp/lec-*`. Screenshots land in
-`app/e2e/screenshots/`.
+built once and cached under `/tmp/lec-*`. Two specs build a deck of their own
+into a `.scratch` course the Library skips: `review.spec.ts` prints one on
+black to test the dark-deck rule, and `fonts.spec.ts` writes a one-page PDF by
+hand that names Helvetica and embeds nothing, which is the only way to reach
+pdf.js's standard-font path. Screenshots land in `app/e2e/screenshots/`.
 
 The root `package.json` carries `"overrides": { "vite": "^6.4.3" }` so that
 vitest's own dependency cannot pull a second, newer Vite into the tree; the
@@ -95,14 +97,37 @@ and `playwright install` must not run there.
 | `r` | library | Rescan the folder |
 | Option+1 / 2 / 3 | anywhere | Lecture, review, library |
 | Option+T | anywhere | Switch between the dark and light theme |
+| Cmd+K, Ctrl+K, Option+K | anywhere | The command palette |
 | `?` | anywhere | The keymap overlay |
 | Esc | anywhere | Back out one level |
 
 Every key goes through one `keydown` listener and one five-state machine
 (`idle`, `numberEntry`, `noteInput`, `cardOpen`, `palette`); it is the only
 place `preventDefault` is called. Bare letters fire only in `idle` and
-`cardOpen`, which is why typing `n` inside the note field inserts an `n`. No
-Cmd combination is bound anywhere.
+`cardOpen`, which is why typing `n` inside the note field inserts an `n`.
+Cmd+K is the only Cmd combination bound anywhere; every other Cmd or Ctrl
+chord is returned to the browser untouched.
+
+## The command palette
+
+Cmd+K, Ctrl+K or Option+K, from any screen. A 520 px `<dialog>` 96 px down
+from the top, on the raised surface inside a 1 px rule, **with no scrim** —
+during a lecture nothing may dim the professor's slide. If a lookup card is
+open the card is closed first, so the palette never lands on the line the card
+was pointing at.
+
+It lists everything this screen's keyboard can do, with the key beside each
+one, then the global moves, then one row per lecture in the vault — "Open
+lecture Certified Defenses", "Open review Certified Defenses" — which is the
+one thing no chord can express. The vault is only walked the first time the
+palette opens, because a lecture is not the moment to start a directory scan
+nobody asked for.
+
+Typing filters by subsequence, per word: `swth` finds "Switch theme", `opnrev`
+finds "Open review". Up and Down move, Enter runs and closes, Esc closes.
+While it is open the FSM is in `palette` mode, so `n`, `t`, `e` and `g` are
+letters rather than shortcuts. A command that opens something — "Type a note"
+— hands the keyboard on in the state the keystroke would have left it in.
 
 ## Highlight to explain
 
@@ -174,13 +199,19 @@ a fixed 580 px rail on the right whose text measure is 526 px.
 
 - `n` is bound in lecture mode only: review has no recorder clock to stamp a
   note against.
-- The Atkinson Hyperlegible faces are declared in `tokens.css` but the woff2
-  files arrive in task 8; until then the fallback stack renders.
-- pdf.js is loaded without `cMapUrl` or `standardFontDataUrl`, so a deck that
-  references a standard font without embedding it is substituted by the browser
-  rather than by pdf.js's own font data. Both fixture decks embed their fonts.
-  Shipping those asset folders belongs with the font work in task 8.
-- The theme toggle lives only in the keymap overlay, as specified.
+- The theme toggle has no button: Option+T, or "Switch theme" in the palette.
+- The Atkinson faces carry four Greek letters and no arrows or superscripts, so
+  a term index that writes `σ` falls through to the next font in the stack for
+  that one character. `public/fonts/README.md` has the coverage table.
+- **Cmd+K is unverified on macOS.** Chromium on Linux delivers Ctrl+K to the
+  page, which is what `e2e/palette.spec.ts` presses, and the router takes
+  either modifier — but whether Chrome on macOS hands Cmd+K to the page or
+  keeps it is a thing only a Mac can answer. Check it on the first run.
+  **Option+K is bound as the fallback either way**, and is not going anywhere
+  even if Cmd+K turns out to work.
+- Ctrl+K is bound on every platform, not only off a Mac. It costs the emacs
+  "kill to end of line" inside the one-line note field, which is a smaller loss
+  than a palette that cannot be tested here.
 - pdf.js 6.3 calls `Map.prototype.getOrInsertComputed`, which current Chrome
   has but the container's Chromium 141 does not. `pdf/getOrInsert.ts` installs a
   feature-detected shim, and when the engine lacks the methods the worker is
@@ -227,6 +258,30 @@ src/
   screens/review/Review.tsx        layout, keys, reciprocity, the dark sample
   screens/review/NoteRail.tsx      the note lines and the open questions
   screens/review/GlossaryPanel.tsx the collapsible glossary
-  styles/tokens.css        the token set from ui-direction.md §A
+  components/CommandPalette.tsx    the palette, its filter and its list
+  components/KeymapOverlay.tsx     every binding, grouped, on `?`
+  styles/tokens.css        the token set from ui-direction.md §A, and the
+                           three @font-face rules
   styles/text-layer.css    pdf.js text-layer geometry, adapted
+public/fonts/             the two Atkinson families, their licences and where
+                          each file came from
 ```
+
+## The assets the page serves itself
+
+Nothing is fetched from a network, ever (anti-pattern 8). Two folders make
+that possible.
+
+- `public/fonts/` holds Atkinson Hyperlegible Next (roman and italic) and
+  Atkinson Hyperlegible Mono as variable woff2, 48, 53 and 26 KB, with each
+  family's OFL 1.1 licence beside it and the upstream repository and commit
+  recorded in `public/fonts/README.md`. `e2e/fonts.spec.ts` asserts the faces
+  load and that no request the page makes leaves this origin.
+- pdf.js's own `cmaps/` and `standard_fonts/` are **copied at build time**, by
+  a plugin in `vite.config.ts`, from whatever `pdfjs-dist` is installed. They
+  are served out of `node_modules` in dev and land in `dist/pdfjs/` in a
+  build; they are not committed, because they belong to the pinned pdf.js and
+  would drift from it in silence. `getDocument` is given `cMapUrl`,
+  `cMapPacked` and `standardFontDataUrl`, and `useSystemFonts: false` so that
+  a deck naming Helvetica without embedding it is drawn from pdf.js's own font
+  data rather than from whatever the operating system happens to have.
