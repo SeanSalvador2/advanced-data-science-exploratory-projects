@@ -1,0 +1,19 @@
+{
+  "name": "lecture-companion",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "packages/core",
+    "cli"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @lecture/core && npm run build --workspace @lecture/cli",
+    "test": "npm run test --workspace @lecture/core && npm run test --workspace @lecture/cli",
+    "lint": "npm run lint --workspace @lecture/core && npm run lint --workspace @lecture/cli"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

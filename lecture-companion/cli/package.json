@@ -1,0 +1,29 @@
+{
+  "name": "@lecture/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "lecture": "./bin/lecture.mjs"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "pretest": "npm run build --workspace @lecture/core",
+    "test": "vitest run",
+    "lint": "tsc -p tsconfig.lint.json"
+  },
+  "dependencies": {
+    "@lecture/core": "*",
+    "@napi-rs/canvas": "^1.0.9",
+    "commander": "^15.0.0",
+    "pdfjs-dist": "6.3.289"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "playwright": "^1.56.0",
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
